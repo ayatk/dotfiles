@@ -1,0 +1,37 @@
+# 
+# .gitconfig
+# 
+# Ayana Tokikaze
+# 
+[core]
+	excludesfile = ~/.gitignore_global
+	attributesfile = ~/.gitattributes
+	editor = vim
+	# Unicode
+	precomposeunicode = true
+	quotepath = true
+[include]
+	path = ~/.gitconfig_local
+[color]
+	ui = auto
+	status = auto
+	diff = auto
+	branch = auto
+	interactive = auto
+	grep = auto
+[diff]
+	patience = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[alias]
+	graph = log --graph --date-order -C -M --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --all --date=short
+	ai = add -i
+	st = status

@@ -1,0 +1,117 @@
+# 
+# .gitignore_global
+# 
+# Ayana Tokikaze
+# 
+
+# Mac filesystem dust
+.DS_Store
+
+# IntelliJ IDEA:
+## User-specific stuff:
+*.iml
+.idea/
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+
+## Sensitive or high-churn files:
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+
+## Gradle:
+.idea/gradle.xml
+.idea/libraries
+
+## Mongo Explorer plugin:
+.idea/mongoSettings.xml
+
+## File-based project format:
+*.ipr
+*.iws
+
+## Plugin-specific files:
+
+## Output file
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Crashlytics plugin (for Android Studio and IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+
+# Eclipse stuff
+/.classpath
+/.project
+/.settings
+
+# netbeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+# vim
+.*.sw[a-p]
+
+# Xcode
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.xcuserstate
+
+#CocoaPod
+Pods/*
+Podfile.lock
+
+# we use maven!
+/build.xml
+/target
+*/target
+
+# we use Gradle!!
+.gradle/
+gradle/
+build/
+gradlew
+gradlew.bat
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# backup,log
+*~
+~*
+*.swp
+.swp.*
+*.tmp
+*.bak
+*.old
+*.log
+.cache/
+*.autosave
+
+# User extention
+/,
