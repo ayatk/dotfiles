@@ -1,0 +1,14 @@
+# fish powerline
+[submodule "fish/powerline-shell"]
+	path = fish/powerline-shell
+	url = https://github.com/milkbikis/powerline-shell
+
+# tmux powerline
+[submodule "tmux/tmux-powerline"]
+	path = tmux/tmux-powerline
+	url = https://github.com/erikw/tmux-powerline
+
+# vim plugin
+[submodule "vim/bundle/neobundle.vim"]
+	path = vim/bundle/neobundle.vim
+	url = https://github.com/Shougo/neobundle.vim
