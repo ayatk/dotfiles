@@ -277,6 +277,7 @@ function! s:load_bundles() "{{{
     NeoBundleLazy 'tyru/open-browser-github.vim'
     NeoBundleLazy 'thinca/vim-qfreplace'
     NeoBundleLazy 'haya14busa/endtagcomment.vim'
+    
     "}}}
 
     " Application {{{
@@ -397,6 +398,7 @@ function! s:load_bundles() "{{{
     " NeoBundle 'tpope/vim-rake'
     NeoBundleLazy 'mattn/flappyvird-vim'
     NeoBundleLazy 'mattn/yamada2-vim'
+    NeoBundleLazy 'rizzatti/dash.vim'
     "}}}
     
     " Plugins {{{
@@ -1365,7 +1367,6 @@ function! s:load_bundles() "{{{
     "NeoBundle 'tokorom/clang_complete-getopts-ios'
     "NeoBundle 'tokorom/ios-vim-snippets'
     "NeoBundle 'tokuhirom/jsref'
-    "NeoBundle 'tomasr/molokai'
     "NeoBundle 'tommcdo/vim-exchange'
     "NeoBundle 'tommcdo/vim-five-blame-ext'
     "NeoBundle 'tomtom/checksyntax_vim'
@@ -1699,7 +1700,6 @@ set number
 
 let no_buffers_menu=1
 highlight BadWhitespace ctermbg=red guibg=red
-colorscheme molokai
 
 set mousemodel=popup
 set t_Co=256
@@ -1987,15 +1987,22 @@ if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
 
+autocmd FileType javascript setlocal omnifunc=nodejscomplete#CompleteJS
+if !exists('g:neocomplcache_omni_functions')
+  let g:neocomplcache_omni_functions = {}
+endif
+let g:neocomplcache_omni_functions.javascript = 'nodejscomplete#CompleteJS'
+
+let g:node_usejscomplete = 1
+
 "------------------------------------
 " neosnippet
 "------------------------------------
 " neosnippet "{{{
  
-snippetを保存するディレクトリを設定してください
-example
+" snippetを保存するディレクトリを設定してください
 let s:default_snippet = neobundle#get_neobundle_dir() . '/neosnippet/autoload/neosnippet/snippets' " 本体に入っているsnippet
-let s:my_snippet = '~/Users/bluefox/dotfiles/vim/snippet'
+let s:my_snippet = '~/dotfiles/vim/snippet'
 let g:neosnippet#snippets_directory = s:my_snippet
 let g:neosnippet#snippets_directory = s:default_snippet . ',' . s:my_snippet
 imap <silent><C-F>                <Plug>(neosnippet_expand_or_jump)
