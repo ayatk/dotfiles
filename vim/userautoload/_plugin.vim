@@ -186,8 +186,6 @@ NeoBundle 'deris/vim-operator-insert', {
             \   },
             \ }
 
-
-
 " Git
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'cohama/agit.vim'
@@ -205,9 +203,9 @@ NeoBundle 'rdolgushin/gitignore.vim'
 " UI
 NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'Yggdroot/indentLine'
-NeoBundle 'osyo-manga/vim-brightest'
 NeoBundle 't9md/vim-quickhl'
 NeoBundle 'mattn/disableitalic-vim'
+
 "TODO
 NeoBundle 'osyo-manga/vim-automatic', {
     \ 'depends' : [ 'osyo-manga/vim-gift', 'osyo-manga/vim-reunions' ] }
@@ -238,6 +236,7 @@ NeoBundle 'mattn/gist-vim'
 NeoBundle 'Shougo/junkfile.vim'
 
 " Filetype
+NeoBundle 'Shougo/context_filetype.vim'
 NeoBundle 'osyo-manga/vim-precious'
 let g:markdown_fenced_languages = [
 \  'coffee',
@@ -496,7 +495,7 @@ NeoBundleCheck
     "NeoBundle 'Rykka/vim-galaxy'
     "NeoBundle 'SQLComplete.vim'
     "NeoBundle 'SQLUtilities'
-    "NeoBundle 'Shougo/context_filetype.vim'
+    "
     "NeoBundle 'Shougo/echodoc'
     "NeoBundle 'Shougo/junkfile.vim'
     "NeoBundle 'Shougo/neobundle-vim-scripts'
@@ -616,7 +615,6 @@ NeoBundleCheck
     "NeoBundle 'bufexplorer.zip'
     "NeoBundle 'bufkill.vim'
     "NeoBundle 'c9s/perlomni.vim'
-
     "NeoBundle 'candy.vim'
     "NeoBundle 'capslock.vim'
     "NeoBundle 'carlosvillu/coffeScript-VIM-Snippets'
@@ -688,7 +686,6 @@ NeoBundleCheck
     "NeoBundle 'divad12/sparkup'
     "NeoBundle 'djjcast/mirodark'
     "NeoBundle 'dln/avro-vim'
-
     "NeoBundle 'dsummers/gundo.vim'
     "NeoBundle 'dsummersl/svntools'
     "NeoBundle 'dsummersl/vim-cdo'
@@ -723,7 +720,6 @@ NeoBundleCheck
     "NeoBundle 'express.vim'
     "NeoBundle 'exu/pgsql.vim'
     "NeoBundle 'fatih/vim-go'
-
     "NeoBundle 'felixr/vim-multiedit'
     "NeoBundle 'fholgado/minibufexpl.vim'
     "NeoBundle 'fkfk/rbpit.vim'
@@ -767,7 +763,6 @@ NeoBundleCheck
     "NeoBundle 'guns/xterm-color-table.vim'
     "NeoBundle 'gvim-scripts/AutoComplPop'
     "NeoBundle 'gvim-scripts/dbext.vim'
-    "
     "NeoBundle 'gyuku-t/vim-ref-ri'
     "NeoBundle 'h1mesuke/textobj-wiw'
     "NeoBundle 'h1mesuke/unite-outline'
@@ -842,7 +837,6 @@ NeoBundleCheck
     "NeoBundle 'joker1007/vim-markdown-quote-syntax'
     "NeoBundle 'joker1007/vim-metarw-qiita'
     "NeoBundle 'joker1007/vim-metarwhub-issues'
-
     "NeoBundle 'jonathanfilip/vim-lucius'
     "NeoBundle 'joonty/vdebug'
     "NeoBundle 'jpalardy/vim-slime'
@@ -916,10 +910,8 @@ NeoBundleCheck
     "NeoBundle 'kris89/vim-multiple-cursors'
     "NeoBundle 'kshenoy/vim-signature'
     "NeoBundle 'l9.vim'
-
     "NeoBundle 'leafo/moonscript-vim'
     "NeoBundle 'leshill/vim-json'
-
     "NeoBundle 'lilydjwg/colorizer'
     "NeoBundle 'lilydjwg/csspretty.vim'
     "NeoBundle 'lucapette/vim-textobj-underscore'
@@ -998,7 +990,6 @@ NeoBundleCheck
     "NeoBundle 'modsound/macdict-vim'
     "NeoBundle 'mojako/ref-sources.vim'
     "NeoBundle 'moll/vim-bbye'
-
     "NeoBundle 'molokai'
     "NeoBundle 'monday'
     "NeoBundle 'monochromegane/unite-yaml'
@@ -1023,7 +1014,6 @@ NeoBundleCheck
     "NeoBundle 'mustardamus/jqapi'
     "NeoBundle 'mutewinter/swap-parameters'
     "NeoBundle 'mxw/vim-jsx'
-
     "NeoBundle 'myusuf3/numbers.vim'
     "NeoBundle 'nanotech/jellybeans.vim'
     "NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -1189,7 +1179,6 @@ NeoBundleCheck
     "NeoBundle 'sampsyo/autolink.vim'
     "NeoBundle 'script_name'
     "NeoBundle 'scrooloose/nerdcommenter'
-
     "NeoBundle 'sessionman.vim'
     "NeoBundle 'sgoranson/unite-mark'
     "NeoBundle 'sgur/ctrlp-extensions.vim'
@@ -1288,7 +1277,6 @@ NeoBundleCheck
     "NeoBundle 'tekkoc/vim-textobj-parameter'
     "NeoBundle 'telamon/vim-colorhub'
     "NeoBundle 'tell-k/vim-browsereload-mac'
-
     "NeoBundle 'termoshtt/unite-nozbe'
     "NeoBundle 'terryma/vim-expand-region'
     "NeoBundle 'terryma/vim-instant-markdown'
@@ -1346,7 +1334,6 @@ NeoBundleCheck
     "NeoBundle 'tommcdo/vim-five-blame-ext'
     "NeoBundle 'tomtom/checksyntax_vim'
     "NeoBundle 'tomtom/quickfixsigns_vim'
-    "
     "NeoBundle 'tomtom/tlib_vim'
     "NeoBundle 'tomtom/tskeleton_vim'
     "NeoBundle 'topfunky/PeepOpen-EditorSupport'
@@ -1361,7 +1348,6 @@ NeoBundleCheck
     "NeoBundle 'tpope/vim-commentary'
     "NeoBundle 'tpope/vim-cucumber'
     "NeoBundle 'tpope/vim-dispatch'
-
     "NeoBundle 'tpope/vim-eunuch'
     "NeoBundle 'tpope/vim-fireplace'
     "NeoBundle 'tpope/vim-five'
@@ -1370,7 +1356,6 @@ NeoBundleCheck
     "NeoBundle 'tpope/vim-markdown'
     "NeoBundle 'tpope/vim-obsession'
     "NeoBundle 'tpope/vim-pathogen'
-
     "NeoBundle 'tpope/vim-rake'
     "NeoBundle 'tpope/vim-rbenv'
     "NeoBundle 'tpope/vim-repeat'
@@ -1449,9 +1434,7 @@ NeoBundleCheck
     "NeoBundle 'vim-perl/vim-perl'
     "NeoBundle 'vim-php/phpctags'
     "NeoBundle 'vim-php/tagbar-phpctags.vim'
-    "
     "NeoBundle 'Align'
-
     "NeoBundle 'AutoComplPop'
     "NeoBundle 'BufOnly.vim'
     "NeoBundle 'Colour-Sampler-Pack'
@@ -1601,7 +1584,6 @@ NeoBundleCheck
     "NeoBundle 'zhaocai/GoldenView.Vim'
     "NeoBundle 'zhaocai/linepower.vim'
     "NeoBundle 'zhaocai/unite-scriptnames'
-    "
     "NeoBundle 'http://conque.googlecode.com/svn/trunk/'
     "NeoBundle 'http://lampsvn.epfl.ch/svn-repos/scala/scala-tool-support/trunk/src/vim'
     "NeoBundle 'http://svn.coderepos.org/share/lang/vim/ack'
