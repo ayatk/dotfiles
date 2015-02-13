@@ -1,0 +1,10 @@
+# 
+# .gitignore
+# 
+# Ayana Tokikaze
+# 
+
+#Vim bundle dir
+bundle/
+
+
