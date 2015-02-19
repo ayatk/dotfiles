@@ -2,17 +2,16 @@
 " NeoBundle
 " =============================
 
-
 " Note: Skip initialization for vim-tiny or vim-small.
 if !1 | finish | endif
 
 " Echo startup time on start
 if has('vim_starting') && has('reltime')
-    " Shell: vim --startuptime filename -q; vim filename
-    " vim --cmd 'profile start profile.txt' --cmd 'profile file $HOME/.vimrc' +q && vim profile.txt
-    let s:startuptime = reltime()
-    Autocmd VimEnter * let s:startuptime = reltime(s:startuptime) | redraw
-    \ | echomsg 'startuptime: ' . reltimestr(s:startuptime)
+  let g:startuptime = reltime()
+  augroup vimrc-startuptime
+    autocmd! VimEnter * let g:startuptime = reltime(g:startuptime) | redraw
+    \ | echomsg 'startuptime: ' . reltimestr(g:startuptime)
+  augroup END
 endif
 
 if ! isdirectory(expand('~/.vim/bundle'))
@@ -115,10 +114,9 @@ NeoBundle 'vim-jp/autofmt'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'haya14busa/vim-easyoperator-line'
 NeoBundle 'haya14busa/vim-easyoperator-phrase'
-NeoBundle 'haya14busa/vim--lines'
 NeoBundle 'rhysd/clever-f.vim'
 NeoBundle 'rhysd/accelerated-jk'
-NeoBundle 'saihoooooooo/glowshi-ft.vim'
+"NeoBundle 'saihoooooooo/glowshi-ft.vim'
 NeoBundle 'haya14busa/incsearch.vim'
 
 
@@ -226,6 +224,8 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'jistr/vim-nerdtree-tabs'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'AnsiEsc.vim'
+NeoBundle 'haya14busa/eew.vim'
+NeoBundle 'basyura/TweetVim'
 
 " Application
 NeoBundle 'itchyny/calendar.vim'
@@ -273,7 +273,7 @@ NeoBundle 'Valloric/python-indent'
 " JavaScript
 NeoBundle 'marijnh/tern_for_vim'
 NeoBundle 'maksimr/vim-jsbeautify'
-NeoBundle 'teramako/jscomplete-vim'
+NeoBundle 'mattn/jscomplete-vim'
 
 " Scala
 NeoBundle 'derekwyatt/vim-scala'
@@ -288,7 +288,6 @@ NeoBundle 'clausreinke/typescript-tools.git'
 
 " Ruby
 NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'gvim-scripts/ruby-matchit'
 NeoBundle 'joker1007/vim-ruby-heredoc-syntax'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-rails'
@@ -376,11 +375,11 @@ NeoBundle 'rizzatti/dash.vim'
 "NeoBundle 'ShowMarks'
 "NeoBundle 'kien/ctrlp.vim'
 "NeoBundle 'YankRing.vim'
+"NeoBundle 'sgur/vim-gutter'
 " ======================
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'jacquesbh/vim-showmarks'
 NeoBundle 'Lokaltog/vim-powerline'
-NeoBundle 'sgur/vim-gutter'
 NeoBundle 'tacroe/unite-mark'
 NeoBundle 'deris/columnjump'
 NeoBundle 't9md/vim-textmanip'
@@ -395,7 +394,7 @@ NeoBundle 'tmhedberg/matchit'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'koron/codic-vim'
-NeoBundle 'syui/tweetvim_notfiy'
+"NeoBundle 'syui/tweetvim_notfiy'
 NeoBundle 'slim-template/vim-slim'
 NeoBundle 'gist:rhysd/4201877', {
 \   'name': 'tweetvim_update',
