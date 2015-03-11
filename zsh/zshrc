@@ -208,6 +208,9 @@ alias mv='mv -i'
 
 alias mkdir='mkdir -p'
 
+alias brewup='brew update && brew upgrade && brew cleanup'
+alias caskup='for c in `brew cask list`; do ! brew cask info $c | grep -qF "Not installed" || brew cask install $c; done && brew cask cleanup'
+
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 
@@ -272,3 +275,15 @@ esac
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+### pyenv
+export PYENV_ROOT=/usr/local/opt/pyenv
+
+### Android Home
+export ANDROID_HOME=~/Library/Android/sdk
+
+### Go-lang
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/.go
+
+
