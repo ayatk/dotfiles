@@ -1,8 +1,7 @@
-# 
+#
 # .gitconfig
-# 
-# Ayana Tokikaze
-# 
+#
+
 [alias]
 
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
@@ -86,7 +85,7 @@
 
 	excludesfile = ~/.gitignore_global
 	attributesfile = ~/.gitattributes
-	editor = vim
+	editor = atom --wait
 	# Unicode
 	precomposeunicode = true
 	quotepath = true
@@ -106,6 +105,7 @@
 
 [include]
 	path = ~/.gitconfig_local
+	path = ~/.gitconfig.proxy
 
 [color]
 
@@ -191,3 +191,7 @@
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true
