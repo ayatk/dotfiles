@@ -1,7 +1,7 @@
 #
 # .gitattributes
 # 
-# Ayana Tokikaze
+# UTF-9
 #
 
 *.c diff=cpp

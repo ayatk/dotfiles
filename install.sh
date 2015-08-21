@@ -1,11 +1,13 @@
 #! /bin/sh
+DIR=$(cd $(dirname $0); pwd)
+ln -s DIR/vim/vimrc ~/.vimrc
+ln -s DIR/git/gitconfig ~/.gitconfig
+ln -s DIR/git/gitattributes ~/.gitattributes
+ln -s DIR/git/gitignore_global ~/.gitignore_global
 
-ln -s ~/dotfiles/vim/vimrc ~/.vimrc
-ln -s ~/dotfiles/git/gitconfig ~/.gitconfig
-ln -s ~/dotfiles/git/gitattributes ~/.gitattributes
-ln -s ~/dotfiles/git/gitignore_global ~/.gitignore_global
+ln -s DIR/tmux/tmux.conf ~/.tmux.conf
+ln -s DIR/zsh/zshrc ~/.zshrc
+ln -s DIR/vim ~/.vim
 
-ln -s ~/dotfiles/tmux/tmux.conf ~/.tmux.conf
-ln -s ~/dotfiles/zsh/zshrc ~/.zshrc
-ln -s ~/dotfiles/vim ~/.vim
-
+sh brewfile
+chsh -s /usr/local/bin/zsh

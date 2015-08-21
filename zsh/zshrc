@@ -59,8 +59,8 @@ zstyle ':zle:*' word-style unspecified
 ########################################
 # 補完
 # 補完機能を有効にする
-autoload -U compinit compinit
-compinit
+autoload -Uz compinit
+compinit -u
 
 export LSCOLORS=exfxcxdxbxegedabagacad
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
@@ -177,6 +177,10 @@ setopt mark_dirs
 # 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
 setopt list_types
 
+# 範囲指定できるようにする
+# 例 : mkdir {1-3} で フォルダ1, 2, 3を作れる
+setopt brace_ccl
+
 # 2つ上、3つ上にも移動できるようにする
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -209,7 +213,13 @@ alias mv='mv -i'
 alias mkdir='mkdir -p'
 
 alias brewup='brew update && brew upgrade && brew cleanup'
-alias caskup='for c in `brew cask list`; do ! brew cask info $c | grep -qF "Not installed" || brew cask install $c; done && brew cask cleanup'
+alias caskup='for c in `brew cask list`; do ! brew cask info $c | grep -qF "Not installed" || { brew cask uninstall $c && brew cask install $c; }; done && brew cask cleanup'
+alias update='brewup && caskup'
+
+alias new='sh ~/.cmd/new.sh'
+
+alias home='networksetup -switchtolocation "home"'
+alias kit='networksetup -switchtolocation "kit"'
 
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
@@ -233,31 +243,9 @@ fi
 
 ########################################
 #プラグインなど
-function powerline_precmd() {
-      export PS1="$(~/dotfiles/zsh/powerline-shell/powerline-shell.py $? --shell zsh 2> /dev/null)"
-    }
-
-    function install_powerline_precmd() {
-      for s in "${precmd_functions[@]}"; do
-        if [ "$s" = "powerline_precmd" ]; then
-          return
-        fi
-      done
-      precmd_functions+=(powerline_precmd)
-    }
-
-    install_powerline_precmd
-
 # zsh-completions
 if [ -e /usr/local/share/zsh-completions ]; then
     fpath=(/usr/local/share/zsh-completions $fpath)
-fi
-
-#=============================
-# source zsh-syntax-highlighting
-#=============================
-if [ -f ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 ########################################
@@ -272,18 +260,3 @@ case ${OSTYPE} in
         #Linux用の設定
         ;;
 esac
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-### pyenv
-export PYENV_ROOT=/usr/local/opt/pyenv
-
-### Android Home
-export ANDROID_HOME=~/Library/Android/sdk
-
-### Go-lang
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/.go
-
-
