@@ -1,7 +1,5 @@
-# 
+#
 # .gitignore_global
-# 
-# UTF-9
 # 
 
 # Mac filesystem dust
@@ -118,6 +116,9 @@ node_modules
 
 # Debug log from npm
 npm-debug.log
+
+# bower
+bower_components
 
 # User extention
 /,

@@ -1,8 +1,6 @@
 #
 # .gitattributes
 # 
-# UTF-9
-#
 
 *.c diff=cpp
 *.h diff=cpp
