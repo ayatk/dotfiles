@@ -1,8 +1,6 @@
 ########################################
-# 環境変数
-export LANG=ja_JP.UTF-8
-
-
+# プロンプト
+########################################
 # 色を使用出来るようにする
 autoload -Uz colors
 colors
@@ -12,41 +10,36 @@ HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-# プロンプト
-# 1行表示
-# PROMPT="%~ %# "
-# 2行表示
-PROMPT="%{$fg_no_bold[blue]%}%n%{${reset_color}%}@%{$fg_no_bold[green]%}%m%{${reset_color}%} %~
-$ "
-
-function rprompt-git-current-branch {
-        local name st color
-
-        if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
-                return
-        fi
-        name=$(basename "`git symbolic-ref HEAD 2> /dev/null`")
-        if [[ -z $name ]]; then
-                return
-        fi
-        st=`git status 2> /dev/null`
-        if [[ -n `echo "$st" | grep "^nothing to"` ]]; then
-                color=${fg[green]}
-        elif [[ -n `echo "$st" | grep "^nothing added"` ]]; then
-                color=${fg[yellow]}
-        elif [[ -n `echo "$st" | grep "^# Untracked"` ]]; then
-                color=${fg_bold[red]}
-        else
-                color=${fg[red]}
-        fi
-
-        # %{...%} は囲まれた文字列がエスケープシーケンスであることを明示する
-        # これをしないと右プロンプトの位置がずれる
-        echo "%{$color%}$name%{$reset_color%} "
-}
-
-# プロンプトが表示されるたびにプロンプト文字列を評価、置換する
+# gitのステータスを表示
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' max-exports 6 # formatに入る変数の最大数
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' formats '%b@%r' '%c' '%u'
+zstyle ':vcs_info:git:*' actionformats '%b@%r|%a' '%c' '%u'
 setopt prompt_subst
+function vcs_echo {
+    local st branch color
+    STY= LANG=en_US.UTF-8 vcs_info
+    st=`git status 2> /dev/null`
+    if [[ -z "$st" ]]; then return; fi
+    branch="$vcs_info_msg_0_"
+    if   [[ -n "$vcs_info_msg_1_" ]]; then color=${fg[green]} #staged
+    elif [[ -n "$vcs_info_msg_2_" ]]; then color=${fg[red]} #unstaged
+    elif [[ -n `echo "$st" | grep "^Untracked"` ]]; then color=${fg[blue]} # untracked
+    else color=${fg[cyan]}
+    fi
+    echo "%{$color%}[%{$branch%}]%{$reset_color%}" | sed -e s/@/"%F{yellow}@%f%{$color%}"/
+}
+# 普通のプロンプト
+PROMPT='%F{blue}%n%f@%F{green}%m%f %~ $(vcs_echo)
+%(?.(*,,>ω<,,%).%F{red}(*,,ºΔº,,%)%f) >>> '
+
+# もしかして時のプロンプト指定
+SPROMPT="%{$fg[yellow]%}%{$suggest%}(*´-ω･%)? < もしかして%{$fg[red]%} %B%r%b ${reset_color}%{$fg[yellow]%}かな? [そう!(y), 違う!(n),a,e]:${reset_color} "
+
+# メモ
+function memo() { RPROMPT="$1 "; }
 
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
@@ -58,7 +51,11 @@ zstyle ':zle:*' word-style unspecified
 
 ########################################
 # 補完
+########################################
 # 補完機能を有効にする
+if [ -e /usr/local/share/zsh-completions ]; then
+    fpath=(/usr/local/share/zsh-completions $fpath)
+fi
 autoload -Uz compinit
 compinit -u
 
@@ -110,6 +107,9 @@ setopt auto_cd
 
 # cd したら自動的にpushdする
 setopt auto_pushd
+
+# pushd したとき、ディレクトリがすでにスタックに含まれていればスタックに追加しない
+setopt pushd_ignore_dups
 
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
@@ -177,13 +177,12 @@ setopt mark_dirs
 # 補完候補一覧でファイルの種別を識別マーク表示 (訳注:ls -F の記号)
 setopt list_types
 
+# もしかして機能
+setopt correct
+
 # 範囲指定できるようにする
 # 例 : mkdir {1-3} で フォルダ1, 2, 3を作れる
 setopt brace_ccl
-
-# 2つ上、3つ上にも移動できるようにする
-alias ...='cd ../..'
-alias ....='cd ../../..'
 
 # cheat-sheet
 cheat-sheet () { zle -M "`cat ~/zsh/cheat-sheet.conf`" }
@@ -196,60 +195,14 @@ bindkey "^[^g" git-cheat
 
 ########################################
 # キーバインド
+########################################
 
 # ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
 bindkey '^R' history-incremental-pattern-search-backward
 
 ########################################
-# エイリアス
-
-alias la='ls -a'
-alias ll='ls -l'
-
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-
-alias mkdir='mkdir -p'
-
-alias brewup='brew update && brew upgrade && brew cleanup'
-alias caskup='for c in `brew cask list`; do ! brew cask info $c | grep -qF "Not installed" || { brew cask uninstall $c && brew cask install $c; }; done && brew cask cleanup'
-alias update='brewup && caskup'
-
-alias new='sh ~/.cmd/new.sh'
-
-alias home='networksetup -switchtolocation "home"'
-alias kit='networksetup -switchtolocation "kit"'
-
-# sudo の後のコマンドでエイリアスを有効にする
-alias sudo='sudo '
-
-# グローバルエイリアス
-alias -g L='| less'
-alias -g G='| grep'
-
-# C で標準出力をクリップボードにコピーする
-# mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
-if which pbcopy >/dev/null 2>&1 ; then
-    # Mac
-    alias -g C='| pbcopy'
-elif which xsel >/dev/null 2>&1 ; then
-    # Linux
-    alias -g C='| xsel --input --clipboard'
-elif which putclip >/dev/null 2>&1 ; then
-    # Cygwin
-    alias -g C='| putclip'
-fi
-
-########################################
-#プラグインなど
-# zsh-completions
-if [ -e /usr/local/share/zsh-completions ]; then
-    fpath=(/usr/local/share/zsh-completions $fpath)
-fi
-
-########################################
 # OS 別の設定
+########################################
 case ${OSTYPE} in
     darwin*)
         #Mac用の設定
@@ -260,3 +213,62 @@ case ${OSTYPE} in
         #Linux用の設定
         ;;
 esac
+
+
+function is_exists() { type "$1" >/dev/null 2>&1; return $?; }
+function is_osx() { [[ $OSTYPE == darwin* ]]; }
+function is_screen_running() { [ ! -z "$STY" ]; }
+function is_tmux_runnning() { [ ! -z "$TMUX" ]; }
+function is_screen_or_tmux_running() { is_screen_running || is_tmux_runnning; }
+function shell_has_started_interactively() { [ ! -z "$PS1" ]; }
+function is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
+
+function tmux_automatically_attach_session()
+{
+    if is_screen_or_tmux_running; then
+        ! is_exists 'tmux' && return 1
+
+        if is_tmux_runnning; then
+            echo -e "welcome to ${fg_bold[Blue]}tmux${reset_color} at `date`"
+        elif is_screen_running; then
+            echo "This is on screen."
+        fi
+    else
+        if shell_has_started_interactively && ! is_ssh_running; then
+            if ! is_exists 'tmux'; then
+                echo 'Error: tmux command not found' 2>&1
+                return 1
+            fi
+
+            if tmux has-session >/dev/null 2>&1 && tmux list-sessions | grep -qE '.*]$'; then
+                # detached session exists
+                tmux list-sessions
+                echo -n "Tmux: attach? (y/N/num) "
+                read
+                if [[ "$REPLY" =~ ^[Yy]$ ]] || [[ "$REPLY" == '' ]]; then
+                    tmux attach-session
+                    if [ $? -eq 0 ]; then
+                        echo "$(tmux -V) attached session"
+                        return 0
+                    fi
+                elif [[ "$REPLY" =~ ^[0-9]+$ ]]; then
+                    tmux attach -t "$REPLY"
+                    if [ $? -eq 0 ]; then
+                        echo "$(tmux -V) attached session"
+                        return 0
+                    fi
+                fi
+            fi
+
+            if is_osx && is_exists 'reattach-to-user-namespace'; then
+                # on OS X force tmux's default command
+                # to spawn a shell in the user's namespace
+                tmux_config=$(cat $HOME/.tmux.conf <(echo 'set-option -g default-command "reattach-to-user-namespace -l $SHELL"'))
+                tmux -f <(echo "$tmux_config") new-session && echo "$(tmux -V) created new session supported OS X"
+            else
+                tmux new-session && echo "tmux created new session"
+            fi
+        fi
+    fi
+}
+tmux_automatically_attach_session
