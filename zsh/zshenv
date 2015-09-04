@@ -7,7 +7,7 @@ export LANG=ja_JP.UTF-8
 # エイリアス
 ########################################
 
-alias la='ls -a'
+alias la='ls -lA'
 alias ll='ls -l'
 alias lsr='ls -lR'
 
@@ -51,9 +51,12 @@ fi
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
+alias brew="env PATH=${PATH/\/Users\/${USER}\/\.pyenv\/shims:?/} brew"
+
 # "~hoge" が特定のパス名に展開されるようにする（ブックマークのようなもの）
 # 例： cd ~hoge と入力すると /long/path/to/hogehoge ディレクトリに移動
 hash -d d=~/Develop
+hash -d go=~/.go
 
 ########################################
 # Path
@@ -62,11 +65,8 @@ hash -d d=~/Develop
 # Added by the Heroku Toolbelt
 export PATH=/usr/local/heroku/bin:$PATH
 
-# pyenv
-export PYENV_ROOT=/usr/local/opt/pyenv
-
 # Android
-export ANDROID_HOME=$HOME/Library/Android/sdk
+export ANDROID_HOME=/usr/local/opt/android-sdk
 
 # Go-lang
 export GOROOT=/usr/local/opt/go/libexec
@@ -99,3 +99,5 @@ export DOCKER_HOST=tcp://172.17.8.101:4243
 export PYENV_ROOT=/usr/local/var/pyenv
 export PATH="$PYENV_ROOT/bin:$PATH"
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
+export PATH=/usr/local/bin:$PATH
