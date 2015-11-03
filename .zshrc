@@ -101,6 +101,7 @@ zstyle ':completion:*:manuals' separate-sections true
 
 ########################################
 # オプション
+export EDITOR=atom
 
 # 入力したコマンドが存在せず、かつディレクトリ名と一致するなら、ディレクトリに cd する
 setopt auto_cd
@@ -213,3 +214,21 @@ case ${OSTYPE} in
         #Linux用の設定
         ;;
 esac
+
+########################################
+# 何か
+########################################
+
+# Load zsh-syntax-highlighting.
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Load zsh-autosuggestions.
+source ~/.zsh/zsh-autosuggestions/autosuggestions.zsh
+
+# Enable autosuggestions automatically.
+zle-line-init() {
+	zle autosuggest-start
+}
+zle -N zle-line-init
+
+eval "$(direnv hook zsh)"

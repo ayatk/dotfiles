@@ -11,6 +11,8 @@ cnoreabbrev wQ wq
 cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
+inoremap <silent> jj <ESC>
+nnoremap <ESC><ESC> :nohlsearch<CR>
 "" Split
 noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>

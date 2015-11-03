@@ -1,10 +1,6 @@
-# 
+#
 # .gitignore
-# 
-# Ayana Tokikaze
-# 
+#
 
-#Vim bundle dir
 bundle/
-
-
+vim/vim/
