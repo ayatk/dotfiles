@@ -52,6 +52,9 @@ if has('lua') && v:version >= 703
 else
     NeoBundle 'Shougo/neocomplcache.vim'
 endif
+" snippet
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 
 " UI
 NeoBundle 'itchyny/lightline.vim'

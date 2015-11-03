@@ -12,6 +12,9 @@ set t_Co=256
 set nocursorline
 set guioptions=egmrti
 set gfn=Monospace\ 8
+set scrolloff=5
+
+set hlsearch
 
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
@@ -53,6 +56,9 @@ set titleold="Terminal"
 set titlestring=%F
 
 set statusline=%F%m%r%h%w%=(%{&ff}/%Y)\ (line\ %l\/%L,\ col\ %c)\ %{fugitive#statusline()}
+
+highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=#666666
+au BufNewFile,BufRead * match ZenkakuSpace /　/
 
 let g:airline_theme = 'powerlineish'
 let g:airline_enable_branch = 1

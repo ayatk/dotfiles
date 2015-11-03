@@ -1,9 +1,28 @@
-export JAVA_HOME='/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home'
-PATH=${JAVA_HOME}/bin:${PATH}
+### Added by the Heroku Toolbelt
+export PATH=/usr/local/heroku/bin:$PATH
 
+### Android
+export ANDROID_HOME=/usr/local/opt/android-sdk
+
+### Go-lang
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=~/.go
+PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+### brew cask
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+### added by travis gem
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
+alias pset='source ~/.proxy/pset.bash'
+PATH=$PATH:$HOME/.bin
+
+# mysql
 export PATH=$PATH:/usr/local/mysql/bin
 
-export PATH=$PATH:$HOME/Develop/AndroidStudio/sdk/platform-tools
+# java
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+PATH=${JAVA_HOME}/bin:${PATH}
 
-export PATH=$PATH:$HOME/.gvm/bin
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+# docker host
+export DOCKER_HOST=tcp://172.17.8.101:4243

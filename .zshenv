@@ -19,7 +19,7 @@ alias mkdir='mkdir -p'
 
 # homebrew update and upgrade
 alias brewup='brew update && brew upgrade && brew cleanup'
-alias caskup='for c in `brew cask list`; do ! brew cask info $c | grep -qF "Not installed" || { brew cask uninstall $c && brew cask install $c; }; done && brew cask cleanup'
+alias caskup='for c in `brew cask list`; do ! brew cask info $c | grep -qF "Not installed" || brew cask install $c; done && brew cask cleanup'
 alias update='brewup && caskup'
 
 alias new='sh ~/.cmd/new.sh'
@@ -51,11 +51,8 @@ fi
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-alias brew="env PATH=${PATH/\/Users\/${USER}\/\.pyenv\/shims:?/} brew"
-
 # "~hoge" が特定のパス名に展開されるようにする（ブックマークのようなもの）
 # 例： cd ~hoge と入力すると /long/path/to/hogehoge ディレクトリに移動
-hash -d d=~/Develop
 hash -d go=~/.go
 
 ########################################
@@ -78,6 +75,8 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
+
+
 alias pset='source ~/.proxy/pset.bash'
 PATH=$PATH:$HOME/.bin
 
@@ -88,16 +87,5 @@ export PATH=$PATH:/usr/local/mysql/bin
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 PATH=${JAVA_HOME}/bin:${PATH}
 
-# gvm
-export PATH=$PATH:$HOME/.gvm/bin
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-
 # docker host
 export DOCKER_HOST=tcp://172.17.8.101:4243
-
-# pyenv
-export PYENV_ROOT=/usr/local/var/pyenv
-export PATH="$PYENV_ROOT/bin:$PATH"
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-
-export PATH=/usr/local/bin:$PATH
