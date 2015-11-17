@@ -25,7 +25,6 @@ brew install gradle
 brew install heroku-toolbelt
 brew install hub
 brew install hugo
-brew install iojs
 brew install kotlin-compiler
 brew install libevent
 brew install libtool
@@ -39,8 +38,6 @@ brew install openssl
 brew install pcre
 brew install pkg-config
 brew install postgresql
-brew install pyenv
-brew install pyenv-virtualenv
 brew install readline
 brew install ruby
 brew install scala
