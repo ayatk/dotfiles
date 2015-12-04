@@ -4,9 +4,10 @@
 [submodule "favdir"]
 	path = favdir
 	url = https://github.com/b4b4r07/favdir.git
-[submodule "prezto"]
-	path = prezto
-	url = https://github.com/sorin-ionescu/prezto.git
 [submodule "enhancd"]
 	path = enhancd
 	url = https://github.com/b4b4r07/enhancd
+[submodule "prezto"]
+	path = prezto
+	url = https://github.com/sorin-ionescu/prezto.git
+	ignore = dirty
