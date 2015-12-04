@@ -2,7 +2,7 @@
 # A simple theme that displays relevant, contextual information.
 #
 # Authors:
-#   ayatk
+#   Aya Tokikaze
 #
 # 16 Terminal Colors
 # -- ---------------
@@ -26,22 +26,6 @@
 
 # Load dependencies.
 pmodload 'helper'
-
-function branch-status-check {
-  local prefix branchname suffix
-  # .gitの中だから除外
-  if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
-    return
-  fi
-  branchname=`get-branch-name`
-  # ブランチ名が無いので除外
-  if [[ -z $branchname ]]; then
-      return
-  fi
-  prefix=`get-branch-status` #色だけ返ってくる
-  suffix='%{'${reset_color}'%}'
-  echo "${reset_color}git:${prefix}${branchname}${suffix}"
-}
 
 function get-branch-name {
   # gitディレクトリじゃない場合のエラーは捨てます
@@ -68,27 +52,64 @@ function get-branch-status {
   echo ${color} # 色だけ返す
 }
 
-function do_enter() {
-    if [ -n "$BUFFER" ]; then
-        zle accept-line
-        return 0
-    fi
-    echo
-    echo -e "\e[0;33m--- ls ---\e[0m"
-    ls
-    # ↓おすすめ
-    # ls_abbrev
-    if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
-        echo
-        echo -e "\e[0;33m--- git status ---\e[0m"
-        git status -sb
-        echo "
-        "
-    fi
-    zle reset-prompt
-    return 0
+function branch-status-check {
+  local prefix branchname suffix
+  # .gitの中だから除外
+  if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
+    return
+  fi
+  branchname=`get-branch-name`
+  # ブランチ名が無いので除外
+  if [[ -z $branchname ]]; then
+    return
+  fi
+  prefix=`get-branch-status` #色だけ返ってくる
+  suffix='%{'${reset_color}'%}'
+  echo "${reset_color}git:${prefix}${branchname}${suffix}"
 }
 
+ls_abbrev() {
+  if [[ ! -r $PWD ]]; then
+    return
+  fi
+  # -a : Do not ignore entries starting with ..
+  # -C : Force multi-column output.
+  # -F : Append indicator (one of */=>@|) to entries.
+  local cmd_ls='ls'
+  local -a opt_ls
+  opt_ls=('-aCF' '--color=always')
+  opt_ls=('-aCFG')
+
+  local ls_result
+  ls_result=$(CLICOLOR_FORCE=1 COLUMNS=$COLUMNS command $cmd_ls ${opt_ls[@]} | sed $'/^\e\[[0-9;]*m$/d')
+
+  local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
+
+  if [ $ls_lines -gt 10 ]; then
+    echo "$ls_result" | head -n 6
+    echo '...'
+    echo "$ls_result" | tail -n 6
+    echo "$(command ls -1 -A | wc -l | tr -d ' ') files exist"
+  else
+    echo "$ls_result"
+  fi
+}
+
+function do_enter() {
+  if [ -n "$BUFFER" ]; then
+    zle accept-line
+    return 0
+  fi
+  echo
+  ls_abbrev
+  if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
+    echo
+    echo -e "\e[0;33m--- git status ---\e[0m"
+    git status -sb
+  fi
+  zle reset-prompt
+  return 0
+}
 
 function prompt_ayatk_pwd {
   local pwd="${PWD/#$HOME/~}"
@@ -98,24 +119,6 @@ function prompt_ayatk_pwd {
     unset MATCH
   else
     _prompt_ayatk_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
-  fi
-}
-
-function prompt_ayatk_git_info {
-  if (( _prompt_ayatk_precmd_async_pid > 0 )); then
-    # Append Git status.
-    if [[ -s "$_prompt_ayatk_precmd_async_data" ]]; then
-      alias typeset='typeset -g'
-      source "$_prompt_ayatk_precmd_async_data"
-      _prompt_ayatk_git_info="${git_info:+${(e)git_info[status]}}"
-      unalias typeset
-    fi
-
-    # Reset PID.
-    _prompt_ayatk_precmd_async_pid=0
-
-    # Redisplay prompt.
-    zle && zle reset-prompt
   fi
 }
 
@@ -137,16 +140,12 @@ function prompt_ayatk_precmd {
   # Format PWD.
   prompt_ayatk_pwd
 
-  # Define prompts.
-  RPROMPT='${editor_info[overwrite]}%(?:: %F{1}⏎%f)${VIM:+" %B%F{6}V%f%b"}'
-
   # Kill the old process of slow commands if it is still running.
   if (( _prompt_ayatk_precmd_async_pid > 0 )); then
     kill -KILL "$_prompt_ayatk_precmd_async_pid" &>/dev/null
   fi
 
   # Compute slow commands in the background.
-  trap prompt_ayatk_git_info WINCH
   prompt_ayatk_precmd_async &!
   _prompt_ayatk_precmd_async_pid=$!
 }
@@ -167,7 +166,6 @@ function prompt_ayatk_setup {
   # Set editor-info parameters.
   zstyle ':prezto:module:editor:info:completing' format '%B%F{7}...%f%b'
   zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{1}❯%F{3}❯%F{2}❯%f%b'
-  zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format '%F{3}♺%f'
   zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{2}❮%F{3}❮%F{1}❮%f%b'
 
   zle -N do_enter
@@ -177,7 +175,7 @@ function prompt_ayatk_setup {
   PROMPT='${SSH_TTY:+"%F{9}%n%f%F{7}@%f%F{3}%m%f "}%F{4}${_prompt_ayatk_pwd}%(!. %B%F{1}#%f%b.)%f `branch-status-check`
 ${editor_info[keymap]} '
   RPROMPT=''
-  SPROMPT='zsh: correct %F{1}%R%f to %F{2}%r%f [nyae]? '
+  SPROMPT="%{$suggest%}(*´-A-%)? < %F{1}%R%f はもしかして %F{2}%r%f かな? [そう!(y), 違う!(n),a,e]: "
 }
 
 function prompt_ayatk_preview {
