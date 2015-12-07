@@ -15,6 +15,9 @@ fi
 # enhancd
 source ~/.dotfiles/enhancd/enhancd.sh
 
+# favdir
+source ~/.dotfiles/favdir/favdir.sh
+
 # zsh completion
 fpath=(/usr/local/share/zsh-completions $fpath)
 
