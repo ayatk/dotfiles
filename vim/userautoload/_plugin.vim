@@ -56,9 +56,14 @@ endif
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 
+" editorconfig
+NeoBundle 'editorconfig/editorconfig-vim'
+
 " UI
 NeoBundle 'itchyny/lightline.vim'
 
+" Coler watch
+NeoBundle 'cocopon/colorswatch.vim'
 call neobundle#end()
 
 " Required:
