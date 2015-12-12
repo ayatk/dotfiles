@@ -59,22 +59,6 @@ NeoBundle 'Shougo/neosnippet-snippets'
 " UI
 NeoBundle 'itchyny/lightline.vim'
 
-" ColorScheme
-NeoBundle 'tomasr/molokai'
-NeoBundle 'sickill/vim-monokai'
-NeoBundle 'vim-scripts/Wombat'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'nanotech/jellybeans.vim'
-NeoBundle 'w0ng/vim-hybrid'
-NeoBundle 'vim-scripts/twilight'
-NeoBundle 'jonathanfilip/vim-lucius'
-NeoBundle 'jpo/vim-railscasts-theme'
-NeoBundle 'vim-scripts/rdark'
-NeoBundle 'djjcast/mirodark'
-NeoBundle 'sjl/badwolf'
-NeoBundle 'cocopon/iceberg.vim'
-NeoBundle 'reedes/vim-colors-pencil'
-
 call neobundle#end()
 
 " Required:
