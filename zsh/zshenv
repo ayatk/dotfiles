@@ -27,6 +27,7 @@ alias sudo='sudo '
 alias -g L='| less'
 alias -g G='| grep'
 
+alias airport=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport
 
 # C で標準出力をクリップボードにコピーする
 # mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
@@ -56,14 +57,16 @@ alias update='brewu && casku'
 
 alias matlab="/Applications/MATLAB_R2015a.app/bin/matlab -nodisplay"
 
+PROXY_SERVER='wwwproxy.kanazawa-it.ac.jp:8080'
+
 AIRPORT="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
 if test "`${AIRPORT} -I | grep '[^B]SSID' | awk '{print $2}'`" = "KIT-WLAP"; then
-    export http_proxy=http://wwwproxy.kanazawa-it.ac.jp:8080/
-    export https_proxy=https://wwwproxy.kanazawa-it.ac.jp:8080/
-    export ALL_PROXY=http://wwwproxy.kanazawa-it.ac.jp:8080/
-    git config -f .gitconfig.proxy http.proxy proxy-server
-    git config -f .gitconfig.proxy https.proxy proxy-server
-    git config -f .gitconfig.proxy url."https://".insteadOf git://
+    export http_proxy=http://$PROXY_SERVER/
+    export https_proxy=https://$PROXY_SERVER/
+    export ALL_PROXY=http://$PROXY_SERVER/
+    git config -f ~/.gitconfig.proxy http.proxy $PROXY_SERVER
+    git config -f ~/.gitconfig.proxy https.proxy $PROXY_SERVER
+    git config -f ~/.gitconfig.proxy url."https://".insteadOf git://
     /usr/sbin/scselect KIT
 else
     unset http_proxy
@@ -104,4 +107,3 @@ PATH=${JAVA_HOME}/bin:${PATH}
 export DOCKER_HOST=tcp://172.17.8.101:4243
 
 export ANDROID_NDK=/usr/local/Cellar/android-ndk/r10e
-
