@@ -81,9 +81,9 @@
 	whitespace = fix
 
 [core]
-	excludesfile = ~/.gitignore_global
-	attributesfile = ~/.gitattributes
-	editor = atom --wait
+	excludesfile = ~/.dotfiles/gitignore_global
+	attributesfile = ~/.dotfiles/gitattributes
+	editor = vim
 	# Unicode
 	precomposeunicode = true
 	quotepath = true
@@ -186,4 +186,4 @@
 	required = true
 
 [init]
-	templatedir = ~/.git_template
+	templatedir = ~/.dotfiles/git_template
