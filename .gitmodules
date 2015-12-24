@@ -10,6 +10,3 @@
 	path = Prezto
 	url = https://github.com/sorin-ionescu/prezto.git
 	ignore = dirty
-[submodule "zsh/Zsh-autosuggestions"]
-	path = zsh/Zsh-autosuggestions
-	url = https://github.com/tarruda/zsh-autosuggestions.git
