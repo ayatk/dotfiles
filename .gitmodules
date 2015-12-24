@@ -1,13 +1,15 @@
-[submodule "zsh/zsh-autosuggestions"]
-	path = zsh/zsh-autosuggestions
-	url = git://github.com/tarruda/zsh-autosuggestions
-[submodule "favdir"]
-	path = favdir
+[submodule "Favdir"]
+	path = Favdir
 	url = https://github.com/b4b4r07/favdir.git
-[submodule "enhancd"]
-	path = enhancd
-	url = https://github.com/b4b4r07/enhancd
-[submodule "prezto"]
-	path = prezto
+	ignore = dirty
+[submodule "Enhancd"]
+	path = Enhancd
+	url = https://github.com/b4b4r07/enhancd.git
+	ignore = dirty
+[submodule "Prezto"]
+	path = Prezto
 	url = https://github.com/sorin-ionescu/prezto.git
 	ignore = dirty
+[submodule "zsh/Zsh-autosuggestions"]
+	path = zsh/Zsh-autosuggestions
+	url = https://github.com/tarruda/zsh-autosuggestions.git
