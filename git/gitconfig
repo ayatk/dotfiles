@@ -81,8 +81,8 @@
 	whitespace = fix
 
 [core]
-	excludesfile = ~/.dotfiles/gitignore_global
-	attributesfile = ~/.dotfiles/gitattributes
+	excludesfile = ~/.dotfiles/git/gitignore_global
+	attributesfile = ~/.dotfiles/git/gitattributes
 	editor = vim
 	# Unicode
 	precomposeunicode = true
