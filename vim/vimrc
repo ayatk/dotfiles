@@ -1,2 +1,2 @@
-set runtimepath+=~/.vim
+set runtimepath+=~/.dotfiles/vim
 runtime! userautoload/*.vim

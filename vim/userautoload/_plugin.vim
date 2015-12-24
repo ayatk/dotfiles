@@ -5,6 +5,8 @@
 " Note: Skip initialization for vim-tiny or vim-small.
 if !1 | finish | endif
 
+let g:bundledir = '~/.dotfiles/vim/bundle'
+
 " Echo startup time on start
 if has('vim_starting') && has('reltime')
   let g:startuptime = reltime()
@@ -14,10 +16,10 @@ if has('vim_starting') && has('reltime')
   augroup END
 endif
 
-if ! isdirectory(expand('~/.vim/bundle'))
+if ! isdirectory(expand(g:bundledir))
     echon "Installing neobundle.vim..."
-    silent call mkdir(expand('~/.vim/bundle'), 'p')
-    silent !git clone https://github.com/Shougo/neobundle.vim $HOME/.vim/bundle/neobundle.vim
+    silent call mkdir(expand(g:bundledir), 'p')
+    silent !git clone https://github.com/Shougo/neobundle.vim $HOME/.dotfiles/vim/bundle/neobundle.vim
     echo "done."
     if v:shell_error
         echoerr "neobundle.vim installation has failed!"
@@ -30,11 +32,11 @@ if has('vim_starting')
     set nocompatible               " Be iMproved
     endif
     " Required:
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set runtimepath+=~/.dotfiles/vim/bundle/neobundle.vim/
 endif
 
 " Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
+call neobundle#begin(expand(g:bundledir))
 
 " Let NeoBundle manage NeoBundle
 " Required:
