@@ -12,6 +12,11 @@ fi
 
 # Customize to your needs...
 
+# ヒストリの設定
+HISTFILE=~/.dotfiles/history/zsh_history
+HISTSIZE=1000000
+SAVEHIST=1000000
+
 # cd したら自動的にpushdする
 setopt auto_pushd
 
