@@ -67,13 +67,13 @@ if test "`${AIRPORT} -I | grep '[^B]SSID' | awk '{print $2}'`" = "KIT-WLAP"; the
     git config -f ~/.gitconfig.proxy http.proxy $PROXY_SERVER
     git config -f ~/.gitconfig.proxy https.proxy $PROXY_SERVER
     git config -f ~/.gitconfig.proxy url."https://".insteadOf git://
-    /usr/sbin/scselect KIT
+    /usr/sbin/scselect kit
 else
     unset http_proxy
     unset https_proxy
     unset ALL_PROXY
     echo -n > ~/.gitconfig.proxy
-    /usr/sbin/scselect Home
+    /usr/sbin/scselect home
 fi
 
 ########################################
