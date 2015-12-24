@@ -45,13 +45,6 @@ fi
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-# "~hoge" が特定のパス名に展開されるようにする（ブックマークのようなもの）
-# 例： cd ~hoge と入力すると /long/path/to/hogehoge ディレクトリに移動
-hash -d go=~/.go
-hash -d pro2=~/src/github.com/ayatk/pro2
-hash -d github=~/src/github.com/
-hash -d aoj=~/Documents/procon/aoj
-
 alias casku='for c in `brew cask list`; do ! brew cask info $c | grep -qF "Not installed" || brew cask install $c; done && brew cask cleanup'
 alias update='brewu && casku'
 
