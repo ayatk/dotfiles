@@ -70,10 +70,10 @@ setopt complete_in_word
 setopt extended_glob
 
 # enhancd
-source ~/.dotfiles/enhancd/enhancd.sh
+source ~/.dotfiles/Enhancd/enhancd.sh
 
 # favdir
-source ~/.dotfiles/favdir/favdir.sh
+source ~/.dotfiles/Favdir/favdir.sh
 
 # zsh completion
 fpath=(/usr/local/share/zsh-completions $fpath)
