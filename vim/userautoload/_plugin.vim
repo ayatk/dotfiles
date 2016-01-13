@@ -58,8 +58,17 @@ endif
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/neosnippet-snippets'
 
+" golang
+NeoBundle 'dgryski/vim-godef'
+NeoBundle 'vim-jp/vim-go-extra'
+"" vim-ft-goは最新版のvimを使えない場合のみ
+NeoBundle 'google/vim-ft-go'
+
 " editorconfig
 NeoBundle 'editorconfig/editorconfig-vim'
+
+" LaTeX
+NeoBundle 'vim-latex/vim-latex'
 
 " UI
 NeoBundle 'itchyny/lightline.vim'
