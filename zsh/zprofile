@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='nano'
-export VISUAL='nano'
+export EDITOR='vim'
+export VISUAL='vim'
 export PAGER='less'
 
 #
@@ -26,7 +26,7 @@ export PAGER='less'
 #
 
 if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
+  export LANG=ja_JP.UTF-8
 fi
 
 #
@@ -46,6 +46,39 @@ path=(
   /usr/local/{bin,sbin}
   $path
 )
+
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+# Added by the Heroku Toolbelt
+export PATH=/usr/local/heroku/bin:$PATH
+
+# Android
+export ANDROID_HOME=/usr/local/opt/android-sdk
+
+# Android NDK
+export ANDROID_NDK=/usr/local/Cellar/android-ndk/r10e
+
+# Golang
+export GOROOT=/usr/local/opt/go/libexec
+export GOPATH=~/go
+PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+# added by travis gem
+[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
+
+# mysql
+export PATH=$PATH:/usr/local/mysql/bin
+
+# java
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+PATH=${JAVA_HOME}/bin:${PATH}
+
+# docker host
+export DOCKER_HOST=tcp://172.17.8.101:4243
+
+
+# dart
+export PATH=$PATH:/usr/local/opt/dart/libexec
 
 #
 # Less

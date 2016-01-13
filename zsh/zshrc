@@ -87,6 +87,9 @@ compinit -uC
 # hub alias
 eval "$(hub alias -s)"
 
+# direnv
+eval "$(direnv hook zsh)"
+
 if (which zprof > /dev/null) ;then
   zprof | less
 fi
