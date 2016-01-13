@@ -6,7 +6,7 @@ export ANDROID_HOME=/usr/local/opt/android-sdk
 
 ### Go-lang
 export GOROOT=/usr/local/opt/go/libexec
-export GOPATH=~/.go
+export GOPATH=~/go
 PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 ### brew cask
