@@ -85,10 +85,10 @@ ls_abbrev() {
 
   local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
 
-  if [ $ls_lines -gt 10 ]; then
-    echo "$ls_result" | head -n 10
+  if [ $ls_lines -gt 12 ]; then
+    echo "$ls_result" | head -n 6
     echo '...'
-    echo "$ls_result" | tail -n 10
+    echo "$ls_result" | tail -n 6
     echo "$(command ls -1 -A | wc -l | tr -d ' ') files exist"
   else
     echo "$ls_result"
