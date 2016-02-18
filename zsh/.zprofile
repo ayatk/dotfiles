@@ -60,7 +60,7 @@ export ANDROID_NDK=/usr/local/Cellar/android-ndk/r10e
 
 # Golang
 export GOROOT=/usr/local/opt/go/libexec
-export GOPATH=~/go
+export GOPATH=$HOME
 PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 # added by travis gem
