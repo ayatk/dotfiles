@@ -80,6 +80,18 @@ export DOCKER_HOST=tcp://172.17.8.101:4243
 # dart
 export PATH=$PATH:/usr/local/opt/dart/libexec
 
+export PATH=$PATH:$HOME/.dotfiles/bin
+
+# gore
+export GORE_HOME=$HOME/.config/gore
+
+# favdir
+export FAVDIR_HOME=$HOME/.config/favdir
+
+# enhancd
+export ENHANCD_DIR=$HOME/.config/enhancd
+export ENHANCD_FILTER="fzf"
+
 #
 # Less
 #
