@@ -5,3 +5,6 @@
 vim/bundle/
 !vim/bundle/neobundle.vim/
 history/
+zsh/.zcompdump
+zsh/.zcompdump.zwc
+zsh/.zprezto
