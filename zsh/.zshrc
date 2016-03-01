@@ -16,6 +16,11 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zoptions" ]]; then
 fi
 # Customize to your needs...
 
+# ヒストリの設定
+export HISTFILE=$HOME/.dotfiles/history/zsh_history
+export HISTSIZE=1000000
+export SAVEHIST=1000000
+
 # enhancd
 source ~/.dotfiles/Enhancd/enhancd.sh
 
