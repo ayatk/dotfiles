@@ -111,6 +111,10 @@ function do_enter() {
   return 0
 }
 
+# chpwd() {
+#     ls_abbrev
+# }
+
 function prompt_ayatk_pwd {
   local pwd="${PWD/#$HOME/~}"
 
