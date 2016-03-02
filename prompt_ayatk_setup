@@ -77,7 +77,6 @@ ls_abbrev() {
   # -F : Append indicator (one of */=>@|) to entries.
   local cmd_ls='ls'
   local -a opt_ls
-  opt_ls=('-aCF' '--color=always')
   opt_ls=('-aCFG')
 
   local ls_result
@@ -85,10 +84,10 @@ ls_abbrev() {
 
   local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
 
-  if [ $ls_lines -gt 12 ]; then
-    echo "$ls_result" | head -n 6
+  if [ $ls_lines -gt 10 ]; then
+    echo "$ls_result" | head -n 5
     echo '...'
-    echo "$ls_result" | tail -n 6
+    echo "$ls_result" | tail -n 5
     echo "$(command ls -1 -A | wc -l | tr -d ' ') files exist"
   else
     echo "$ls_result"
@@ -102,8 +101,8 @@ function do_enter() {
   fi
   echo
   ls_abbrev
+  echo
   if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
-    echo
     echo -e "\e[0;33m--- git status ---\e[0m"
     git status -sbu
     echo
