@@ -1,0 +1,27 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+[[plugins]]
+repo = 'Shougo/vimproc.vim'
+  [plugins.build]
+  windows = 'tools\\update-dll-mingw'
+  mac     = 'make -f make_mac.mak'
+  linux   = 'make'
+  unix    = 'gmake'
+
+[[plugins]]
+repo ='Shougo/vimshell'
+
+# editorconfig
+[[plugins]]
+repo = 'editorconfig/editorconfig-vim'
+
+# UI
+[[plugins]]
+repo = 'itchyny/lightline.vim'
+
+[[plugins]]
+repo = 'Shougo/neosnippet'
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
