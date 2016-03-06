@@ -1,18 +1,7 @@
-[submodule "Favdir"]
-	path = Favdir
-	url = https://github.com/b4b4r07/favdir.git
-	ignore = dirty
-[submodule "Enhancd"]
-	path = Enhancd
-	url = https://github.com/b4b4r07/enhancd.git
-	ignore = dirty
 [submodule "Prezto"]
 	path = Prezto
 	url = https://github.com/sorin-ionescu/prezto.git
 	ignore = dirty
-[submodule "vim/bundle/neobundle.vim"]
-	path = vim/bundle/neobundle.vim
-	url = https://github.com/Shougo/neobundle.vim
 [submodule "Zplug"]
 	path = Zplug
 	url = https://github.com/b4b4r07/zplug.git
