@@ -17,15 +17,15 @@ fi
 # Customize to your needs...
 
 # ヒストリの設定
-export HISTFILE=$HOME/.dotfiles/history/zsh_history
+export HISTFILE=$DOTDIR/history/zsh_history
 export HISTSIZE=1000000
 export SAVEHIST=1000000
 
 # enhancd
-source ~/.dotfiles/Enhancd/enhancd.sh
+source $DOTDIR/Enhancd/enhancd.sh
 
 # favdir
-source ~/.dotfiles/Favdir/favdir.sh
+source $DOTDIR/Favdir/favdir.sh
 
 # zsh completion
 fpath=(/usr/local/share/zsh-completions $fpath)
