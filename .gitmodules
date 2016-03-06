@@ -13,3 +13,6 @@
 [submodule "vim/bundle/neobundle.vim"]
 	path = vim/bundle/neobundle.vim
 	url = https://github.com/Shougo/neobundle.vim
+[submodule "Zplug"]
+	path = Zplug
+	url = https://github.com/b4b4r07/zplug.git
