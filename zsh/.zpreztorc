@@ -67,6 +67,7 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 #
 # History Substring Search
 #
+zstyle ':prezto:module:history-substring-search' case-sensitive 'yes'
 
 # Set the query found color.
 zstyle ':prezto:module:history-substring-search:color' found ''

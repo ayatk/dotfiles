@@ -14,18 +14,13 @@ fi
 if [[ -s "${ZDOTDIR:-$HOME}/.zoptions" ]]; then
   source "${ZDOTDIR:-$HOME}/.zoptions"
 fi
+
+# source zplug
+if [[ -s "${ZDOTDIR:-$HOME}/.zplug" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zplug"
+fi
+
 # Customize to your needs...
-
-# ヒストリの設定
-export HISTFILE=$DOTDIR/history/zsh_history
-export HISTSIZE=1000000
-export SAVEHIST=1000000
-
-# enhancd
-source $DOTDIR/Enhancd/enhancd.sh
-
-# favdir
-source $DOTDIR/Favdir/favdir.sh
 
 # zsh completion
 fpath=(/usr/local/share/zsh-completions $fpath)
