@@ -1,12 +1,12 @@
 source $DOTDIR/Zplug/zplug
 
-source ZPLUG_HOME="$DOTDIR/plugin"
+export ZPLUG_HOME="$DOTDIR/plugins"
 
-zplug "zsh-users/zsh-autosuggestions"
+export PATH=$PATH:$ZPLUG_HOME/bin
 
-zplug "b4b4r07/enhancd", at:v1
+zplug "b4b4r07/enhancd", at:v1, as:command, of:enhancd.sh
 
-zplug "b4b4r07/favdir"
+zplug "b4b4r07/favdir", as:command, of:favdir.sh
 
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "

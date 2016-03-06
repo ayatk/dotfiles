@@ -2,9 +2,18 @@
 # .gitignore
 #
 
+# zplug install directory
+plugins/
+
 vim/bundle/
-!vim/bundle/neobundle.vim/
+vim/.dein/
+vim/repos/
+vim/temp/
+
+# command history directory
 history/
+
+zsh/.zcompcache
 zsh/.zcompdump
 zsh/.zcompdump.zwc
 zsh/.zprezto
