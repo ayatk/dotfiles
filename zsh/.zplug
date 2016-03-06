@@ -1,0 +1,18 @@
+source $DOTDIR/Zplug/zplug
+
+source ZPLUG_HOME="$DOTDIR/plugin"
+
+zplug "zsh-users/zsh-autosuggestions"
+
+zplug "b4b4r07/enhancd", at:v1
+
+zplug "b4b4r07/favdir"
+
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+zplug load --verbose
