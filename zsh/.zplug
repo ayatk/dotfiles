@@ -9,10 +9,10 @@ zplug "b4b4r07/enhancd", at:v1, as:command, of:enhancd.sh
 zplug "b4b4r07/favdir", as:command, of:favdir.sh
 
 if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
 fi
 
 zplug load --verbose
