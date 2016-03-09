@@ -1,11 +1,11 @@
 #!/bin/sh
 
-local TMP_FILE=/tmp/dotfiles.tar.gz
+TMP_FILE=/tmp/dotfiles.tar.gz
 # dotfiles repository
-local REPOSITORY=ayatk/dotfiles
+REPOSITORY=ayatk/dotfiles
 
-local DIR=$(cd $(dirname $0); pwd)
-local DOTDIR=$HOME/.dotfiles
+DIR=$(cd $(dirname $0); pwd)
+DOTDIR=$HOME/.dotfiles
 
 # Download repository
 echo "Downloading dotfiles...."
