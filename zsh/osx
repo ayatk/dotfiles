@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# --------
+# alias
+alias casku='for c in `brew cask list`; do ! brew cask info $c | grep -qF "Not installed" || brew cask install $c; done'
+alias caskc='for c in /opt/homebrew-cask/Caskroom/*; do vl=(`ls -t $c`) && for v in "${vl[@]:1}"; do rm -rf "$c/$v"; done; done'
+alias update='brewu && brewc && casku && caskC'
+
+alias airport=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport
+
+alias matlab="/Applications/MATLAB_R2016a.app/bin/matlab -nodisplay"

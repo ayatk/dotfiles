@@ -20,6 +20,11 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zplug" ]]; then
   source "${ZDOTDIR:-$HOME}/.zplug"
 fi
 
+# osx settings
+if [[ -s "${ZDOTDIR:-$HOME}/osx" ]]; then
+  source "${ZDOTDIR:-$HOME}/osx"
+fi
+
 # Customize to your needs...
 
 # zsh completion
