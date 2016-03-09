@@ -21,7 +21,7 @@ fi
 
 # Download repository
 echo "Downloading dotfiles...."
-if [[ -x `type git > /dev/null 2>&1` ]] ; then
+if [[ ! -x `type git > /dev/null 2>&1` ]] ; then
   nix-env -i git 2> /dev/null
   brew install git 2> /dev/null
 fi
