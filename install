@@ -13,7 +13,7 @@ if [[ -x `type git > /dev/null 2>&1` ]] ; then
   git clone --recursive https://github.com/$REPOSITORY.git $DOTDIR
 else
   curl -# -o $TMP_FILE https://codeload.github.com/$REPOSITORY/tar.gz/master
-  tar xvf $TMP_FILE $DOTDIR
+  tar xvf $TMP_FILE -C $DOTDIR
 fi
 
 ln -s $DOTDIR/zsh/.zshenv $HOME/.zshenv
