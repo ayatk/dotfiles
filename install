@@ -27,6 +27,7 @@ ln -s $DOTDIR/prompt_ayatk_setup $DOTDIR/Prezto/modules/prompt/functions/prompt_
 if [[ $(uname) != 'Darwin' && ! -x `type nix-env > /dev/null 2>&1` ]]; then
   echo "Installing Nix package manager...."
   curl https://nixos.org/nix/install | sh
+  . /home/vagrant/.nix-profile/etc/profile.d/nix.sh
   nix-env -i zsh
 elif [[ $(uname) == 'Darwin' && ! -x `type brew > /dev/null 2>&1` ]]; then
   echo "Installing HomeBrew...."
