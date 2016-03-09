@@ -9,11 +9,11 @@ DOTDIR=$HOME/.dotfiles
 
 # Download repository
 echo "Downloading dotfiles...."
-if [[ -x `type git` ]] ; then
+if [[ -x `type git > /dev/null 2>&1` ]] ; then
   git clone --recursive https://github.com/$REPOSITORY.git $DOTDIR
 else
   curl -# -o $TMP_FILE https://codeload.github.com/$REPOSITORY/tar.gz/master
-  tar xfC $TMP_FILE $DOTDIR
+  tar xvf $TMP_FILE $DOTDIR
 fi
 
 ln -s $DOTDIR/zsh/.zshenv $HOME/.zshenv
@@ -23,11 +23,11 @@ ln -s $DOTDIR/git/.gitconfig $HOME/.gitconfig
 ln -s $DOTDIR/prompt_ayatk_setup $DOTDIR/Prezto/modules/prompt/functions/prompt_ayatk_setup
 
 # install package manager
-if [[ $(uname) != 'Darwin' && ! -x `type nix-env` ]]; then
+if [[ $(uname) != 'Darwin' && ! -x `type nix-env > /dev/null 2>&1` ]]; then
   echo "Installing Nix package manager...."
   curl https://nixos.org/nix/install | sh
   nix-env -i zsh
-elif [[ $(uname) == 'Darwin' && ! -x `type brew` ]]; then
+elif [[ $(uname) == 'Darwin' && ! -x `type brew > /dev/null 2>&1` ]]; then
   echo "Installing HomeBrew...."
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   brew install zsh
