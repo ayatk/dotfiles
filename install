@@ -1,23 +1,36 @@
-#! /bin/sh
-DIR=$(cd $(dirname $0); pwd)
-# vim
-ln -s $DIR/.vimrc ~/.vimrc
-ln -s $DIR/vim ~/.vim
+#!/bin/sh
 
-# git
-ln -s $DIR/.gitconfig ~/.gitconfig
-ln -s $DIR/.gitattributes ~/.gitattributes
-ln -s $DIR/.gitignore_global ~/.gitignore_global
+local TMP_FILE=/tmp/dotfiles.tar.gz
+# dotfiles repository
+local REPOSITORY=ayatk/dotfiles
 
-# tmux
-ln -s $DIR/tmux.conf ~/.tmux.conf
+local DIR=$(cd $(dirname $0); pwd)
+local DOTDIR=$HOME/.dotfiles
 
-# zsh
-ln -s $DIR/.zshrc ~/.zshrc
-ln -s $DIR/.zshenv ~/.zshenv
+# Download repository
+echo "Downloading dotfiles...."
+if [[ -x `type git` ]] ; then
+  git clone --recursive https://github.com/$REPOSITORY.git $DOTDIR
+else
+  curl -# -o $TMP_FILE https://codeload.github.com/$REPOSITORY/tar.gz/master
+  tar xfC $TMP_FILE $DOTDIR
+fi
 
-# bash
-ln -s $DIR/.bash_profile ~/.bash_profile
+ln -s $DOTDIR/zsh/.zshenv $HOME/.zshenv
+ln -s $DOTDIR/git/.gitconfig $HOME/.gitconfig
 
-# sh brewfile
-## chsh -s /usr/local/bin/zsh
+# sinboliclink prompt file
+ln -s $DOTDIR/prompt_ayatk_setup $DOTDIR/Prezto/modules/prompt/functions/prompt_ayatk_setup
+
+# install package manager
+if [[ $(uname) != 'Darwin' && ! -x `type nix-env` ]]; then
+  echo "Installing Nix package manager...."
+  curl https://nixos.org/nix/install | sh
+  nix-env -i zsh
+elif [[ $(uname) == 'Darwin' && ! -x `type brew` ]]; then
+  echo "Installing HomeBrew...."
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  brew install zsh
+fi
+
+# TODO: シェル変更のコードを書く, いまは手動でやってね(ﾃﾍﾍﾟﾛ
