@@ -37,10 +37,14 @@ autoload -U compinit
 compinit -uC
 
 # hub alias
-eval "$(hub alias -s)"
+if[[ -x `type hub > /dev/null 2>&1`]]; then
+  eval "$(hub alias -s)"
+fi
 
 # direnv
-eval "$(direnv hook zsh)"
+if[[ -x `type direnv > /dev/null 2>&1` ]]; then
+  eval "$(direnv hook zsh)"
+fi
 
 if (which zprof > /dev/null) ;then
   zprof | less
