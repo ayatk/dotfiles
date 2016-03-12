@@ -58,7 +58,7 @@ alias a='atom'
 # proxy
 PROXY_SERVER='wwwproxy.kanazawa-it.ac.jp:8080'
 
-if [[ $(uname) -eq 'Darwin' ]]; then
+if [[ $(uname) == 'Darwin' ]]; then
   NOW_LOCATION="/usr/sbin/scselect | grep "\s\*\s" | awk '{print $3}' | sed 's/[(|)]//g'"
   AIRPORT="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
   if [[ `${AIRPORT} -I | grep '[^B]SSID' | awk '{print $2}'` = "KIT-WLAP" ]] ; then
