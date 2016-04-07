@@ -37,6 +37,7 @@ zstyle ':prezto:load' pmodule \
   'python' \
   'ruby' \
   'syntax-highlighting' \
+  'history-substring-search' \
   'git' \
   'prompt'
 
