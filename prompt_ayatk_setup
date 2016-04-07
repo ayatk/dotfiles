@@ -77,7 +77,7 @@ ls_abbrev() {
   # -F : Append indicator (one of */=>@|) to entries.
   local cmd_ls='ls'
   local -a opt_ls
-  opt_ls=('-aCFG')
+  opt_ls=('-ACFG')
 
   local ls_result
   ls_result=$(CLICOLOR_FORCE=1 COLUMNS=$COLUMNS command $cmd_ls ${opt_ls[@]} | sed $'/^\e\[[0-9;]*m$/d')
