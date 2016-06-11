@@ -92,6 +92,8 @@ export FAVDIR_HOME=$HOME/.config/favdir
 export ENHANCD_DIR=$HOME/.config/enhancd
 export ENHANCD_FILTER="fzf"
 
+export XDG_CONFIG_HOME=$HOME/.config
+
 #
 # Less
 #

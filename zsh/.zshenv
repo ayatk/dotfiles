@@ -54,29 +54,6 @@ alias v='vagrant'
 
 alias a='atom'
 
-# --------
-# proxy
-PROXY_SERVER='wwwproxy.kanazawa-it.ac.jp:8080'
-
-if [[ $(uname) == 'Darwin' ]]; then
-  NOW_LOCATION="/usr/sbin/scselect | grep "\s\*\s" | awk '{print $3}' | sed 's/[(|)]//g'"
-  AIRPORT="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
-  if [[ `${AIRPORT} -I | grep '[^B]SSID' | awk '{print $2}'` = "KIT-WLAP" ]] ; then
-    export http_proxy=http://$PROXY_SERVER/
-    export https_proxy=https://$PROXY_SERVER/
-    export ALL_PROXY=http://$PROXY_SERVER/
-    git config -f $HOME/.gitconfig.proxy http.proxy $PROXY_SERVER
-    git config -f $HOME/.gitconfig.proxy https.proxy $PROXY_SERVER
-    git config -f $HOME/.gitconfig.proxy url."https://".insteadOf git://
-    /usr/sbin/scselect kit > /dev/null
-  else
-    unset http_proxy
-    unset https_proxy
-    unset ALL_PROXY
-    echo -n > $HOME/.gitconfig.proxy
-    /usr/sbin/scselect home > /dev/null
-  fi
-fi
 # wttr.inのお天気情報を持ってくるalias
 wttr() {
   curl wttr.in/${1}
