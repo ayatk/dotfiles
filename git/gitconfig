@@ -25,6 +25,9 @@
 	# Clone a repository including all submodules
 	c = clone --recursive
 
+	# sign commit
+	co = commit -S -m
+
 	# Commit all changes
 	ca = !git add -A && git commit -av
 
@@ -129,6 +132,7 @@
 [diff]
 	# Detect copies as well as renames
 	renames = copies
+	compactionHeuristic = true
 
 [help]
 	# Automatically correct and execute mistyped commands
@@ -163,7 +167,7 @@
 	insteadOf = "gist:"
 
 [mergetool "sourcetree"]
-	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.2.2/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.3/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 
 [filter "media"]
@@ -178,7 +182,7 @@
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+	path = 
 
 [filter "lfs"]
 	clean = git lfs clean %f
@@ -191,5 +195,8 @@
 [credential]
 	helper = osxkeychain
 
-[commit]
-	gpgsign = true
+[gpg]
+	program = gpg2
+
+[ghq]
+	root = /Users/ayatk/src
