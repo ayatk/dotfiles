@@ -5,10 +5,8 @@
 # zplug install directory
 plugins/
 
-vim/bundle/
-vim/.dein/
-vim/repos/
-vim/temp/
+# vim dein directory
+vim/dein/
 
 # command history directory
 

@@ -1,27 +1,18 @@
 [[plugins]]
 repo = 'Shougo/dein.vim'
 
-[[plugins]]
-repo = 'Shougo/vimproc.vim'
-  [plugins.build]
-  windows = 'tools\\update-dll-mingw'
-  mac     = 'make -f make_mac.mak'
-  linux   = 'make'
-  unix    = 'gmake'
+# [[plugins]]
+# repo = 'Shougo/vimproc.vim'
+# build = 'make'
 
-[[plugins]]
-repo ='Shougo/vimshell'
-
-# editorconfig
-[[plugins]]
-repo = 'editorconfig/editorconfig-vim'
-
-# UI
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
 [[plugins]]
-repo = 'Shougo/neosnippet'
+repo = 'vim-jp/vimdoc-ja'
 
 [[plugins]]
-repo = 'Shougo/neosnippet-snippets'
+repo = 'altercation/vim-colors-solarized'
+
+[[plugins]]
+repo = 'itchyny/vim-parenmatch'
