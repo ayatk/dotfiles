@@ -112,3 +112,10 @@ bower_components
 
 # User extention
 /,
+
+# python
+*.pyc
+
+# direnv
+.envrc
+.direnv
