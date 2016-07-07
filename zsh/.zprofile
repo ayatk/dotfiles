@@ -47,8 +47,6 @@ path=(
   $path
 )
 
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-
 # Added by the Heroku Toolbelt
 export PATH=/usr/local/heroku/bin:$PATH
 
