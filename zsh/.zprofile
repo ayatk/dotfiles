@@ -94,6 +94,10 @@ export ENHANCD_FILTER="fzf"
 
 export XDG_CONFIG_HOME=$HOME/.config
 
+export PYENV_ROOT=/usr/local/var/pyenv
+export PATH=$PYENV_ROOT/bin:$PATH
+eval "$(pyenv init -)"
+
 #
 # Less
 #
