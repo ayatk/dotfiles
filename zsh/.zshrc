@@ -28,7 +28,9 @@ fi
 # Customize to your needs...
 
 # zsh completion
-fpath=(/usr/local/share/zsh-completions $fpath)
+if [ -e /usr/local/share/zsh-completions ]; then
+    fpath=(/usr/local/share/zsh-completions $fpath)
+fi
 
 # zsh site-functions
 fpath=(/usr/local/share/zsh/site-functions $fpath)
