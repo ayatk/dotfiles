@@ -23,4 +23,10 @@ source ~/.vim/key.vim
 " color setting
 source ~/.vim/visual.vim
 
+" lightline.vim settings
 source ~/.vim/lightline.vim
+
+" neocomplcache settings
+source ~/.vim/neocomplete.vim
+
+" source ~/.vim/smartinput.vim
