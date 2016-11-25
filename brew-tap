@@ -1,4 +1,17 @@
 caskroom/cask
+caskroom/fonts
 caskroom/versions
 dart-lang/dart
+github/bootstrap
+homebrew/bundle
+homebrew/completions
+homebrew/core
+homebrew/dupes
+homebrew/tex
+homebrew/versions
+motemen/ghq
+mzyy94/mikutter
 neovim/neovim
+rcmdnk/file
+tcnksm/ghr
+vitorgalvao/tiny-scripts
