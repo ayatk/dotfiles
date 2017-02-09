@@ -4,6 +4,8 @@
 
 [alias]
 
+  b = branch
+
 	# View abbreviated SHA, description, and history graph of the latest 20 commits
 	l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
@@ -78,6 +80,8 @@
 			git commit --amend -m \"$(git log -1 --pretty=%B)\n\nCloses #$1.\"; \
 		fi \
 	}; f"
+	pr = pull-request
+	see = browse
 
 [apply]
 	# Detect whitespace errors when applying a patch
@@ -182,7 +186,7 @@
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 
 [filter "lfs"]
 	clean = git lfs clean %f

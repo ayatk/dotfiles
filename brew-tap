@@ -7,10 +7,12 @@ homebrew/bundle
 homebrew/completions
 homebrew/core
 homebrew/dupes
+homebrew/science
 homebrew/tex
 homebrew/versions
+jkawamoto/loci
+mackerelio/mackerel-agent
 motemen/ghq
-mzyy94/mikutter
 neovim/neovim
 rcmdnk/file
 tcnksm/ghr

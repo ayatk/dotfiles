@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 TMP_FILE=/tmp/dotfiles.tar.gz
 # dotfiles repository
@@ -8,12 +8,12 @@ DIR=$(cd $(dirname $0); pwd)
 DOTDIR=$HOME/.dotfiles
 
 # install package manager
-if [[ $(uname) != 'Darwin' && ! -x `type nix-env > /dev/null 2>&1` ]]; then
+if [[ $(uname) != 'Darwin' && ! -x $(type nix-env > /dev/null 2>&1) ]]; then
   echo "Installing Nix package manager...."
   curl https://nixos.org/nix/install | sh
   . /home/vagrant/.nix-profile/etc/profile.d/nix.sh
   nix-env -i zsh
-elif [[ $(uname) == 'Darwin' && ! -x `type brew > /dev/null 2>&1` ]]; then
+elif [[ $(uname) == 'Darwin' && ! -x $(type brew > /dev/null 2>&1) ]]; then
   echo "Installing HomeBrew...."
   /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   brew install zsh
@@ -21,7 +21,7 @@ fi
 
 # Download repository
 echo "Downloading dotfiles...."
-if [[ ! -x `type git > /dev/null 2>&1` ]] ; then
+if [[ ! -x $(type git > /dev/null 2>&1) ]] ; then
   nix-env -i git 2> /dev/null
   brew install git 2> /dev/null
 fi

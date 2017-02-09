@@ -14,7 +14,6 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 ### added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
-alias pset='source ~/.proxy/pset.bash'
 PATH=$PATH:$HOME/.bin
 
 # mysql

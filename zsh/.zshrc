@@ -16,9 +16,9 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zoptions" ]]; then
 fi
 
 # source zplug
-if [[ -s "${ZDOTDIR:-$HOME}/.zplug" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zplug"
-fi
+# if [[ -s "${ZDOTDIR:-$HOME}/.zplug" ]]; then
+#   source "${ZDOTDIR:-$HOME}/.zplug"
+# fi
 
 # osx settings
 if [[ -s "${ZDOTDIR:-$HOME}/osx" ]]; then

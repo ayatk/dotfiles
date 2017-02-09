@@ -47,6 +47,8 @@ path=(
   $path
 )
 
+export XDG_CONFIG_HOME=$HOME/.config
+
 # Added by the Heroku Toolbelt
 export PATH=/usr/local/heroku/bin:$PATH
 
@@ -74,23 +76,15 @@ PATH=${JAVA_HOME}/bin:${PATH}
 # docker host
 export DOCKER_HOST=tcp://172.17.8.101:4243
 
-
 # dart
 export PATH=$PATH:/usr/local/opt/dart/libexec
 
 export PATH=$PATH:$HOME/.dotfiles/bin
 
 # gore
-export GORE_HOME=$HOME/.config/gore
+export GORE_HOME=$XDG_CONFIG_HOME/gore
 
-# favdir
-export FAVDIR_HOME=$HOME/.config/favdir
-
-# enhancd
-export ENHANCD_DIR=$HOME/.config/enhancd
-export ENHANCD_FILTER="fzf"
-
-export XDG_CONFIG_HOME=$HOME/.config
+export HOMEBREW_BREWFILE=$XDG_CONFIG_HOME/brewfile
 
 export PYENV_ROOT=/usr/local/var/pyenv
 export PATH=$PYENV_ROOT/bin:$PATH
