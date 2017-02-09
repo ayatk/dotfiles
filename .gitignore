@@ -13,5 +13,4 @@ vim/dein/
 
 .zcompcache
 .zcompdump*
-.zprezto
 .zhistory

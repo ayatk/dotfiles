@@ -48,8 +48,8 @@ function get-branch-status {
     res='A:' # Added to commit
     color='%{'${fg[cyan]}'%}'
   fi
-  # echo ${color}${res}'%{'${reset_color}'%}'
-  echo ${color} # 色だけ返す
+  echo ${color}${res}'%{'${reset_color}'%}'
+  # echo ${color} # 色だけ返す
 }
 
 function branch-status-check {
