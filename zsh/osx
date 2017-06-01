@@ -12,8 +12,11 @@ show_virtual_env() {
   fi
 }
 
-RPROMPT='%(?.%B%F{green}.%B%F{blue})%(?!ヽ( *｡>ω <｡)ﾉ !|ω・%)ﾐﾃﾙﾖ )%f%b$(show_virtual_env)'
-
+f() {
+  local dir
+  dir=$(ghq list > /dev/null | fzf-tmux --reverse +m) &&
+    cd $(ghq root)/$dir
+}
 
 #GnuPG2
 pgrep -q gpg-agent || eval $(gpg-agent --daemon --write-env-file ${HOME}/.gpg-agent-info)
