@@ -61,6 +61,8 @@ alias v='vagrant'
 alias dl='youtube-dl'
 alias a='atom'
 
+alias todo='todoist --color'
+
 # wttr.inのお天気情報を持ってくるalias
 wttr() {
   curl wttr.in/${1}
