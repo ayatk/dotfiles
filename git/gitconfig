@@ -82,6 +82,7 @@
 	}; f"
 	pr = pull-request
 	see = browse
+	ci = ci-status
 
 [apply]
 	# Detect whitespace errors when applying a patch
