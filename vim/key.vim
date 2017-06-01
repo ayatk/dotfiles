@@ -11,8 +11,6 @@ nnoremap k gk
 nnoremap <down> gj
 nnoremap <up> gk
 
-imap <C-s> <Plug>(neosnippet_expand_or_jump)
-smap <C-s> <Plug>(neosnippet_expand_or_jump)
 
 " バックスペースキーの有効化
 set backspace=indent,eol,start
@@ -47,14 +45,4 @@ nnoremap ss :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 nnoremap sq :<C-u>q<CR>
 nnoremap sQ :<C-u>bd<CR>
-nnoremap sb :<C-u>Unite buffer_tab -buffer-name=file<CR>
-nnoremap sB :<C-u>Unite buffer -buffer-name=file<CR>
 
-call submode#enter_with('bufmove', 'n', '', 's>', '<C-w>>')
-call submode#enter_with('bufmove', 'n', '', 's<', '<C-w><')
-call submode#enter_with('bufmove', 'n', '', 's+', '<C-w>+')
-call submode#enter_with('bufmove', 'n', '', 's-', '<C-w>-')
-call submode#map('bufmove', 'n', '', '>', '<C-w>>')
-call submode#map('bufmove', 'n', '', '<', '<C-w><')
-call submode#map('bufmove', 'n', '', '+', '<C-w>+')
-call submode#map('bufmove', 'n', '', '-', '<C-w>-')
