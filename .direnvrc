@@ -4,24 +4,6 @@ use_ruby() {
   layout_ruby
 }
 
-use_go() {
-  GOROOT=$HOME/.gover/gos/$1
-  GOPATH=$PWD
-
-  if [ ! -e "$GOROOT" ]; then
-    echo ""
-    echo "Version not found."
-    echo "Try 'gover install $1'"
-    echo ""
-    exit 1
-  fi
-
-  PATH_add $GOPATH/bin
-  export GOROOT GOPATH
-
-  load_prefix $GOROOT
-}
-
 use_java() {
   PATH_add "$(/usr/libexec/java_home -v $1)/bin"
 }
@@ -30,4 +12,10 @@ use_python() {
   local python_root=$PYENV_ROOT/versions/$1
   load_prefix "$python_root"
   layout_python "$python_root/bin/python"
+}
+
+layout_golang() {
+  export GOPATH="$PWD/vendor:$PWD"
+  PATH_add "$PWD/vendor/bin"
+  PATH_add bin
 }
