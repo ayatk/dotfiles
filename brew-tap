@@ -1,8 +1,6 @@
 caskroom/cask
 caskroom/fonts
 caskroom/versions
-dart-lang/dart
-github/bootstrap
 homebrew/bundle
 homebrew/completions
 homebrew/core
@@ -10,8 +8,6 @@ homebrew/dupes
 homebrew/science
 homebrew/tex
 homebrew/versions
-jkawamoto/loci
-mackerelio/mackerel-agent
 motemen/ghq
 neovim/neovim
 rcmdnk/file
