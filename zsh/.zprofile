@@ -49,9 +49,6 @@ path=(
 
 export XDG_CONFIG_HOME=$HOME/.config
 
-# Added by the Heroku Toolbelt
-export PATH=/usr/local/heroku/bin:$PATH
-
 # Android
 export ANDROID_HOME=/usr/local/share/android-sdk
 
@@ -63,25 +60,14 @@ PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 # added by travis gem
 [ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
 
-# mysql
-export PATH=$PATH:/usr/local/mysql/bin
-
 # java
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 PATH=${JAVA_HOME}/bin:${PATH}
-
-# docker host
-export DOCKER_HOST=tcp://172.17.8.101:4243
-
-# dart
-export PATH=$PATH:/usr/local/opt/dart/libexec
 
 export PATH=$PATH:$HOME/.dotfiles/bin
 
 # gore
 export GORE_HOME=$XDG_CONFIG_HOME/gore
-
-export HOMEBREW_BREWFILE=$XDG_CONFIG_HOME/brewfile
 
 export PYENV_ROOT=/usr/local/var/pyenv
 export PATH=$PYENV_ROOT/bin:$PATH
