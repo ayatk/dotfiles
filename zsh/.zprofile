@@ -53,10 +53,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 export PATH=/usr/local/heroku/bin:$PATH
 
 # Android
-export ANDROID_HOME=/usr/local/opt/android-sdk
-
-# Android NDK
-export ANDROID_NDK=/usr/local/Cellar/android-ndk/r10e
+export ANDROID_HOME=/usr/local/share/android-sdk
 
 # Golang
 export GOROOT=/usr/local/opt/go/libexec
