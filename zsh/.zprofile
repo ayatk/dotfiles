@@ -66,6 +66,9 @@ PATH=${JAVA_HOME}/bin:${PATH}
 
 export PATH=$PATH:$HOME/.dotfiles/bin
 
+# openssl
+export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
+
 # gore
 export GORE_HOME=$XDG_CONFIG_HOME/gore
 

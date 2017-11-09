@@ -1,6 +1,6 @@
 # --------
 # alias
-alias update='brewu && brewc && casku && caskC'
+alias update='brewu && brewc && caski --force $(cask outdated) 2> /dev/null'
 
 alias airport=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport
 
