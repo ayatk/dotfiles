@@ -73,9 +73,9 @@ wttr() {
 # proxy
 PROXY_SERVER='wwwproxy.kanazawa-it.ac.jp:8080'
 
-if [ "`/usr/sbin/networksetup -getcurrentlocation`" = "kit" ]; then
+if [ "`/usr/sbin/networksetup -getcurrentlocation`" = "university" ]; then
     export http_proxy=http://$PROXY_SERVER/
-    export https_proxy=https://$PROXY_SERVER/
+    export https_proxy=http://$PROXY_SERVER/
     export ALL_PROXY=http://$PROXY_SERVER/
     git config -f $HOME/.gitconfig.proxy http.proxy $PROXY_SERVER
     git config -f $HOME/.gitconfig.proxy https.proxy $PROXY_SERVER

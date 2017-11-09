@@ -1,15 +1,8 @@
 caskroom/cask
+caskroom/drivers
+caskroom/eid
 caskroom/fonts
 caskroom/versions
-homebrew/bundle
-homebrew/completions
 homebrew/core
-homebrew/dupes
-homebrew/science
-homebrew/tex
-homebrew/versions
-motemen/ghq
-neovim/neovim
-rcmdnk/file
 tcnksm/ghr
 vitorgalvao/tiny-scripts

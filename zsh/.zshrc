@@ -45,10 +45,6 @@ if (( $+commands[direnv] )); then
   eval "$(direnv hook zsh)"
 fi
 
-if [[ -s "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]]; then
-  source $HOME/.nix-profile/etc/profile.d/nix.sh
-fi
-
 if (which zprof > /dev/null) ;then
   zprof | less
 fi

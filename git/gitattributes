@@ -18,6 +18,4 @@
 *.ptml diff=php
 *.py diff=python
 *.rb diff=ruby
-*.js diff=java
-*.csv encoding=cp932
 *.json diff=json
