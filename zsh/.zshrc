@@ -35,6 +35,8 @@ fi
 # zsh site-functions
 fpath=(/usr/local/share/zsh/site-functions $fpath)
 
+autoload -U compinit
+compinit
 # hub alias
 if (( $+commands[hub] )); then
   eval "$(hub alias -s)"
