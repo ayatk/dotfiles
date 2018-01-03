@@ -2,9 +2,6 @@
 	path = Prezto
 	url = https://github.com/sorin-ionescu/prezto.git
 	ignore = dirty
-[submodule "Zplug"]
-	path = Zplug
-	url = https://github.com/b4b4r07/zplug.git
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
