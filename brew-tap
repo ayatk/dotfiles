@@ -4,5 +4,6 @@ caskroom/eid
 caskroom/fonts
 caskroom/versions
 homebrew/core
+osx-cross/avr
 tcnksm/ghr
 vitorgalvao/tiny-scripts
