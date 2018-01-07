@@ -68,54 +68,54 @@ function branch-status-check {
   echo "${reset_color}git:${prefix}${branchname}${suffix}"
 }
 
-ls_abbrev() {
-  if [[ ! -r $PWD ]]; then
-    return
-  fi
-  # -a : Do not ignore entries starting with ..
-  # -C : Force multi-column output.
-  # -F : Append indicator (one of */=>@|) to entries.
-  local cmd_ls='ls'
-  local -a opt_ls
-  opt_ls=('-ACFG')
+# ls_abbrev() {
+#   if [[ ! -r $PWD ]]; then
+#     return
+#   fi
+#   # -a : Do not ignore entries starting with ..
+#   # -C : Force multi-column output.
+#   # -F : Append indicator (one of */=>@|) to entries.
+#   local cmd_ls='ls'
+#   local -a opt_ls
+#   opt_ls=('-ACFG')
 
-  local ls_result
-  ls_result=$(CLICOLOR_FORCE=1 COLUMNS=$COLUMNS command $cmd_ls ${opt_ls[@]} | sed $'/^\e\[[0-9;]*m$/d')
+#   local ls_result
+#   ls_result=$(CLICOLOR_FORCE=1 COLUMNS=$COLUMNS command $cmd_ls ${opt_ls[@]} | sed $'/^\e\[[0-9;]*m$/d')
 
-  local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
+#   local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
 
-  if [ $ls_lines -gt 10 ]; then
-    echo "$ls_result" | head -n 5
-    echo '...'
-    echo "$ls_result" | tail -n 5
-    echo "$(command ls -1 -A | wc -l | tr -d ' ') files exist"
-  else
-    echo "$ls_result"
-  fi
-}
+#   if [ $ls_lines -gt 10 ]; then
+#     echo "$ls_result" | head -n 5
+#     echo '...'
+#     echo "$ls_result" | tail -n 5
+#     echo "$(command ls -1 -A | wc -l | tr -d ' ') files exist"
+#   else
+#     echo "$ls_result"
+#   fi
+# }
 
-function do_enter() {
-  if [ -n "$BUFFER" ]; then
-    zle accept-line
-    return 0
-  fi
-  echo
-  ls_abbrev
-  echo
-  if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
-    echo -e "\e[0;33m--- git status ---\e[0m"
-    git status -sbu
-    echo
-  fi
-  zle reset-prompt
-  return 0
-}
+# function do_enter() {
+#   if [ -n "$BUFFER" ]; then
+#     zle accept-line
+#     return 0
+#   fi
+#   echo
+#   ls_abbrev
+#   echo
+#   if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
+#     echo -e "\e[0;33m--- git status ---\e[0m"
+#     git status -sbu
+#     echo
+#   fi
+#   zle reset-prompt
+#   return 0
+# }
 
-chpwd() {
-  if [[ $PWD != $HOME ]]; then
-    ls_abbrev
-  fi
-}
+# chpwd() {
+#   if [[ $PWD != $HOME ]]; then
+#     ls_abbrev
+#   fi
+# }
 
 function prompt_ayatk_pwd {
   local pwd="${PWD/#$HOME/~}"
@@ -174,8 +174,8 @@ function prompt_ayatk_setup {
   zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{1}❯%F{3}❯%F{2}❯%f%b'
   zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{2}❮%F{3}❮%F{1}❮%f%b'
 
-  zle -N do_enter
-  bindkey '^m' do_enter
+  # zle -N do_enter
+  # bindkey '^m' do_enter
 
   # Define prompts.
   PROMPT='${SSH_TTY:+"%F{9}%n%f%F{7}@%f%F{3}%m%f "}%F{4}${_prompt_ayatk_pwd}%(!. %B%F{1}#%f%b.)%f `branch-status-check`
