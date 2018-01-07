@@ -184,13 +184,4 @@ ${editor_info[keymap]} '
   SPROMPT="%{$suggest%}(*´-A-%)? < %F{1}%R%f はもしかして %F{2}%r%f かな? [そう!(y),違う!(n),a,e]: "
 }
 
-function prompt_ayatk_preview {
-  local +h PROMPT=''
-  local +h RPROMPT=''
-  local +h SPROMPT=''
-
-  editor-info 2>/dev/null
-  prompt_preview_theme 'ayatk'
-}
-
 prompt_ayatk_setup "$@"
