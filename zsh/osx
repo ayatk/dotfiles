@@ -4,8 +4,6 @@ alias update='brewu && brewc && caski --force $(cask outdated) 2> /dev/null'
 
 alias airport=/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport
 
-alias matlab="/Applications/MATLAB_R2016a.app/bin/matlab -nodisplay"
-
 show_virtual_env() {
   if [ -n "$VIRTUAL_ENV" ]; then
     echo "(virtualenv)"
