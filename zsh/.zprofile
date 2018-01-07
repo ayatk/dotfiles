@@ -69,9 +69,6 @@ export PATH=$PATH:$HOME/.dotfiles/bin
 # openssl
 export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
 
-# gore
-export GORE_HOME=$XDG_CONFIG_HOME/gore
-
 export PYENV_ROOT=/usr/local/var/pyenv
 export PATH=$PYENV_ROOT/bin:$PATH
 eval "$(pyenv init -)"
@@ -102,13 +99,3 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
-#
-# Temporary Files
-#
-
-if [[ ! -d "$TMPDIR" ]]; then
-  export TMPDIR="/tmp/$LOGNAME"
-  mkdir -p -m 700 "$TMPDIR"
-fi
-
-TMPPREFIX="${TMPDIR%/}/zsh"

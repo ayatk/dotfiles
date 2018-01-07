@@ -15,11 +15,6 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zoptions" ]]; then
   source "${ZDOTDIR:-$HOME}/.zoptions"
 fi
 
-# source zplug
-# if [[ -s "${ZDOTDIR:-$HOME}/.zplug" ]]; then
-#   source "${ZDOTDIR:-$HOME}/.zplug"
-# fi
-
 # osx settings
 if [[ -s "${ZDOTDIR:-$HOME}/osx" ]]; then
   source "${ZDOTDIR:-$HOME}/osx"
@@ -35,8 +30,6 @@ fi
 # zsh site-functions
 fpath=(/usr/local/share/zsh/site-functions $fpath)
 
-autoload -U compinit
-compinit
 # hub alias
 if (( $+commands[hub] )); then
   eval "$(hub alias -s)"
