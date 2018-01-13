@@ -1,72 +1,9 @@
 #
-# A simple theme that displays relevant, contextual information.
+# A colorful, friendly, multiline theme with some handy features.
 #
 # Authors:
 #   Aya Tokikaze
 #
-# 16 Terminal Colors
-# -- ---------------
-#  0 black
-#  1 red
-#  2 green
-#  3 yellow
-#  4 blue
-#  5 magenta
-#  6 cyan
-#  7 white
-#  8 bright black
-#  9 bright red
-# 10 bright green
-# 11 bright yellow
-# 12 bright blue
-# 13 bright magenta
-# 14 bright cyan
-# 15 bright white
-#
-
-# Load dependencies.
-pmodload 'helper'
-
-function get-branch-name {
-  # gitディレクトリじゃない場合のエラーは捨てます
-  echo `git rev-parse --abbrev-ref HEAD 2> /dev/null`
-}
-
-function get-branch-status {
-  local res color
-  output=`git status --short 2> /dev/null`
-  if [ -z "$output" ]; then
-    res=':' # status Clean
-    color='%{'${fg[green]}'%}'
-  elif [[ $output =~ "[\n]?\?\? " ]]; then
-    res='?:' # Untracked
-    color='%{'${fg[yellow]}'%}'
-  elif [[ $output =~ "[\n]? M " ]]; then
-    res='M:' # Modified
-    color='%{'${fg[red]}'%}'
-  else
-    res='A:' # Added to commit
-    color='%{'${fg[cyan]}'%}'
-  fi
-  echo ${color}${res}'%{'${reset_color}'%}'
-  # echo ${color} # 色だけ返す
-}
-
-function branch-status-check {
-  local prefix branchname suffix
-  # .gitの中だから除外
-  if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
-    return
-  fi
-  branchname=`get-branch-name`
-  # ブランチ名が無いので除外
-  if [[ -z $branchname ]]; then
-    return
-  fi
-  prefix=`get-branch-status` #色だけ返ってくる
-  suffix='%{'${reset_color}'%}'
-  echo "${reset_color}git:${prefix}${branchname}${suffix}"
-}
 
 # ls_abbrev() {
 #   if [[ ! -r $PWD ]]; then
@@ -128,59 +65,57 @@ function prompt_ayatk_pwd {
   fi
 }
 
-function prompt_ayatk_precmd_async {
-  # Get Git repository information.
-  if (( $+functions[git-info] )); then
-    git-info
-    typeset -p git_info >! "$_prompt_ayatk_precmd_async_data"
+function +vi-git_precmd {
+  # Check for untracked files, since vcs_info does not.
+  if [[ -n $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
+    hook_com[unstaged]+='%F{green}?%f'
   fi
-
-  # Signal completion to parent process.
-  kill -WINCH $$
 }
 
 function prompt_ayatk_precmd {
-  setopt LOCAL_OPTIONS
-  unsetopt XTRACE KSH_ARRAYS
-
   # Format PWD.
   prompt_ayatk_pwd
-
-  # Kill the old process of slow commands if it is still running.
-  if (( _prompt_ayatk_precmd_async_pid > 0 )); then
-    kill -KILL "$_prompt_ayatk_precmd_async_pid" &>/dev/null
-  fi
-
-  # Compute slow commands in the background.
-  prompt_ayatk_precmd_async &!
-  _prompt_ayatk_precmd_async_pid=$!
+  vcs_info
 }
 
 function prompt_ayatk_setup {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
-  prompt_opts=(cr percent subst)
-  _prompt_ayatk_precmd_async_pid=0
-  _prompt_ayatk_precmd_async_data="${TMPPREFIX}-prompt_ayatk_data"
+  prompt_opts=(cr percent sp subst)
 
   # Load required functions.
+  autoload -Uz vcs_info
   autoload -Uz add-zsh-hook
 
-  # Add hook for calling git-info before each command.
+  # Add hook to set up prompt parameters before each command.
   add-zsh-hook precmd prompt_ayatk_precmd
 
   # Set editor-info parameters.
-  zstyle ':prezto:module:editor:info:completing' format '%B%F{7}...%f%b'
-  zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{1}❯%F{3}❯%F{2}❯%f%b'
-  zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{2}❮%F{3}❮%F{1}❮%f%b'
+  zstyle ':prezto:module:editor:info:completing' format '%B%F{green}...%f%b'
+  zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{red}❯%F{yellow}❯%F{green}❯%f%b'
+  zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{green}❮%F{yellow}❮%F{red}❮%f%b'
 
   # zle -N do_enter
   # bindkey '^m' do_enter
 
+  # Set vcs_info parameters.
+  zstyle ':vcs_info:*' check-for-changes true
+  zstyle ':vcs_info:*' formats ' on %F{magenta}%b%f%c%u'
+  zstyle ':vcs_info:*' actionformats ' on %F{magenta}%b%f%c%u %F{yellow}(%a)%f'
+  zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
+  zstyle ':vcs_info:*' unstagedstr '%F{green}!%f'
+
+  # Set vcs_info hooks.
+  # NOTE: Prior to Zsh v4.3.12, there are no static hooks, no vcs_info_hookadd
+  #       function, and no 'no-vcs' hook.
+  zstyle ':vcs_info:*+start-up:*' hooks set_novcs_prompt_symbol
+  zstyle ':vcs_info:git*+set-message:*' hooks set_vcs_prompt_symbol git_precmd
+  zstyle ':vcs_info:*+set-message:*' hooks set_vcs_prompt_symbol
+
   # Define prompts.
-  PROMPT='${SSH_TTY:+"%F{9}%n%f%F{7}@%f%F{3}%m%f "}%F{4}${_prompt_ayatk_pwd}%(!. %B%F{1}#%f%b.)%f `branch-status-check`
+  PROMPT='%(?..%F{red}%B==> [%?]%b%f
+)${SSH_TTY:+"%F{bright red}%n%f%F{magenta}@%f%F{yellow}%m%f "}%F{green}${_prompt_ayatk_pwd}%(!. %B%F{red}#%f%b.)%f${vcs_info_msg_0_}
 ${editor_info[keymap]} '
-  RPROMPT=''
   SPROMPT="%{$suggest%}(*´-A-%)? < %F{magenta}%R%f はもしかして %F{green}%r%f かな? [そう!(y),違う!(n),a,e]: "
 }
 
