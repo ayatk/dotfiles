@@ -40,6 +40,10 @@ if (( $+commands[direnv] )); then
   eval "$(direnv hook zsh)"
 fi
 
+if [ $commands[kubectl] ]; then
+  source <(kubectl completion zsh)
+fi
+
 if (which zprof > /dev/null) ;then
   zprof | less
 fi
