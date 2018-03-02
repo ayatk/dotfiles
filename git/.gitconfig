@@ -188,3 +188,6 @@
 
 [ghq]
 	root = ~/src
+[merge "mergepbx"]
+	name = Xcode project files merger
+	driver = mergepbx %O %A %B
