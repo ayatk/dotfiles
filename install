@@ -30,5 +30,5 @@ ln -s $DOTDIR/Prezto $DOTDIR/zsh/.zprezto
 ln -s $DOTDIR/prompt_ayatk_setup $DOTDIR/Prezto/modules/prompt/functions/prompt_ayatk_setup
 
 # change shell
-echo "/usr/local/bin/zsh" >> /etc/shells
+sudo sh -C 'echo "/usr/local/bin/zsh" >> /etc/shells'
 sudo chsh -s /usr/local/bin/zsh
