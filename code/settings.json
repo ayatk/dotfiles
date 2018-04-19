@@ -1,0 +1,59 @@
+{
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.iconTheme": "material-icon-theme",
+    "workbench.colorTheme": "Ayu Mirage",
+    // editor
+    "editor.fontFamily": "azukiFontL",
+    "editor.fontSize": 16,
+    "editor.scrollBeyondLastLine": false,
+    "editor.smoothScrolling": true,
+    "editor.renderWhitespace": "all",
+    "editor.minimap.renderCharacters": false,
+    "editor.renderControlCharacters": true,
+    "editor.formatOnSave": true,
+
+    "files.autoSave": "afterDelay",
+    // latex-workshop
+    "latex-workshop.latex.recipes": [{
+        "name": "build",
+        "tools": [
+          "make pdf"
+        ]
+      }],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "make pdf", 
+            "command": "latexmk",
+            "args": [
+                "-e",
+                "$latex=q/uplatex %O -synctex=1 -interaction=nonstopmode -file-line-error %S/",
+                "-e",
+                "$bibtex=q/upbibtex %O %B/",
+                "-e",
+                "$biber=q/biber %O --bblencoding=utf8 -u -U --output_safechars %B/",
+                "-e",
+                "$makeindex=q/upmendex %O -o %D %S/",
+                "-e",
+                "$dvipdf=q/dvipdfmx %O -o %D %S/",
+                "-norc",
+                "-pdfdvi",
+                "%DOC%"
+            ]
+        }
+    ],
+    "latex-workshop.latex.clean.enabled": true,
+    "latex-workshop.view.pdf.viewer": "tab",
+
+    "terminal.integrated.fontSize": 16,
+  
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.syntaxProfiles": {
+        "javascript": "jsx",
+        "xml": {
+            "attr_quotes": "single"
+        }
+    },
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "ctrlchar-remover.pattern": "[\\cA-\\cH\\cK-\\cL\\cN-\\cZ\\u001B-\\u001F\\u007F]",
+}
