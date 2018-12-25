@@ -1,18 +1,10 @@
-#
-# Defines environment variables.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
 # zmodload zsh/zprof && zprof
-
 
 export DOTDIR="$HOME/.dotfiles"
 export ZDOTDIR="$DOTDIR/zsh"
 
 # Ensure that a non-login, non-interactive shell has a defined environment.
-if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+if [[ ("$SHLVL" -eq 1 && ! -o LOGIN) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
@@ -21,7 +13,6 @@ path=(
   /usr/local/{bin,sbin}
   $path
 )
-
 
 ########################################
 # エイリアス
@@ -43,13 +34,13 @@ alias -g A='| awk'
 
 # C で標準出力をクリップボードにコピーする
 # mollifier delta blog : http://mollifier.hatenablog.com/entry/20100317/p1
-if which pbcopy >/dev/null 2>&1 ; then
+if which pbcopy >/dev/null 2>&1; then
   # Mac
   alias -g C='| pbcopy'
-elif which xsel >/dev/null 2>&1 ; then
+elif which xsel >/dev/null 2>&1; then
   # Linux
   alias -g C='| xsel --input --clipboard'
-elif which putclip >/dev/null 2>&1 ; then
+elif which putclip >/dev/null 2>&1; then
   # Cygwin
   alias -g C='| putclip'
 fi
@@ -68,12 +59,11 @@ wttr() {
   curl wttr.in/${1}
 }
 
-
 # --------
 # proxy
 PROXY_SERVER='wwwproxy.kanazawa-it.ac.jp:8080'
 
-if [ "`/usr/sbin/networksetup -getcurrentlocation`" = "university" ]; then
+if [ "$(/usr/sbin/networksetup -getcurrentlocation)" = "university" ]; then
     export http_proxy=http://$PROXY_SERVER/
     export https_proxy=http://$PROXY_SERVER/
     export ALL_PROXY=http://$PROXY_SERVER/
@@ -88,15 +78,14 @@ else
     : > $HOME/.gitconfig.proxy
 fi
 
-
 # pip zsh completion start
-function _pip_completion {
+function _pip_completion() {
   local words cword
   read -Ac words
   read -cn cword
-  reply=( $( COMP_WORDS="$words[*]" \
-             COMP_CWORD=$(( cword-1 )) \
-             PIP_AUTO_COMPLETE=1 $words[1] ) )
+	reply=($(COMP_WORDS="$words[*]" \
+		COMP_CWORD=$((cword - 1)) \
+		PIP_AUTO_COMPLETE=1 $words[1]))
 }
 compctl -K _pip_completion pip
 # pip zsh completion end
