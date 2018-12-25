@@ -57,9 +57,6 @@ export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=$HOME
 PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
-# added by travis gem
-[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
-
 # java
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 PATH=${JAVA_HOME}/bin:${PATH}
