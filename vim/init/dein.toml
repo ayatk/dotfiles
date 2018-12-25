@@ -6,25 +6,25 @@ repo = 'Shougo/dein.vim'
 # build = 'make'
 
 [[plugins]]
-repo = 'Shougo/neocomplete.vim'
+repo = 'Shougo/defx.nvim'
+
+# [[plugins]]
+# repo = 'Shougo/neocomplete.vim'
 
 [[plugins]]
 repo = 'Townk/vim-autoclose'
 
-[[plugins]]
-repo = 'Shougo/neosnippet'
+# [[plugins]]
+# repo = 'Shougo/neosnippet'
 
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
+# [[plugins]]
+# repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
-
-[[plugins]]
-repo = 'altercation/vim-colors-solarized'
 
 [[plugins]]
 repo = 'itchyny/vim-parenmatch'
@@ -36,7 +36,4 @@ repo = 'editorconfig/editorconfig-vim'
 repo = 'bronson/vim-trailing-whitespace'
 
 [[plugins]]
-repo = 'kana/vim-submode'
-
-[[plugin]]
 repo = 'Yggdroot/indentLine'
