@@ -1,7 +1,7 @@
-[submodule "Prezto"]
-	path = Prezto
-	url = https://github.com/sorin-ionescu/prezto.git
-	ignore = dirty
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "zsh/.zprezto"]
+	path = zsh/.zprezto
+	url = https://github.com/sorin-ionescu/prezto.git
+	ignore = dirty
