@@ -5,7 +5,7 @@
 #
 
 if [[ "$OSTYPE" == darwin* ]]; then
-	export BROWSER='open'
+    export BROWSER='open'
 fi
 
 #
@@ -21,7 +21,7 @@ export PAGER='less'
 #
 
 if [[ -z "$LANG" ]]; then
-	export LANG='en_US.UTF-8'
+    export LANG='en_US.UTF-8'
 fi
 
 #
@@ -38,8 +38,8 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-	/usr/local/{bin,sbin}
-	$path
+    /usr/local/{bin,sbin}
+    $path
 )
 
 export XDG_CONFIG_HOME=$HOME/.config
@@ -86,7 +86,7 @@ export FZF_COMPLETION_OPTS='+c -x'
 # - Note that ag only lists files not directories
 # - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
-	ag -g "" "$1"
+    ag -g "" "$1"
 }
 
 #
@@ -101,5 +101,5 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 # Set the Less input preprocessor.
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
 if (( $#commands[(i)lesspipe(|.sh)] )); then
-	export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+    export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
