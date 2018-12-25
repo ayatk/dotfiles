@@ -1,3 +1,5 @@
+#! /bin/env bash
+
 # --------
 # alias
 alias update='brewu && brewc && caski --force $(cask outdated) 2> /dev/null'
