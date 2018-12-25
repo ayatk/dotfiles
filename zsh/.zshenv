@@ -1,3 +1,5 @@
+#! /bin/env zsh
+
 # zmodload zsh/zprof && zprof
 
 export DOTDIR="$HOME/.dotfiles"
