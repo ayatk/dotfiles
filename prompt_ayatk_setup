@@ -54,16 +54,6 @@
 #   fi
 # }
 
-function prompt_ayatk_pwd {
-  local pwd="${PWD/#$HOME/~}"
-
-  if [[ "$pwd" == (#m)[/~] ]]; then
-    _prompt_ayatk_pwd="$MATCH"
-    unset MATCH
-  else
-    _prompt_ayatk_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
-  fi
-}
 
 function +vi-git_precmd {
   # Check for untracked files, since vcs_info does not.
@@ -74,7 +64,7 @@ function +vi-git_precmd {
 
 function prompt_ayatk_precmd {
   # Format PWD.
-  prompt_ayatk_pwd
+    _prompt_ayatk_pwd=$(prompt-pwd)
   vcs_info
 }
 
