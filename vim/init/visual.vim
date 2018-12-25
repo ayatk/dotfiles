@@ -2,9 +2,12 @@
 " color.vim
 "----------------------------------------------------
 set t_Co=256
+set termguicolors
 
 " color scheme
 syntax enable
+source ~/.vim/colors/iceberg.vim
+
 " set background=light
 " colorscheme solarized
 " let g:solarized_termcolors=256
@@ -25,7 +28,7 @@ set hlsearch
 
 set laststatus=2
 
-if has('mouse')
+if has('mouse') && !exists('veonim')
     set mouse=a
     if has('mouse_sgr')
         set ttymouse=sgr

@@ -40,16 +40,11 @@ let g:loaded_matchparen = 1
 set wildmenu " コマンドモードの補完
 set history=5000 " 保存するコマンド履歴の数
 
-" ペースト設定
-if &term =~ "xterm"
-    let &t_SI .= "\e[?2004h"
-    let &t_EI .= "\e[?2004l"
-    let &pastetoggle = "\e[201~"
-
-    function XTermPasteBegin(ret)
-        set paste
-        return a:ret
-    endfunction
-
-    inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+if has('vim_starting') && !exists('veonim')
+  " 挿入モード時に非点滅の縦棒タイプのカーソル
+  let &t_SI .= "\e[6 q"
+  " ノーマルモード時に非点滅のブロックタイプのカーソル
+  let &t_EI .= "\e[2 q"
+  " 置換モード時に非点滅の下線タイプのカーソル
+  let &t_SR .= "\e[4 q"
 endif
