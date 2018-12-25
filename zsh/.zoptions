@@ -1,3 +1,5 @@
+#! /bin/env zsh
+
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 
