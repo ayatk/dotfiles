@@ -5,7 +5,7 @@
 #
 
 if [[ "$OSTYPE" == darwin* ]]; then
-  export BROWSER='open'
+	export BROWSER='open'
 fi
 
 #
@@ -31,15 +31,15 @@ fi
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 
-# Set the the list of directories that cd searches.
+# Set the list of directories that cd searches.
 # cdpath=(
 #   $cdpath
 # )
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-  /usr/local/{bin,sbin}
-  $path
+	/usr/local/{bin,sbin}
+	$path
 )
 
 export XDG_CONFIG_HOME=$HOME/.config
@@ -61,19 +61,32 @@ export PATH=$PATH:$HOME/.dotfiles/bin
 # openssl
 export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
 
+# pyenv
 export PYENV_ROOT=/usr/local/var/pyenv
 export PATH=$PYENV_ROOT/bin:$PATH
 eval "$(pyenv init -)"
 
+# fzf
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 export FZF_COMPLETION_OPTS='+c -x'
+
+# alls() {
+#   zle accept-line
+#   if [[ -z "$BUFFER" ]]; then
+#     echo ''
+#     ls
+#   fi
+# }
+# zle -N alls
+# bindkey "^\n" alls
+
 
 # Use ag instead of the default find command for listing candidates.
 # - The first argument to the function is the base path to start traversal
 # - Note that ag only lists files not directories
 # - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
-  ag -g "" "$1"
+	ag -g "" "$1"
 }
 
 #
@@ -88,5 +101,5 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 # Set the Less input preprocessor.
 # Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
 if (( $#commands[(i)lesspipe(|.sh)] )); then
-  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+	export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi

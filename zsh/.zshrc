@@ -10,10 +10,11 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zoptions" ]]; then
 	source "${ZDOTDIR:-$HOME}/.zoptions"
 fi
 
-# osx settings
-if [[ -s "${ZDOTDIR:-$HOME}/osx" ]]; then
-	source "${ZDOTDIR:-$HOME}/osx"
-fi
+# env settings
+source "${ZDOTDIR:-$HOME}/env/$(uname).zsh"
+
+# functions
+source "${ZDOTDIR:-$HOME}/functions"
 
 # Customize to your needs...
 
@@ -25,20 +26,6 @@ fi
 # zsh site-functions
 fpath=(/usr/local/share/zsh/site-functions $fpath)
 
-# hub alias
-if (( $+commands[hub] )); then
-	eval "$(hub alias -s)"
-fi
-
-# direnv
-if (( $+commands[direnv] )); then
-	eval "$(direnv hook zsh)"
-fi
-
-if [ $commands[kubectl] ]; then
-	source <(kubectl completion zsh)
-fi
-
-if (which zprof > /dev/null) ;then
+if (( $+commands[zprof] )); then
 	zprof | less
 fi
