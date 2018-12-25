@@ -14,7 +14,9 @@ fi
 source "${ZDOTDIR:-$HOME}/env/$(uname).zsh"
 
 # functions
-source "${ZDOTDIR:-$HOME}/functions"
+for func (${ZDOTDIR:-$HOME}/functions/*); do
+	source $func:a
+done
 
 # Customize to your needs...
 
