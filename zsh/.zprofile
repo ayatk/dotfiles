@@ -70,17 +70,6 @@ eval "$(pyenv init -)"
 export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
 export FZF_COMPLETION_OPTS='+c -x'
 
-# alls() {
-#   zle accept-line
-#   if [[ -z "$BUFFER" ]]; then
-#     echo ''
-#     ls
-#   fi
-# }
-# zle -N alls
-# bindkey "^\n" alls
-
-
 # Use ag instead of the default find command for listing candidates.
 # - The first argument to the function is the base path to start traversal
 # - Note that ag only lists files not directories

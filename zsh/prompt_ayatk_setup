@@ -7,107 +7,107 @@
 #   Aya Tokikaze
 #
 
-# ls_abbrev() {
-#   if [[ ! -r $PWD ]]; then
-#     return
-#   fi
-#   # -a : Do not ignore entries starting with ..
-#   # -C : Force multi-column output.
-#   # -F : Append indicator (one of */=>@|) to entries.
-#   local cmd_ls='ls'
-#   local -a opt_ls
-#   opt_ls=('-ACFG')
+function ls_abbrev() {
+    if [[ ! -r $PWD ]]; then
+        return
+    fi
+    # -a : Do not ignore entries starting with ..
+    # -C : Force multi-column output.
+    # -F : Append indicator (one of */=>@|) to entries.
+    local cmd_ls='ls'
+    local -a opt_ls
+    opt_ls=('-ACFG')
 
-#   local ls_result
-#   ls_result=$(CLICOLOR_FORCE=1 COLUMNS=$COLUMNS command $cmd_ls ${opt_ls[@]} | sed $'/^\e\[[0-9;]*m$/d')
+    local ls_result
+    ls_result=$(CLICOLOR_FORCE=1 COLUMNS=$COLUMNS command $cmd_ls ${opt_ls[@]} | sed $'/^\e\[[0-9;]*m$/d')
 
-#   local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
+    local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
 
-#   if [ $ls_lines -gt 10 ]; then
-#     echo "$ls_result" | head -n 5
-#     echo '...'
-#     echo "$ls_result" | tail -n 5
-#     echo "$(command ls -1 -A | wc -l | tr -d ' ') files exist"
-#   else
-#     echo "$ls_result"
-#   fi
-# }
+    if [ $ls_lines -gt 10 ]; then
+        echo "$ls_result" | head -n 5
+        echo '...'
+        echo "$ls_result" | tail -n 5
+        echo "$(command ls -1 -A | wc -l | tr -d ' ') files exist"
+    else
+        echo "$ls_result"
+    fi
+}
 
-# function do_enter() {
-#   if [ -n "$BUFFER" ]; then
-#     zle accept-line
-#     return 0
-#   fi
-#   echo
-#   ls_abbrev
-#   echo
-#   if [ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" = 'true' ]; then
-#     echo -e "\e[0;33m--- git status ---\e[0m"
-#     git status -sbu
-#     echo
-#   fi
-#   zle reset-prompt
-#   return 0
-# }
+# https://qiita.com/yuyuchu3333/items/e9af05670c95e2cc5b4d
+function do_enter() {
+    if [ -n "$BUFFER" ]; then
+        zle accept-line
+        return 0
+    fi
+    echo
+    ls_abbrev
+    echo
+    if (( $+$(git rev-parse --is-inside-work-tree) )); then
+        echo -e "\e[0;33m--- git status ---\e[0m"
+        git status -sbu
+        echo
+    fi
+    zle reset-prompt
+}
 
-# chpwd() {
-#   if [[ $PWD != $HOME ]]; then
-#     ls_abbrev
-#   fi
-# }
+function chpwd() {
+    if [[ $PWD != $HOME ]]; then
+        ls_abbrev
+    fi
+}
 
 function +vi-git_precmd() {
-  # Check for untracked files, since vcs_info does not.
+    # Check for untracked files, since vcs_info does not.
     if [[ -n $(git ls-files --other --exclude-standard 2>/dev/null) ]]; then
-    hook_com[unstaged]+='%F{green}?%f'
-  fi
+        hook_com[unstaged]+='%F{green}?%f'
+    fi
 }
 
 function prompt_ayatk_precmd() {
-  # Format PWD.
+    # Format PWD.
     _prompt_ayatk_pwd=$(prompt-pwd)
-  vcs_info
+    vcs_info
 }
 
 function prompt_ayatk_setup() {
-  setopt LOCAL_OPTIONS
-  unsetopt XTRACE KSH_ARRAYS
-  prompt_opts=(cr percent sp subst)
+    setopt LOCAL_OPTIONS
+    unsetopt XTRACE KSH_ARRAYS
+    prompt_opts=(cr percent sp subst)
 
-  # Load required functions.
-  autoload -Uz vcs_info
-  autoload -Uz add-zsh-hook
+    # Load required functions.
+    autoload -Uz vcs_info
+    autoload -Uz add-zsh-hook
 
-  # Add hook to set up prompt parameters before each command.
-  add-zsh-hook precmd prompt_ayatk_precmd
+    # Add hook to set up prompt parameters before each command.
+    add-zsh-hook precmd prompt_ayatk_precmd
 
-  # Set editor-info parameters.
-  zstyle ':prezto:module:editor:info:completing' format '%B%F{green}...%f%b'
-  zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{red}❯%F{yellow}❯%F{green}❯%f%b'
-  zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{green}❮%F{yellow}❮%F{red}❮%f%b'
+    # Set editor-info parameters.
+    zstyle ':prezto:module:editor:info:completing' format '%B%F{green}...%f%b'
+    zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{red}❯%F{yellow}❯%F{green}❯%f%b'
+    zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{green}❮%F{yellow}❮%F{red}❮%f%b'
 
-  # zle -N do_enter
-  # bindkey '^m' do_enter
+    zle -N do_enter
+    bindkey '^m' do_enter
 
-  # Set vcs_info parameters.
-  zstyle ':vcs_info:*' check-for-changes true
-  zstyle ':vcs_info:*' formats ' on %F{magenta}%b%f%c%u'
-  zstyle ':vcs_info:*' actionformats ' on %F{magenta}%b%f%c%u %F{yellow}(%a)%f'
-  zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
-  zstyle ':vcs_info:*' unstagedstr '%F{green}!%f'
+    # Set vcs_info parameters.
+    zstyle ':vcs_info:*' check-for-changes true
+    zstyle ':vcs_info:*' formats ' on %F{magenta}%b%f%c%u'
+    zstyle ':vcs_info:*' actionformats ' on %F{magenta}%b%f%c%u %F{yellow}(%a)%f'
+    zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
+    zstyle ':vcs_info:*' unstagedstr '%F{green}!%f'
 
-  # Set vcs_info hooks.
-  # NOTE: Prior to Zsh v4.3.12, there are no static hooks, no vcs_info_hookadd
-  #       function, and no 'no-vcs' hook.
-  zstyle ':vcs_info:*+start-up:*' hooks set_novcs_prompt_symbol
-  zstyle ':vcs_info:git*+set-message:*' hooks set_vcs_prompt_symbol git_precmd
-  zstyle ':vcs_info:*+set-message:*' hooks set_vcs_prompt_symbol
+    # Set vcs_info hooks.
+    # NOTE: Prior to Zsh v4.3.12, there are no static hooks, no vcs_info_hookadd
+    # function, and no 'no-vcs' hook.
+    zstyle ':vcs_info:*+start-up:*' hooks set_novcs_prompt_symbol
+    zstyle ':vcs_info:git*+set-message:*' hooks set_vcs_prompt_symbol git_precmd
+    zstyle ':vcs_info:*+set-message:*' hooks set_vcs_prompt_symbol
 
-  # Define prompts.
-  PROMPT='%(?..%F{red}%B==> [%?]%b%f
+    # Define prompts.
+    PROMPT='%(?..%F{red}%B==> [%?]%b%f
 )${SSH_TTY:+"%F{bright red}%n%f%F{magenta}@%f%F{yellow}%m%f "}%F{green}${_prompt_ayatk_pwd}%(!. %B%F{red}#%f%b.)%f${vcs_info_msg_0_}
 ${editor_info[keymap]} '
-  SPROMPT="%{$suggest%}(*´-A-%)? < %F{magenta}%R%f はもしかして %F{green}%r%f かな? [そう!(y),違う!(n),a,e]: "
+    SPROMPT="%{$suggest%}(*´-A-%)? < %F{magenta}%R%f はもしかして %F{green}%r%f かな? [そう!(y),違う!(n),a,e]: "
 }
 
 prompt_ayatk_setup "$@"
