@@ -12,10 +12,6 @@ alias -g W='| wc'
 alias -g S='| sed'
 alias -g A='| awk'
 
-# 2つ上、3つ上にも移動できるようにする
-alias ...='cd ../..'
-alias ....='cd ../../..'
-
 if (( $+commands[vagrant] )); then
     alias v='vagrant'
 fi
