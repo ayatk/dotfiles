@@ -25,7 +25,7 @@ git clone --recursive https://github.com/$REPOSITORY.git $DOTDIR
 ln -s $DOTDIR/zsh/.zshenv $HOME/.zshenv
 ln -s $DOTDIR/git/.gitconfig $HOME/.gitconfig
 
-# sinboliclink prompt file
+# symboliclink prompt file
 ln -s $DOTDIR/Prezto $DOTDIR/zsh/.zprezto
 ln -s $DOTDIR/prompt_ayatk_setup $DOTDIR/Prezto/modules/prompt/functions/prompt_ayatk_setup
 
