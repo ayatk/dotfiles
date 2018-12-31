@@ -14,11 +14,7 @@ fi
 source "${ZDOTDIR:-$HOME}/env/$(uname).zsh"
 
 # functions
-for func (${ZDOTDIR:-$HOME}/functions/*); do
-    source $func:a
-done
-
-# Customize to your needs...
+for func (${ZDOTDIR:-$HOME}/functions/*) source $func:a
 
 # zsh completion
 if [ -e /usr/local/share/zsh-completions ]; then
