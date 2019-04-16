@@ -48,13 +48,17 @@ export XDG_CONFIG_HOME=$HOME/.config
 export ANDROID_HOME=/usr/local/share/android-sdk
 
 # Golang
-export GOROOT=/usr/local/opt/go/libexec
-export GOPATH=$HOME
-PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+if (( $+commands[go] )); then
+    export GOROOT=/usr/local/opt/go/libexec
+    export GOPATH=$HOME
+    PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+fi
 
 # java
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-PATH=${JAVA_HOME}/bin:${PATH}
+if (( $+commands[java] )); then
+    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+    PATH=${JAVA_HOME}/bin:${PATH}
+fi
 
 export PATH=$PATH:$HOME/.dotfiles/bin
 
@@ -62,21 +66,25 @@ export PATH=$PATH:$HOME/.dotfiles/bin
 export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
 
 # pyenv
-export PYENV_ROOT=/usr/local/var/pyenv
-export PATH=$PYENV_ROOT/bin:$PATH
-eval "$(pyenv init -)"
+if (( $+commands[pyenv] )); then
+    export PYENV_ROOT=/usr/local/var/pyenv
+    export PATH=$PYENV_ROOT/bin:$PATH
+    eval "$(pyenv init -)"
+fi
 
 # fzf
-export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
-export FZF_COMPLETION_OPTS='+c -x'
+if (( $+commands[fzf] )); then
+    export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+    export FZF_COMPLETION_OPTS='+c -x'
 
-# Use ag instead of the default find command for listing candidates.
-# - The first argument to the function is the base path to start traversal
-# - Note that ag only lists files not directories
-# - See the source code (completion.{bash,zsh}) for the details.
-_fzf_compgen_path() {
-    ag -g "" "$1"
-}
+    # Use ag instead of the default find command for listing candidates.
+    # - The first argument to the function is the base path to start traversal
+    # - Note that ag only lists files not directories
+    # - See the source code (completion.{bash,zsh}) for the details.
+    _fzf_compgen_path() {
+        ag -g "" "$1"
+    }
+fi
 
 #
 # Less
