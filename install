@@ -26,8 +26,10 @@ ln -s $DOTDIR/zsh/.zshenv $HOME/.zshenv
 ln -s $DOTDIR/git/.gitconfig $HOME/.gitconfig
 
 # symboliclink prompt file
-ln -s $DOTDIR/Prezto $DOTDIR/zsh/.zprezto
-ln -s $DOTDIR/prompt_ayatk_setup $DOTDIR/Prezto/modules/prompt/functions/prompt_ayatk_setup
+ln -s $DOTDIR/zsh/prompt_ayatk_setup $DOTDIR/zsh/.zprezto/modules/prompt/functions/prompt_ayatk_setup
+
+# vim
+ln -s $DOTDIR/vim/vimrc $HOME/.vimrc
 
 # change shell
 sudo sh -C 'echo "/usr/local/bin/zsh" >> /etc/shells'
