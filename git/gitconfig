@@ -171,10 +171,6 @@
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
 
-[mergetool "sourcetree"]
-	cmd = /opt/homebrew-cask/Caskroom/sourcetree/2.3/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-
 [filter "media"]
 	required = true
 	clean = git media clean %f
@@ -184,10 +180,6 @@
 	clean = git hawser clean %f
 	smudge = git hawser smudge %f
 	required = true
-
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
