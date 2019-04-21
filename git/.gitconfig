@@ -173,9 +173,6 @@
 	process = git-lfs filter-process
 	required = true
 
-[init]
-	templatedir = ~/.dotfiles/git_template
-
 [credential]
 	helper = osxkeychain
 
