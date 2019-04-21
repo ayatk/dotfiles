@@ -42,7 +42,7 @@ function do_enter() {
     echo
     ls_abbrev
     echo
-    if (( $+$(git rev-parse --is-inside-work-tree) )); then
+    if (( $+$(git rev-parse --is-inside-work-tree 2> /dev/null) )); then
         echo -e "\e[0;33m--- git status ---\e[0m"
         git status -sbu
         echo
