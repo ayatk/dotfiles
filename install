@@ -16,7 +16,7 @@ fi
 
 # Download repository
 echo "Downloading dotfiles...."
-if [[ ! -x $(type git > /dev/null 2>&1) ]] ; then
+if [[ $(uname) == 'Darwin' && ! -x $(type git > /dev/null 2>&1) ]] ; then
   brew install git 2> /dev/null
 fi
 
