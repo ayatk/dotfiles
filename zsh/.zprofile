@@ -66,11 +66,9 @@ export PATH=$PATH:$HOME/.dotfiles/bin
 # openssl
 export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
 
-# pyenv
-if (( $+commands[pyenv] )); then
-    export PYENV_ROOT=/usr/local/var/pyenv
-    export PATH=$PYENV_ROOT/bin:$PATH
-    eval "$(pyenv init -)"
+# pipenv
+if (( $+commands[pipenv] )); then
+    export PIPENV_VENV_IN_PROJECT=1
 fi
 
 # fzf
