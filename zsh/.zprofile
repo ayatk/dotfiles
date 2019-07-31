@@ -51,6 +51,7 @@ export ANDROID_HOME=/usr/local/share/android-sdk
 if (( $+commands[go] )); then
     export GOROOT=/usr/local/opt/go/libexec
     export GOPATH=$HOME
+    export GO111MODULE=on
     PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 
