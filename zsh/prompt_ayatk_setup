@@ -81,6 +81,9 @@ function prompt_ayatk_setup() {
     # Add hook to set up prompt parameters before each command.
     add-zsh-hook precmd prompt_ayatk_precmd
 
+    # Tell prezto we can manage this prompt
+    zstyle ':prezto:module:prompt' managed 'yes'
+
     # Set editor-info parameters.
     zstyle ':prezto:module:editor:info:completing' format '%B%F{green}...%f%b'
     zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{red}❯%F{yellow}❯%F{green}❯%f%b'
