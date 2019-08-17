@@ -1,5 +1,3 @@
-avr-gcc
-dep
 fzf
 ghq
 ghr
@@ -17,8 +15,6 @@ openssl
 openssl@1.1
 pyenv
 ruby
-sbt
-scala
 subnetcalc
 tig
 tmux
