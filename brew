@@ -1,6 +1,5 @@
 avr-gcc
 dep
-direnv
 fzf
 ghq
 ghr
