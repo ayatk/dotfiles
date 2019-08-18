@@ -1,5 +1,3 @@
-#! /bin/env zsh
-
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 
@@ -33,3 +31,7 @@ setopt complete_in_word
 
 # 拡張グロブで補完(~とか^とか。例えばless *.txt~memo.txt ならmemo.txt 以外の *.txt にマッチ)
 setopt extended_glob
+
+# 補完
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/zsh/compcache"
