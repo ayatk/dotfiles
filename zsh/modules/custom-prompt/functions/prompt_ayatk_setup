@@ -4,7 +4,7 @@
 # A colorful, friendly, multiline theme with some handy features.
 #
 # Authors:
-#   Aya Tokikaze
+#   ayatk
 #
 
 function ls_abbrev() {
@@ -69,6 +69,10 @@ function prompt_ayatk_precmd() {
     vcs_info
 }
 
+function iterm2_prompt_mark() {
+    printf ""
+}
+
 function prompt_ayatk_setup() {
     setopt LOCAL_OPTIONS
     unsetopt XTRACE KSH_ARRAYS
@@ -109,7 +113,7 @@ function prompt_ayatk_setup() {
     # Define prompts.
     PROMPT='%(?..%F{red}%B==> [%?]%b%f
 )${SSH_TTY:+"%F{bright red}%n%f%F{magenta}@%f%F{yellow}%m%f "}%F{green}${_prompt_ayatk_pwd}%(!. %B%F{red}#%f%b.)%f${vcs_info_msg_0_}
-${editor_info[keymap]} '
+${editor_info[keymap]}%{$(iterm2_prompt_mark)%} '
     SPROMPT="%{$suggest%}(*´-A-%)? < %F{magenta}%R%f はもしかして %F{green}%r%f かな? [そう!(y),違う!(n),a,e]: "
 }
 

@@ -9,8 +9,5 @@ plugins/
 vim/dein/
 
 # command history directory
-
-
 .zcompcache
 .zcompdump*
-.zhistory
