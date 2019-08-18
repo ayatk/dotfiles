@@ -1,36 +1,65 @@
-#!/bin/bash
+#! /bin/env bash
 
-TMP_FILE=/tmp/dotfiles.tar.gz
-# dotfiles repository
-REPOSITORY=ayatk/dotfiles
+e_newline() {
+    printf "\n"
+}
 
-DIR=$(cd $(dirname $0); pwd)
-DOTDIR=$HOME/.dotfiles
+e_header() {
+    printf "\033[37;1m%s\033[m\n" "$*"
+}
 
-# install package manager
-if [[ $(uname) == 'Darwin' && ! -x $(type brew > /dev/null 2>&1) ]]; then
-  echo "Installing HomeBrew...."
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  brew install zsh
+e_error() {
+    printf "\033[31m%s\033[m\n" "✖ $*" 1>&2
+}
+
+e_warning() {
+    printf "\033[31m%s\033[m\n" "$*"
+}
+
+is_exists() {
+    which "$1" >/dev/null 2>&1
+    return $?
+}
+
+install_brew() {
+    if is_exists "brew"; then
+        return 0
+    fi
+
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+}
+
+install_git() {
+    case "$(uname)" in
+        *'Linux'*)
+            if [[ -f /etc/os-release ]]; then
+                sudo apt install git 
+            fi
+            # TODO: RHELもやる
+            ;;
+        *'Darwin'*)
+            install_brew
+            brew install git
+            ;;
+        *)
+            e_error "このOSでは使えません"
+            exit 1
+            ;;
+    esac
+}
+
+DOTPATH={DOTPATH:-$HOME/.dotfiles}
+REPO=ayatk/dotfiles
+
+if [ -d "$DOTPATH" ]; then
+    e_error "$DOTPATH: already exists"
+    exit 1
 fi
 
-# Download repository
-echo "Downloading dotfiles...."
-if [[ $(uname) == 'Darwin' && ! -x $(type git > /dev/null 2>&1) ]] ; then
-  brew install git 2> /dev/null
-fi
+install_git
 
-git clone --recursive https://github.com/$REPOSITORY.git $DOTDIR
+e_newline
+e_header "Downloading dotfiles..."
+git clone --recursive "https://github.com/$REPO" "$DOTPATH"
 
-ln -s $DOTDIR/zsh/.zshenv $HOME/.zshenv
-ln -s $DOTDIR/git/.gitconfig $HOME/.gitconfig
-
-# symboliclink prompt file
-ln -s $DOTDIR/zsh/prompt_ayatk_setup $DOTDIR/zsh/.zprezto/modules/prompt/functions/prompt_ayatk_setup
-
-# vim
-ln -s $DOTDIR/vim/vimrc $HOME/.vimrc
-
-# change shell
-sudo sh -C 'echo "/usr/local/bin/zsh" >> /etc/shells'
-sudo chsh -s /usr/local/bin/zsh
+source $DOTPATH/env/symlink.sh
