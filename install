@@ -48,7 +48,7 @@ install_git() {
     esac
 }
 
-DOTPATH={DOTPATH:-$HOME/.dotfiles}
+DOTPATH=${DOTPATH:-$HOME/.dotfiles}
 REPO=ayatk/dotfiles
 
 if [ -d "$DOTPATH" ]; then
@@ -62,4 +62,4 @@ e_newline
 e_header "Downloading dotfiles..."
 git clone --recursive "https://github.com/$REPO" "$DOTPATH"
 
-source $DOTPATH/env/symlink.sh
+source $DOTPATH/etc/symlink.sh
