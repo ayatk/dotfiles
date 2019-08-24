@@ -37,7 +37,6 @@ zstyle ':prezto:load' pmodule \
     'syntax-highlighting' \
     'history-substring-search' \
     'git' \
-    'iterm2' \
     'custom-prompt'
 
 #
