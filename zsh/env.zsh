@@ -6,8 +6,8 @@ if (( $+commands[android] )); then
     export ANDROID_HOME=/usr/local/share/android-sdk
 fi
 
-# atom
-export ATOM_HOME="$XDG_DATA_HOME"/atom
+# docker
+export DOCKER_BUILDKIT=1
 
 # bundle
 export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle"
