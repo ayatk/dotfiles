@@ -91,7 +91,7 @@
 [core]
 	excludesfile = ~/.dotfiles/git/gitignore_global
 	attributesfile = ~/.dotfiles/git/gitattributes
-	editor = /Applications/Komet.app/Contents/MacOS/Komet
+	editor = vim
 	# Unicode
 	precomposeunicode = true
 	quotepath = false
