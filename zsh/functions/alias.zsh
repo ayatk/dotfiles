@@ -27,3 +27,5 @@ fi
 if (( $+commands[todoist] )); then
     alias todo='todoist --color'
 fi
+
+alias seishin-to-tokinoheya='cd $(mktemp -d)'
