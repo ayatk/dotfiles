@@ -11,4 +11,4 @@ jobs:
 
     steps:
       - name: run install script
-        run: curl -LSfs https://dot.ayatk.com | sh
+        run: curl -LSfs https://dot.ayatk.com | bash

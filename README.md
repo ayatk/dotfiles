@@ -6,4 +6,4 @@ mac とか linux とかで使うシェルの設定
 
 これを黒い画面でｶﾀｶﾀｯｯｯﾀｰﾝってするだけ
 
-    curl -LSfs https://dot.ayatk.com | sh
+    curl -LSfs https://dot.ayatk.com | bash
