@@ -43,12 +43,6 @@ if (( $+commands[go] )); then
     PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 
-# java
-if (( $+commands[java] )); then
-    export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-    PATH=${JAVA_HOME}/bin:${PATH}
-fi
-
 # openssl
 export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
 
