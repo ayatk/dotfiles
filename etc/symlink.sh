@@ -22,5 +22,5 @@ for dir in "${link_dirs[@]}"; do
     if [ -d "$XDG_CONFIG_HOME/$dir" ]; then
         mv $XDG_CONFIG_HOME/$dir $XDG_CONFIG_HOME/$dir.$(date +'%Y%m%d%H%M%S').backup
     fi
-    ln -s $DOTPATH/$dir $XDG_CONFIG_HOME/$dir
+    ln -snf $DOTPATH/$dir $XDG_CONFIG_HOME/$dir
 done
