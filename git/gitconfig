@@ -197,4 +197,4 @@
 	program = gpg2
 
 [ghq]
-	root = /Users/ayatk/src
+	root = ~/src
