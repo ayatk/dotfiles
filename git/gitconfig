@@ -192,9 +192,3 @@
 
 [credential]
 	helper = osxkeychain
-
-[gpg]
-	program = gpg2
-
-[ghq]
-	root = ~/src
