@@ -55,7 +55,9 @@ install_git() {
 install_fzf() {
     case "$(uname)" in
         *'Linux'*)
-            curl -LSfs https://raw.githubusercontent.com/junegunn/fzf/master/install | fzf_base=$DOTPATH  bash -s -- --bin
+            pushd $DOTPATH
+            curl -LSfs https://raw.githubusercontent.com/junegunn/fzf/master/install | bash -s  -- --bin
+            popd
             ;;
         *'Darwin'*)
             install_brew
