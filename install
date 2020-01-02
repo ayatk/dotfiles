@@ -30,6 +30,10 @@ install_brew() {
 }
 
 install_git() {
+    if is_exists "git" ; then
+        return 0
+    fi
+
     case "$(uname)" in
         *'Linux'*)
             if [[ -f /etc/os-release ]]; then
