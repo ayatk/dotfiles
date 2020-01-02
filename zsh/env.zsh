@@ -1,5 +1,6 @@
-# history
-export HISTFILE=$XDG_DATA_HOME/zsh/history
+# bin files
+export DOTPATH=${DOTPATH:-$HOME/.dotfiles}
+PATH="${PATH:+${PATH}:}$DOTPATH/bin"
 
 # Android
 if (( $+commands[android] )); then

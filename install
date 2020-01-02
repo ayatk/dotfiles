@@ -22,7 +22,7 @@ is_exists() {
 }
 
 install_brew() {
-    if is_exists "brew"; then
+    if is_exists "brew" || [[ $(uname) != 'Darwin' ]] ; then
         return 0
     fi
 
@@ -48,6 +48,22 @@ install_git() {
     esac
 }
 
+install_fzf() {
+    case "$(uname)" in
+        *'Linux'*)
+            curl -LSfs https://raw.githubusercontent.com/junegunn/fzf/master/install | fzf_base=$DOTPATH  bash -s -- --bin
+            ;;
+        *'Darwin'*)
+            install_brew
+            brew install fzf
+            ;;
+        *)
+            e_error "このOSでは使えません"
+            exit 1
+            ;;
+    esac
+}
+
 DOTPATH=${DOTPATH:-$HOME/.dotfiles}
 REPO=ayatk/dotfiles
 
@@ -62,4 +78,8 @@ e_newline
 e_header "Downloading dotfiles..."
 git clone --recursive "https://github.com/$REPO" "$DOTPATH"
 
+e_header "Symlink z files..."
 source $DOTPATH/etc/symlink.sh
+
+e_header "Install fzf..."
+install_fzf
