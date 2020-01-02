@@ -46,6 +46,9 @@ fi
 # openssl
 export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
 
+# ghq
+export GHQ_ROOT=$GOPATH/src
+
 # pipenv
 if (( $+commands[pipenv] )); then
     export PIPENV_VENV_IN_PROJECT=1
