@@ -2,6 +2,9 @@
 " vimrc
 "----------------------------------------------------
 
+" add runtime path
+set runtimepath^=$XDG_CONFIG_HOME/vim
+
 " init scripts
 runtime! init/*.vim
 
