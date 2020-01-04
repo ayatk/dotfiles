@@ -5,7 +5,7 @@ if &compatible
   set nocompatible
 endif
 
-let s:vim_dir = expand('~/.dotfiles/vim/')
+let s:vim_dir = expand('$XDG_CONFIG_HOME/vim/')
 
 " Required:
 let s:dein_dir = s:vim_dir . 'dein/'
