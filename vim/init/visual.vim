@@ -16,6 +16,9 @@ source ~/.vim/colors/iceberg.vim
 " show line number
 set number
 
+" relative line number
+set relativenumber
+
 " highlight cursor line
 set cursorline
 hi clear CursorLine
