@@ -8,11 +8,6 @@ set termguicolors
 syntax enable
 source ~/.vim/colors/iceberg.vim
 
-" set background=light
-" colorscheme solarized
-" let g:solarized_termcolors=256
-" let g:solarized_termtrans=1
-
 " show line number
 set number
 
