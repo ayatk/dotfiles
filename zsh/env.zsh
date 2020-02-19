@@ -50,6 +50,9 @@ export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
 # ghq
 export GHQ_ROOT=$GOPATH/src
 
+# krew
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
 # pipenv
 if (( $+commands[pipenv] )); then
     export PIPENV_VENV_IN_PROJECT=1
