@@ -192,3 +192,5 @@
 
 [credential]
 	helper = osxkeychain
+[log]
+	mailmap = true
