@@ -22,23 +22,23 @@ zstyle ':prezto:load' pmodule-dirs $ZDOTDIR/modules
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
-    'environment' \
-    'terminal' \
-    'editor' \
-    'history' \
-    'homebrew' \
-    'directory' \
-    'spectrum' \
-    'utility' \
-    'completion' \
-    'osx' \
-    'python' \
-    'ruby' \
-    'syntax-highlighting' \
-    'history-substring-search' \
-    'git' \
-    'fzf' \
-    'custom-prompt'
+  'environment' \
+  'terminal' \
+  'editor' \
+  'history' \
+  'homebrew' \
+  'directory' \
+  'spectrum' \
+  'utility' \
+  'completion' \
+  'osx' \
+  'python' \
+  'ruby' \
+  'syntax-highlighting' \
+  'history-substring-search' \
+  'git' \
+  'fzf' \
+  'custom-prompt'
 
 #
 # Autosuggestions
