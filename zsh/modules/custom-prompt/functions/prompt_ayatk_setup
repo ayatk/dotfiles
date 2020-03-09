@@ -146,6 +146,9 @@ function prompt_ayatk_setup {
   add-zsh-hook precmd prompt_ayatk_precmd
   add-zsh-hook chpwd _chpwd
 
+  zle -N do_enter
+  bindkey '^m' do_enter
+
   # Tell prezto we can manage this prompt
   zstyle ':prezto:module:prompt' managed 'yes'
 
