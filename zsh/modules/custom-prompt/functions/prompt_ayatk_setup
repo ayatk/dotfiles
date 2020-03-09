@@ -7,6 +7,9 @@
 #   ayatk
 #
 
+# Load dependencies.
+pmodload 'helper'
+
 function ls_abbrev {
   if [[ ! -r $PWD ]]; then
     return
@@ -58,13 +61,76 @@ function +vi-git_precmd {
 }
 
 function prompt_ayatk_precmd {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+
   # Format PWD.
   _prompt_ayatk_pwd=$(prompt-pwd)
-  vcs_info
+
+  # Handle updating git data. We also clear the git prompt data if we're in a
+  # different git root now.
+  if (( $+functions[git-dir] )); then
+    local new_git_root="$(git-dir 2> /dev/null)"
+    if [[ $new_git_root != $_ayatk_cur_git_root ]]; then
+      _prompt_ayatk_git=''
+      _ayatk_cur_git_root=$new_git_root
+    fi
+  fi
+
+  prompt_ayatk_async_tasks
 }
 
 function iterm2_prompt_mark {
   printf ""
+}
+
+function prompt_ayatk_async_callback {
+  case $1 in
+    prompt_ayatk_async_git)
+      # We can safely split on ':' because it isn't allowed in ref names.
+      IFS=':' read _git_target _git_post_target <<<"$3"
+
+      # The target actually contains 3 space separated possibilities, so we need to
+      # make sure we grab the first one.
+      _git_target=$(coalesce ${(@)${(z)_git_target}})
+
+      if [[ -z "$_git_target" ]]; then
+        # No git target detected, flush the git fragment and redisplay the prompt.
+        if [[ -n "$_prompt_ayatk_git" ]]; then
+          _prompt_ayatk_git=''
+          zle && zle reset-prompt
+        fi
+      else
+        # Git target detected, update the git fragment and redisplay the prompt.
+        _prompt_ayatk_git="${_git_target}${_git_post_target}"
+        zle && zle reset-prompt
+      fi
+      ;;
+  esac
+}
+
+function prompt_ayatk_async_git {
+  cd -q "$1"
+  if (( $+functions[git-info] )); then
+    git-info
+    print ${git_info[status]}
+  fi
+}
+
+function prompt_ayatk_async_tasks {
+  # Initialize async worker. This needs to be done here and not in
+  # prompt_ayatk_setup so the git formatting can be overridden by other prompts.
+  if (( !${prompt_prezto_async_init:-0} )); then
+    async_start_worker prompt_ayatk -n
+    async_register_callback prompt_ayatk prompt_ayatk_async_callback
+    typeset -g prompt_prezto_async_init=1
+  fi
+
+  # Kill the old process of slow commands if it is still running.
+  async_flush_jobs prompt_ayatk
+
+  # Compute slow commands in the background.
+  async_job prompt_ayatk prompt_ayatk_async_git "$PWD"
 }
 
 function prompt_ayatk_setup {
@@ -73,10 +139,10 @@ function prompt_ayatk_setup {
   prompt_opts=(cr percent sp subst)
 
   # Load required functions.
-  autoload -Uz vcs_info
   autoload -Uz add-zsh-hook
+  autoload -Uz async && async
 
-  # Add hook to set up prompt parameters before each command.
+  # Add hook for calling git-info before each command.
   add-zsh-hook precmd prompt_ayatk_precmd
 
   # Tell prezto we can manage this prompt
@@ -87,28 +153,47 @@ function prompt_ayatk_setup {
   zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{red}❯%F{yellow}❯%F{green}❯%f%b'
   zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{green}❮%F{yellow}❮%F{red}❮%f%b'
 
-  zle -N do_enter
-  bindkey '^m' do_enter
+  # Set git-info parameters.
+  zstyle ':prezto:module:git:info' verbose 'yes'
+  zstyle ':prezto:module:git:info:action' format '%F{7}:%f%%B%F{9}%s%f%%b'
+  zstyle ':prezto:module:git:info:added' format ' %%B%F{2}＋%f%%b'
+  zstyle ':prezto:module:git:info:ahead' format ' %%B%F{13}↑%f%%b'
+  zstyle ':prezto:module:git:info:behind' format ' %%B%F{13}↓%f%%b'
+  zstyle ':prezto:module:git:info:branch' format ' %%B%F{2}%b%f%%b'
+  zstyle ':prezto:module:git:info:commit' format ' %%B%F{3}%.7c%f%%b'
+  zstyle ':prezto:module:git:info:deleted' format ' %%B%F{1}×%f%%b'
+  zstyle ':prezto:module:git:info:modified' format ' %%B%F{4}＊%f%%b'
+  zstyle ':prezto:module:git:info:position' format ' %%B%F{13}%p%f%%b'
+  zstyle ':prezto:module:git:info:renamed' format ' %%B%F{5}→%f%%b'
+  zstyle ':prezto:module:git:info:stashed' format ' %%B%F{6}☆%f%%b'
+  zstyle ':prezto:module:git:info:unmerged' format ' %%B%F{3}＝%f%%b'
+  zstyle ':prezto:module:git:info:untracked' format ' %%B%F{7}■%f%%b'
+  zstyle ':prezto:module:git:info:keys' format 'status' '%b %p %c:%s%A%B%S%a%d%m%r%U%u'
 
-  # Set vcs_info parameters.
-  zstyle ':vcs_info:*' check-for-changes true
-  zstyle ':vcs_info:*' formats ' on %F{magenta}%b%f%c%u'
-  zstyle ':vcs_info:*' actionformats ' on %F{magenta}%b%f%c%u %F{yellow}(%a)%f'
-  zstyle ':vcs_info:*' stagedstr '%F{green}+%f'
-  zstyle ':vcs_info:*' unstagedstr '%F{green}!%f'
+  # Get the async worker set up.
+  _ayatk_cur_git_root=''
 
-  # Set vcs_info hooks.
-  # NOTE: Prior to Zsh v4.3.12, there are no static hooks, no vcs_info_hookadd
-  # function, and no 'no-vcs' hook.
-  zstyle ':vcs_info:*+start-up:*' hooks set_novcs_prompt_symbol
-  zstyle ':vcs_info:git*+set-message:*' hooks set_vcs_prompt_symbol git_precmd
-  zstyle ':vcs_info:*+set-message:*' hooks set_vcs_prompt_symbol
+  _prompt_ayatk_git=''
+  _prompt_ayatk_pwd=''
 
   # Define prompts.
-  PROMPT='%(?..%F{red}%B==> [%?]%b%f
-)${SSH_TTY:+"%F{bright red}%n%f%F{magenta}@%f%F{yellow}%m%f "}%F{green}${_prompt_ayatk_pwd}%(!. %B%F{red}#%f%b.)%f${vcs_info_msg_0_}
-${editor_info[keymap]}%{$(iterm2_prompt_mark)%} '
+  PROMPT=$'%(?..%F{red}%B==> [%?]%b%f\n)'
+  PROMPT+=$'${SSH_TTY:+"%F{9}%n%f%F{7}@%f%F{3}%m%f "}%F{4}${_prompt_ayatk_pwd}%(!. %B%F{1}#%f%b.)  ${_prompt_ayatk_git}\n'
+  PROMPT+='${editor_info[keymap]} '
+
+  RPROMPT='${editor_info[overwrite]}%(?:: %F{1}'
+  RPROMPT+='${VIM:+" %B%F{6}V%f%b"}'
   SPROMPT="%{$suggest%}(*´-A-%)? < %F{magenta}%R%f はもしかして %F{green}%r%f かな? [そう!(y),違う!(n),a,e]: "
 }
 
+function prompt_ayatk_preview {
+  local +h PROMPT=''
+  local +h RPROMPT=''
+  local +h SPROMPT=''
+
+  editor-info 2> /dev/null
+  prompt_preview_theme 'ayatk'
+}
+
 prompt_ayatk_setup "$@"
+# vim: ft=zsh
