@@ -47,7 +47,7 @@ function do_enter {
   zle reset-prompt
 }
 
-function chpwd {
+function _chpwd {
   if [[ $PWD != $HOME ]]; then
     ls_abbrev
   fi
@@ -144,6 +144,7 @@ function prompt_ayatk_setup {
 
   # Add hook for calling git-info before each command.
   add-zsh-hook precmd prompt_ayatk_precmd
+  add-zsh-hook chpwd _chpwd
 
   # Tell prezto we can manage this prompt
   zstyle ':prezto:module:prompt' managed 'yes'
