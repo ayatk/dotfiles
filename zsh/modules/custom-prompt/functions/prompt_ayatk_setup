@@ -7,7 +7,7 @@
 #   ayatk
 #
 
-function ls_abbrev() {
+function ls_abbrev {
   if [[ ! -r $PWD ]]; then
     return
   fi
@@ -28,7 +28,7 @@ function ls_abbrev() {
 }
 
 # https://qiita.com/yuyuchu3333/items/e9af05670c95e2cc5b4d
-function do_enter() {
+function do_enter {
   if [ -n "$BUFFER" ]; then
     zle accept-line
     return 0
@@ -44,30 +44,30 @@ function do_enter() {
   zle reset-prompt
 }
 
-function chpwd() {
+function chpwd {
   if [[ $PWD != $HOME ]]; then
     ls_abbrev
   fi
 }
 
-function +vi-git_precmd() {
+function +vi-git_precmd {
   # Check for untracked files, since vcs_info does not.
   if [[ -n $(git ls-files --other --exclude-standard 2>/dev/null) ]]; then
     hook_com[unstaged]+='%F{green}?%f'
   fi
 }
 
-function prompt_ayatk_precmd() {
+function prompt_ayatk_precmd {
   # Format PWD.
   _prompt_ayatk_pwd=$(prompt-pwd)
   vcs_info
 }
 
-function iterm2_prompt_mark() {
+function iterm2_prompt_mark {
   printf ""
 }
 
-function prompt_ayatk_setup() {
+function prompt_ayatk_setup {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
   prompt_opts=(cr percent sp subst)
