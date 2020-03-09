@@ -1,6 +1,6 @@
 {
   // Core
-  "workbench.colorTheme": "Ayu Mirage",
+  "workbench.colorTheme": "Iceberg",
   "workbench.fontAliasing": "auto",
   "workbench.startupEditor": "newUntitledFile",
   "workbench.iconTheme": "material-icon-theme",
@@ -124,5 +124,6 @@
   "textlint.autoFixOnSave": true,
   "go.formatTool": "goimports",
   "go.coverOnSave": true,
-  "vsdocker.imageUser": "docker.io/ayatk"
+  "vsdocker.imageUser": "docker.io/ayatk",
+  "window.zoomLevel": 1
 }
