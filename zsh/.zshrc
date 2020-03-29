@@ -12,5 +12,5 @@ export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 export HISTFILE=$XDG_DATA_HOME/zsh/history
 
 if [[ -s "${ZDOTDIR}/init.zsh" ]]; then
-    source "${ZDOTDIR}/init.zsh"
+  source "${ZDOTDIR}/init.zsh"
 fi
