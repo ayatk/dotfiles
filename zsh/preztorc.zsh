@@ -22,6 +22,7 @@ zstyle ':prezto:load' pmodule-dirs $ZDOTDIR/modules
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
+  'helper' \
   'environment' \
   'terminal' \
   'editor' \
