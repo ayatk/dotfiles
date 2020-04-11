@@ -102,7 +102,7 @@ function prompt_ayatk_async_callback {
         fi
       else
         # Git target detected, update the git fragment and redisplay the prompt.
-        _prompt_ayatk_git=" %f@ ${_git_target}${_git_post_target}"
+        _prompt_ayatk_git=" %fin ${_git_target}${_git_post_target}"
         zle && zle reset-prompt
       fi
       ;;
