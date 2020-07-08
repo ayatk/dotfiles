@@ -3,6 +3,7 @@
 XDG_CONFIG_HOME=$HOME/.config
 
 # files
+declare -A dot_files
 dot_files=(
   ["zshrc"]="zsh/.zshrc" \
   ["gitconfig"]="git/gitconfig" \
