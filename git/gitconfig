@@ -2,6 +2,10 @@
 # .gitconfig
 #
 
+[user]
+  name  = ayatk
+  email = ayatk@ayatk.com
+
 [alias]
 
 	b = branch
@@ -110,8 +114,7 @@
 	precomposeunicode = false
 
 [include]
-	path = ~/.gitconfig.local
-	path = ~/.gitconfig.proxy
+	path = ~/.dotfiles/git/conf/conf
 
 [color]
 	# Use colors in Git commands that are capable of colored output when
