@@ -116,11 +116,6 @@
 [include]
 	path = ~/.dotfiles/git/conf/conf
 
-[color]
-	# Use colors in Git commands that are capable of colored output when
-	# outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
-	ui = auto
-
 [color "branch"]
 	current = yellow reverse
 	local = yellow
@@ -151,10 +146,13 @@
 	log = true
 
 [push]
-	# Use the Git 1.x.x default to avoid errors on machines with old Git
-	# installations. To use `simple` instead, add this to your `~/.extra` file:
-	# `git config --global push.default simple`. See http://git.io/mMah-w.
-	default = matching
+	default = current
+
+[fetch]
+	prune = true
+
+[pull]
+	ff = only
 
 # URL shorthands
 
