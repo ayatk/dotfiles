@@ -9,6 +9,7 @@ fi
 
 # docker
 export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1
 
 # bundle
 export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle"
