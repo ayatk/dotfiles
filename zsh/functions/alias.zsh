@@ -12,20 +12,12 @@ alias -g W='| wc'
 alias -g S='| sed'
 alias -g A='| awk'
 
-if (( $+commands[vagrant] )); then
-  alias v='vagrant'
-fi
-
 if (( $+commands[youtube-dl] )); then
   alias dl='youtube-dl'
 fi
 
 if (( $+commands[kubectl] )); then
   alias k='kubectl'
-fi
-
-if (( $+commands[todoist] )); then
-  alias todo='todoist --color'
 fi
 
 alias seishin-to-tokinoheya='cd $(mktemp -d)'
