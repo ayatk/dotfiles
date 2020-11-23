@@ -71,3 +71,8 @@ if (( $+commands[fzf] )); then
     ag -g "" "$1"
   }
 fi
+
+if (( $+commands[n] )); then
+  export N_PREFIX="$HOME/.n"
+  export PATH="$N_PREFIX/bin:$PATH"
+fi
