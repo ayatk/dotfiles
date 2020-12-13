@@ -4,7 +4,8 @@ if (( $+commands[brew] )); then
 
   function update() {
     brew update
-    brew upgrade --cask
+    brew upgrade
+    brew cask upgrade
     brew cleanup
   }
 fi

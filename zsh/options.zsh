@@ -1,6 +1,9 @@
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 
+# 履歴を共有する
+setopt share_history
+
 # beep を無効にする
 setopt no_beep
 
