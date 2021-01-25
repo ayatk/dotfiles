@@ -2,11 +2,6 @@
 export DOTPATH=${DOTPATH:-$HOME/.dotfiles}
 PATH="${PATH:+${PATH}:}$DOTPATH/bin"
 
-# Android
-if (( $+commands[android] )); then
-  export ANDROID_HOME=/usr/local/share/android-sdk
-fi
-
 # docker
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
@@ -25,10 +20,6 @@ fi
 if (( $+commands[http] )); then
   export HTTPIE_CONFIG_DIR="$XDG_CONFIG_HOME/httpie"
 fi
-
-# ipython/juniper
-export IPYTHONDIR="$XDG_CONFIG_HOME/jupyter"
-export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
 
 # npm
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
@@ -52,7 +43,8 @@ export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
 export GHQ_ROOT=$GOPATH/src
 
 # krew
-export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export KREW_ROOT=$XDG_DATA_HOME/krew
+export PATH="$KREW_ROOT/bin:$PATH"
 
 # pipenv
 if (( $+commands[pipenv] )); then
@@ -74,6 +66,6 @@ if (( $+commands[fzf] )); then
 fi
 
 if (( $+commands[n] )); then
-  export N_PREFIX="$HOME/.n"
+  export N_PREFIX=$XDG_DATA_HOME
   export PATH="$N_PREFIX/bin:$PATH"
 fi
