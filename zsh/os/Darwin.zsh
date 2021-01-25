@@ -10,14 +10,13 @@ if (( $+commands[brew] )); then
   }
 fi
 
-show_virtual_env() {
-  if [ -n "$VIRTUAL_ENV" ]; then
-    echo "(virtualenv)"
-  fi
-}
-
 # java
 if (( $+commands[java] )); then
   export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
   PATH=${JAVA_HOME}/bin:${PATH}
+fi
+
+# Android
+if (( $+commands[android] )); then
+  export ANDROID_HOME=/usr/local/share/android-sdk
 fi
