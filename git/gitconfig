@@ -115,6 +115,8 @@
 
 [include]
 	path = ~/.dotfiles/git/conf/conf
+	path = ~/.gitconfig_local
+  
 
 [color "branch"]
 	current = yellow reverse
@@ -183,5 +185,6 @@
 
 [credential]
 	helper = osxkeychain
+
 [log]
 	mailmap = true
