@@ -36,9 +36,6 @@ if (( $+commands[go] )); then
   PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 
-# openssl
-export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
-
 # ghq
 export GHQ_ROOT=$GOPATH/src
 

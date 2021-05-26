@@ -17,3 +17,6 @@ export PATH=/usr/local/opt/openjdk/bin:$PATH
 if (( $+commands[android] )); then
   export ANDROID_HOME=/usr/local/share/android-sdk
 fi
+
+# openssl
+export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
