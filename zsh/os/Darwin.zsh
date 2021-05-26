@@ -20,3 +20,7 @@ fi
 
 # openssl
 export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
+
+if (( $+commands[go] )); then
+  export GOROOT=/usr/local/opt/go/libexec
+fi
