@@ -24,10 +24,6 @@ fi
 # npm
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
-# Ruby Gem
-export GEM_HOME="$XDG_DATA_HOME/gem"
-export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
-
 # Golang
 export GOPATH=$HOME
 if (( $+commands[go] )); then
