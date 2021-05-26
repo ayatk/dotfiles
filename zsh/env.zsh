@@ -29,9 +29,9 @@ export GEM_HOME="$XDG_DATA_HOME/gem"
 export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
 
 # Golang
+export GOPATH=$HOME
 if (( $+commands[go] )); then
   export GOROOT=/usr/local/opt/go/libexec
-  export GOPATH=$HOME
   export GO111MODULE=on
   PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
