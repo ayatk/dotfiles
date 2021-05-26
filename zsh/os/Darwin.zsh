@@ -11,10 +11,7 @@ if (( $+commands[brew] )); then
 fi
 
 # java
-if (( $+commands[java] )); then
-  export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
-  PATH=${JAVA_HOME}/bin:${PATH}
-fi
+export PATH=/usr/local/opt/openjdk/bin:$PATH
 
 # Android
 if (( $+commands[android] )); then
