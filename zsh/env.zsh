@@ -59,6 +59,6 @@ if (( $+commands[fzf] )); then
 fi
 
 if (( $+commands[n] )); then
-  export N_PREFIX=$XDG_DATA_HOME
+  export N_PREFIX=$XDG_DATA_HOME/n
   export PATH="$N_PREFIX/bin:$PATH"
 fi
