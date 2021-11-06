@@ -6,11 +6,6 @@ PATH="${PATH:+${PATH}:}$DOTPATH/bin"
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 
-# bundle
-export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle"
-export BUNDLE_USER_CACHE="$XDG_CACHE_HOME/bundle"
-export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle"
-
 # gradle
 if (( $+commands[gradle] )); then
   export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
@@ -20,9 +15,6 @@ fi
 if (( $+commands[http] )); then
   export HTTPIE_CONFIG_DIR="$XDG_CONFIG_HOME/httpie"
 fi
-
-# npm
-export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 
 # Golang
 export GOPATH=$HOME
@@ -34,15 +26,6 @@ fi
 
 # ghq
 export GHQ_ROOT=$GOPATH/src
-
-# krew
-export KREW_ROOT=$XDG_DATA_HOME/krew
-export PATH="$KREW_ROOT/bin:$PATH"
-
-# pipenv
-if (( $+commands[pipenv] )); then
-  export PIPENV_VENV_IN_PROJECT=1
-fi
 
 # fzf
 if (( $+commands[fzf] )); then
@@ -56,9 +39,4 @@ if (( $+commands[fzf] )); then
   _fzf_compgen_path() {
     ag -g "" "$1"
   }
-fi
-
-if (( $+commands[n] )); then
-  export N_PREFIX=$XDG_DATA_HOME/n
-  export PATH="$N_PREFIX/bin:$PATH"
 fi
