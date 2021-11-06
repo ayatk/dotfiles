@@ -24,3 +24,5 @@ export PATH=/usr/local/opt/openssl@1.1/bin:$PATH
 if (( $+commands[go] )); then
   export GOROOT=/usr/local/opt/go/libexec
 fi
+
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
