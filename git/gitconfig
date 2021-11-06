@@ -182,6 +182,7 @@
 
 [init]
 	templatedir = ~/.dotfiles/git_template
+	defaultBranch = master
 
 [credential]
 	helper = osxkeychain
