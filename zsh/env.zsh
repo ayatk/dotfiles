@@ -2,28 +2,6 @@
 export DOTPATH=${DOTPATH:-$HOME/.dotfiles}
 PATH="${PATH:+${PATH}:}$DOTPATH/bin"
 
-# docker
-export DOCKER_BUILDKIT=1
-export COMPOSE_DOCKER_CLI_BUILD=1
-
-# gradle
-if (( $+commands[gradle] )); then
-  export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
-fi
-
-# httpie
-if (( $+commands[http] )); then
-  export HTTPIE_CONFIG_DIR="$XDG_CONFIG_HOME/httpie"
-fi
-
-# Golang
-export GOPATH=$HOME
-if (( $+commands[go] )); then
-  export GOROOT=/usr/local/opt/go/libexec
-  export GO111MODULE=on
-  PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-fi
-
 # ghq
 export GHQ_ROOT=$GOPATH/src
 

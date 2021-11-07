@@ -1,0 +1,4 @@
+# docker
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1

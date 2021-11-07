@@ -1,21 +1,22 @@
 # init prezto settings
 source "${ZDOTDIR}/preztorc.zsh"
 
-if [[ -s "${ZDOTDIR}/.zprezto/init.zsh" ]]; then
-    source "${ZDOTDIR}/.zprezto/init.zsh"
-fi
-
 # defined base environment.
 source "${ZDOTDIR}/profile.zsh"
 
 # envs
 source "${ZDOTDIR}/env.zsh"
+for func (${ZDOTDIR}/envs/*) source $func:a
 
 # options
 source "${ZDOTDIR}/options.zsh"
 
 # os settings
 source "${ZDOTDIR}/os/$(uname).zsh"
+
+if [[ -s "${ZDOTDIR}/.zprezto/init.zsh" ]]; then
+    source "${ZDOTDIR}/.zprezto/init.zsh"
+fi
 
 # functions
 for func (${ZDOTDIR}/functions/*) source $func:a
