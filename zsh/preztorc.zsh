@@ -39,6 +39,7 @@ zstyle ':prezto:load' pmodule \
   'history-substring-search' \
   'git' \
   'fzf' \
+  'do-enter' \
   'custom-prompt'
 
 #
