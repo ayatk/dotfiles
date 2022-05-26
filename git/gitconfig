@@ -155,6 +155,7 @@
 
 [pull]
 	ff = only
+	rebase = true
 
 # URL shorthands
 
