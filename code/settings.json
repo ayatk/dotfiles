@@ -2,128 +2,123 @@
   // Core
   "workbench.colorTheme": "Iceberg",
   "workbench.fontAliasing": "auto",
+  "workbench.preferredLightColorTheme": "Iceberg",
+  "workbench.productIconTheme": "fluent-icons",
   "workbench.startupEditor": "newUntitledFile",
-  "workbench.iconTheme": "material-icon-theme",
-  "editor.fontFamily": "azukiFontL",
-  "editor.fontSize": 17,
-  "editor.scrollBeyondLastLine": false,
-  "editor.smoothScrolling": true,
-  "editor.renderWhitespace": "all",
-  "editor.renderControlCharacters": true,
-  "editor.formatOnSave": true,
-  "editor.cursorBlinking": "smooth",
-  "editor.formatOnPaste": true,
-  "editor.formatOnType": true,
 
-  "files.autoSave": "onFocusChange",
-
-  // latex-workshop
-  "latex-workshop.latex.magic.args": [
-    "-synctex=1",
-    "-interaction=nonstopmode",
-    "-file-line-error",
-    "%DOC%"
-  ],
-  "latex-workshop.latex.recipes": [
-    {
-      "name": "make pdf",
-      "tools": ["platex"]
-    }
-  ],
-  "latex-workshop.latex.tools": [
-    {
-      "name": "platex",
-      "command": "latexmk",
-      "args": [
-        "-e",
-        "$latex=q/uplatex %O -synctex=1 -interaction=nonstopmode -file-line-error %S/",
-        "-e",
-        "$dvipdf=q/dvipdfmx %O -o %D %S/",
-        "-norc",
-        "-pdfdvi",
-        "%DOC%"
-      ]
-    },
-    {
-      "name": "lualatex",
-      "command": "lualatex",
-      "args": ["%DOC%"]
-    },
-    {
-      "name": "platex",
-      "command": "latexmk",
-      "args": [
-        "-e",
-        "$latex=q/platex %O -synctex=1 -interaction=nonstopmode -file-line-error %S/",
-        "-e",
-        "$bibtex=q/pbibtex %O %B/",
-        "-e",
-        "$biber=q/biber %O --bblencoding=utf8 -u -U --output_safechars %B/",
-        "-e",
-        "$makeindex=q/pmendex %O -o %D %S/",
-        "-e",
-        "$dvipdf=q/dvipdfmx %O -o %D %S/",
-        "-norc",
-        "-pdfdvi",
-        "%DOC%"
-      ]
-    }
-  ],
-  "latex-workshop.latex.clean.fileTypes": [
-    "*.aux",
-    "*.bbl",
-    "*.blg",
-    "*.idx",
-    "*.ind",
-    "*.lof",
-    "*.lot",
-    "*.out",
-    "*.toc",
-    "*.acn",
-    "*.acr",
-    "*.alg",
-    "*.glg",
-    "*.glo",
-    "*.gls",
-    "*.ist",
-    "*.fls",
-    "*.log",
-    "*.fdb_latexmk",
-    "*.nav",
-    "*.lol",
-    "*.snm",
-    "*.vrb",
-    "__latexindent_temp.tex"
-  ],
-  "latex-workshop.latex.clean.enabled": true,
-  "latex-workshop.view.pdf.viewer": "tab",
-
-  "ctrlchar-remover.pattern": "[\\cA-\\cH\\cK-\\cL\\cN-\\cZ\\u001B-\\u001F\\u007F]",
-
-  // Terminal
   "terminal.integrated.fontSize": 16,
 
-  // Emmet
-  "emmet.triggerExpansionOnTab": true,
+  "window.zoomLevel": 0.5,
+
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "editor.cursorBlinking": "smooth",
+  "editor.fontFamily": "azukiFontL",
+  "editor.fontSize": 17,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.renderControlCharacters": true,
+  "editor.renderWhitespace": "all",
+  "editor.scrollBeyondLastLine": false,
+  "editor.smoothScrolling": true,
+  "editor.suggestSelection": "first",
+
+  "files.autoSave": "onFocusChange",
+  "files.exclude": {
+    "**/.mypy_cache": true,
+    "**/.pytest_cache": true,
+    "**/__pycache__": true
+  },
+  "files.insertFinalNewline": true,
+
+  "search.exclude": {
+    "**/*.map": true,
+    "**/*.min.js": true,
+    "**/.cache": true,
+    "**/.venv": true,
+    "**/bundle": true,
+    "**/vendor/*/**": true
+  },
+
+  // languages
+  "[c]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[cpp]": {
+    "editor.defaultFormatter": "xaver.clang-format"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json,yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "other": "on",
+      "strings": "on"
+    },
+    "editor.wordWrap": "on"
+  },
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer"
+  },
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "cmake.configureOnOpen": true,
+  "diffEditor.maxComputationTime": 0,
+
   "emmet.syntaxProfiles": {
     "javascript": "jsx",
     "xml": {
       "attr_quotes": "single"
     }
   },
+  "emmet.triggerExpansionOnTab": true,
+
+  "eslint.format.enable": true,
 
   // Git
   "git.autofetch": true,
   "git.confirmSync": false,
 
-  "prettier.singleQuote": true,
-  "[markdown]": {
-    "editor.wordWrap": "on",
-    "editor.quickSuggestions": true
-  },
-  "textlint.autoFixOnSave": true,
-  "go.formatTool": "goimports",
   "go.coverOnSave": true,
-  "vsdocker.imageUser": "docker.io/ayatk",
-  "window.zoomLevel": 1
+  "go.formatTool": "goimports",
+  "go.toolsManagement.autoUpdate": true,
+
+  "javascript.updateImportsOnFileMove.enabled": "always",
+
+  "redhat.telemetry.enabled": false,
+
+  "ruby.format": "rubocop",
+  "ruby.lint": {
+    "rubocop": {
+      "useBundler": true
+    }
+  },
+  "ruby.useBundler": true,
+  "ruby.useLanguageServer": true,
+
+  "typescript.updateImportsOnFileMove.enabled": "always"
 }
