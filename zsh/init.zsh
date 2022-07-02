@@ -27,4 +27,14 @@ if [ -e /usr/local/share/zsh-completions ]; then
 fi
 
 # zsh site-functions
-fpath=(/usr/local/share/zsh/site-functions $fpath)
+if [ -e /usr/local/share/zsh/site-functions ]; then
+    fpath=(/usr/local/share/zsh/site-functions $fpath)
+fi
+
+# zsh site-functions
+if [ -e /usr/local/share/zsh/site-functions ]; then
+    fpath=(/usr/local/share/zsh/site-functions $fpath)
+fi
+
+
+
