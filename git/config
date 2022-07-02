@@ -1,11 +1,6 @@
 #
 # .gitconfig
 #
-
-[user]
-  name  = ayatk
-  email = ayatk@ayatk.com
-
 [alias]
 
 	b = branch
@@ -93,8 +88,8 @@
 	whitespace = fix
 
 [core]
-	excludesfile = ~/.dotfiles/git/gitignore_global
-	attributesfile = ~/.dotfiles/git/gitattributes
+	excludesfile = ~/.config/git/ignore
+	attributesfile = ~/.config/git/attributes
 	editor = vim
 	# Unicode
 	precomposeunicode = true
@@ -114,8 +109,7 @@
 	precomposeunicode = false
 
 [include]
-	path = ~/.dotfiles/git/conf/conf
-	path = ~/.gitconfig_local
+	path = ~/.config/git/local
   
 
 [color "branch"]
