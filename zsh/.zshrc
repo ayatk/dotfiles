@@ -9,6 +9,7 @@ export XDG_DATA_HOME=$HOME/.local/share
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
 # history
+mkdir -p $XDG_DATA_HOME/zsh
 export HISTFILE=$XDG_DATA_HOME/zsh/history
 
 if [[ -s "${ZDOTDIR}/init.zsh" ]]; then

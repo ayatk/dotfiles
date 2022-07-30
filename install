@@ -21,29 +21,38 @@ is_exists() {
     return $?
 }
 
+setup_ubuntu() {
+    if [[ ! -f /etc/os-release ]]; then
+        return 0
+    fi
+
+    sudo sed -i.bak -e "s%http://[^ ]\+%http://ftp.udx.icscoe.jp/Linux/ubuntu/%g" /etc/apt/sources.list
+    sudo apt update
+}
+
 install_brew() {
     if is_exists "brew" || [[ $(uname) != 'Darwin' ]] ; then
         return 0
     fi
 
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
 
-install_git() {
-    if is_exists "git" ; then
+install() {
+    if is_exists $1 ; then
         return 0
     fi
 
     case "$(uname)" in
         *'Linux'*)
             if [[ -f /etc/os-release ]]; then
-                sudo apt install git 
+                sudo apt update
+                sudo apt install -y $1
             fi
-            # TODO: RHELもやる
             ;;
         *'Darwin'*)
             install_brew
-            brew install git
+            brew install $1
             ;;
         *)
             e_error "このOSでは使えません"
@@ -52,40 +61,33 @@ install_git() {
     esac
 }
 
-install_fzf() {
-    case "$(uname)" in
-        *'Linux'*)
-            pushd $DOTPATH
-            curl -LSfs https://raw.githubusercontent.com/junegunn/fzf/master/install | bash -s  -- --bin
-            popd
-            ;;
-        *'Darwin'*)
-            install_brew
-            brew install fzf
-            ;;
-        *)
-            e_error "このOSでは使えません"
-            exit 1
-            ;;
-    esac
-}
+# ---------
+# install
+# ---------
+setup_ubuntu
 
-DOTPATH=${DOTPATH:-$HOME/.dotfiles}
-REPO=ayatk/dotfiles
+install "git"
 
-if [ -d "$DOTPATH" ]; then
-    e_error "$DOTPATH: already exists"
-    exit 1
-fi
-
-install_git
+# clone dotfiles
+REPO=github.com/ayatk/dotfiles
+DOTPATH=${DOTPATH:-$HOME/src/$REPO}
 
 e_newline
 e_header "Downloading dotfiles..."
-git clone --recursive "https://github.com/$REPO" "$DOTPATH"
+git clone --recursive "https://$REPO" "$DOTPATH"
 
-e_header "Symlink z files..."
-source $DOTPATH/etc/symlink.sh
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
 
-e_header "Install fzf..."
-install_fzf
+mkdir -p $XDG_CONFIG_HOME
+mkdir -p $XDG_CACHE_HOME
+mkdir -p $XDG_DATA_HOME
+
+# zsh
+install zsh
+ln -s $DOTPATH/zsh $XDG_CONFIG_HOME/zsh
+sudo chsh -s $(which zsh)
+
+# git
+ln -s $DOTPATH/git $XDG_CONFIG_HOME/git
