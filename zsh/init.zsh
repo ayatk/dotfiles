@@ -1,3 +1,8 @@
+# init homebrew
+if [[  $(uname -sm) == "Darwin arm64" ]]; then
+    eval $(/opt/homebrew/bin/brew shellenv)
+fi
+
 # init prezto settings
 source "${ZDOTDIR}/preztorc.zsh"
 
@@ -22,19 +27,11 @@ fi
 for func (${ZDOTDIR}/functions/*) source $func:a
 
 # zsh completion
-if [ -e /usr/local/share/zsh-completions ]; then
-    fpath=(/usr/local/share/zsh-completions $fpath)
+if [ -e $(brew --prefix)/share/zsh-completions ]; then
+    fpath=($(brew --prefix)/share/zsh-completions $fpath)
 fi
 
 # zsh site-functions
-if [ -e /usr/local/share/zsh/site-functions ]; then
-    fpath=(/usr/local/share/zsh/site-functions $fpath)
+if [ -e $(brew --prefix)/share/zsh/site-functions ]; then
+    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 fi
-
-# zsh site-functions
-if [ -e /usr/local/share/zsh/site-functions ]; then
-    fpath=(/usr/local/share/zsh/site-functions $fpath)
-fi
-
-
-
