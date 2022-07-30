@@ -27,7 +27,7 @@ setup_ubuntu() {
     fi
 
     sudo sed -i.bak -e "s%http://[^ ]\+%http://ftp.udx.icscoe.jp/Linux/ubuntu/%g" /etc/apt/sources.list
-    sudo apt update
+    sudo apt-get update
 }
 
 install_brew() {
@@ -46,8 +46,7 @@ install() {
     case "$(uname)" in
         *'Linux'*)
             if [[ -f /etc/os-release ]]; then
-                sudo apt update
-                sudo apt install -y $1
+                sudo apt-get install -y $1
             fi
             ;;
         *'Darwin'*)
