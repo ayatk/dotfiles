@@ -36,7 +36,8 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
-  $(brew --prefix)/{bin,sbin}
+  /usr/local/{bin,sbin}
+  /opt/homebrew/{bin,sbin} # M1 Mac
   $DOTDIR/bin
   $path
 )
