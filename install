@@ -26,7 +26,7 @@ setup_ubuntu() {
         return 0
     fi
 
-    sudo sed -i.bak -e "s%http://[^ ]\+%http://ftp.udx.icscoe.jp/Linux/ubuntu/%g" /etc/apt/sources.list
+    sudo sed -i.bak -e "s%https?://[^ ]\+%https://ftp.udx.icscoe.jp/Linux/ubuntu/%g" /etc/apt/sources.list
     sudo apt-get update
 }
 
