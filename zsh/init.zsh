@@ -26,12 +26,15 @@ fi
 # functions
 for func (${ZDOTDIR}/functions/*) source $func:a
 
-# zsh completion
-if [ -e $(brew --prefix)/share/zsh-completions ]; then
-    fpath=($(brew --prefix)/share/zsh-completions $fpath)
-fi
 
-# zsh site-functions
-if [ -e $(brew --prefix)/share/zsh/site-functions ]; then
-    fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
-fi
+if (( $+commands[brew] )); then
+    # zsh completion
+    if [ -e $(brew --prefix)/share/zsh-completions ]; then
+        fpath=($(brew --prefix)/share/zsh-completions $fpath)
+    fi
+
+    # zsh site-functions
+    if [ -e $(brew --prefix)/share/zsh/site-functions ]; then
+        fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+    fi
+fi 
