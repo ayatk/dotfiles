@@ -110,7 +110,10 @@
 
 [include]
 	path = ~/.config/git/local
-  
+
+[user]
+	name = ayatk
+	email = ayatk@users.noreply.github.com
 
 [color "branch"]
 	current = yellow reverse
