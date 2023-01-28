@@ -1,5 +1,5 @@
 # bin files
-export DOTPATH=${DOTPATH:-$HOME/.dotfiles}
+export DOTPATH=${DOTPATH:-~/src/github.com/ayatk/dotfiles}
 PATH="${PATH:+${PATH}:}$DOTPATH/bin"
 
 # ghq
