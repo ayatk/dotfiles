@@ -108,9 +108,6 @@
 	# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
 	precomposeunicode = false
 
-[include]
-	path = ~/.config/git/local
-
 [user]
 	name = ayatk
 	email = ayatk@users.noreply.github.com
@@ -173,3 +170,6 @@
 
 [log]
 	mailmap = true
+
+[include]
+	path = ~/.config/git/local
