@@ -6,8 +6,8 @@ export PATH="${XDG_DATA_HOME}/npm/bin:$PATH"
 export NODE_REPL_HISTORY="$XDG_STATE_HOME"/node_repl_history
 
 # n
-export N_PREFIX=$XDG_DATA_HOME/n
-export PATH="$N_PREFIX/bin:$PATH"
+# export N_PREFIX=$XDG_DATA_HOME/n
+# export PATH="$N_PREFIX/bin:$PATH"
 
 # pnpm
 export PNPM_HOME=$XDG_DATA_HOME/pnpm
