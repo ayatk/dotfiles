@@ -9,9 +9,12 @@ export XDG_STATE_HOME=$HOME/.local/state
 # zsh home directory
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
-# history
-mkdir -p $XDG_DATA_HOME/zsh
-
-if [[ -s "${ZDOTDIR}/init.zsh" ]]; then
-  source "${ZDOTDIR}/init.zsh"
+# Ensure that a non-login, non-interactive shell has a defined environment.
+if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/zprofile" ]]; then
+  source "${ZDOTDIR:-$HOME}/zprofile"
 fi
+
+# zprezto
+source "${ZDOTDIR}/zpreztorc"
+source "${ZDOTDIR}/.zprezto/init.zsh"
+source "${ZDOTDIR}/init.zsh"

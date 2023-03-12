@@ -3,12 +3,6 @@ if [[  $(uname -sm) == "Darwin arm64" ]]; then
     eval $(/opt/homebrew/bin/brew shellenv)
 fi
 
-# init prezto settings
-source "${ZDOTDIR}/preztorc.zsh"
-
-# defined base environment.
-source "${ZDOTDIR}/profile.zsh"
-
 # envs
 source "${ZDOTDIR}/env.zsh"
 
@@ -18,13 +12,8 @@ source "${ZDOTDIR}/options.zsh"
 # os settings
 source "${ZDOTDIR}/os/$(uname).zsh"
 
-if [[ -s "${ZDOTDIR}/.zprezto/init.zsh" ]]; then
-    source "${ZDOTDIR}/.zprezto/init.zsh"
-fi
-
 # functions
 for func (${ZDOTDIR}/functions/*) source $func:a
-
 
 if (( $+commands[brew] )); then
     # zsh completion
