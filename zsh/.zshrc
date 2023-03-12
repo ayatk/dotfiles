@@ -11,7 +11,6 @@ export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 
 # history
 mkdir -p $XDG_DATA_HOME/zsh
-export HISTFILE=$XDG_STATE_HOME/zsh_history
 
 if [[ -s "${ZDOTDIR}/init.zsh" ]]; then
   source "${ZDOTDIR}/init.zsh"
