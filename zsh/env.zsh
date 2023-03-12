@@ -134,3 +134,12 @@ fi
 if [[  $(uname -sm) == "Darwin arm64" ]]; then
   eval $(/opt/homebrew/bin/brew shellenv)
 fi
+if (( $+commands[brew] )); then
+  fpath=(
+    $(brew --prefix)/share/zsh-completions
+    $(brew --prefix)/share/zsh/site-functions
+    $fpath
+  )
+  autoload -Uz compinit
+  compinit
+fi
