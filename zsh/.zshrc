@@ -17,4 +17,9 @@ fi
 # zprezto
 source "${ZDOTDIR}/zpreztorc"
 source "${ZDOTDIR}/.zprezto/init.zsh"
-source "${ZDOTDIR}/init.zsh"
+
+# options
+source "${ZDOTDIR}/options.zsh"
+
+# envs
+source "${ZDOTDIR}/env.zsh"

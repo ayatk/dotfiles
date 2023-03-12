@@ -129,6 +129,8 @@ if [[ "$(uname -r)" = *microsoft* ]]; then
 fi
 
 # --------
-# zsh
+# homebrew
 # --------
-export HISTFILE=$XDG_STATE_HOME/zsh_history
+if [[  $(uname -sm) == "Darwin arm64" ]]; then
+  eval $(/opt/homebrew/bin/brew shellenv)
+fi

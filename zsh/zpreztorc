@@ -1,17 +1,25 @@
-#! /bin/env zsh
+#
+# Sets Prezto options.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
 
 #
 # General
 #
 
 # Set case-sensitivity for completion, history lookup, etc.
-zstyle ':prezto:*:*' case-sensitive 'no'
+# zstyle ':prezto:*:*' case-sensitive 'yes'
 
 # Color output (auto set to 'no' on dumb terminals).
 zstyle ':prezto:*:*' color 'yes'
 
 # Add additional directories to load prezto modules from
 zstyle ':prezto:load' pmodule-dirs $ZDOTDIR/modules
+
+# Allow module overrides when pmodule-dirs causes module name collisions
+# zstyle ':prezto:load' pmodule-allow-overrides 'yes'
 
 # Set the Zsh modules to load (man zshmodules).
 # zstyle ':prezto:load' zmodule 'attr' 'stat'
@@ -22,26 +30,16 @@ zstyle ':prezto:load' pmodule-dirs $ZDOTDIR/modules
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
-  'helper' \
   'environment' \
   'terminal' \
   'editor' \
   'history' \
-  'homebrew' \
   'directory' \
   'spectrum' \
   'utility' \
   'completion' \
-  'osx' \
-  'python' \
-  'ruby' \
-  'syntax-highlighting' \
   'history-substring-search' \
-  'git' \
-  'fzf' \
-  'rust' \
-  'do-enter' \
-  'custom-prompt'
+  'prompt'
 
 #
 # Autosuggestions
@@ -54,19 +52,19 @@ zstyle ':prezto:load' pmodule \
 # Completions
 #
 
-# Set the entries to ignore in static */etc/hosts* for host completion.
-zstyle ':prezto:module:completion:*:hosts' etc-host-ignores \
-  '0.0.0.0' '127.0.0.1'
+# Set the entries to ignore in static '/etc/hosts' for host completion.
+# zstyle ':prezto:module:completion:*:hosts' etc-host-ignores \
+#   '0.0.0.0' '127.0.0.1'
 
 #
 # Editor
 #
 
 # Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':prezto:module:editor' key-bindings 'vi'
+zstyle ':prezto:module:editor' key-bindings 'emacs'
 
 # Auto convert .... to ../..
-zstyle ':prezto:module:editor' dot-expansion 'yes'
+# zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Allow the zsh prompt context to be shown.
 #zstyle ':prezto:module:editor' ps-context 'yes'
@@ -84,6 +82,19 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Set the command prefix on non-GNU systems.
 # zstyle ':prezto:module:gnu-utility' prefix 'g'
+
+#
+# History
+#
+
+# Set the file to save the history in when an interactive shell exits.
+zstyle ':prezto:module:history' histfile "$XDG_STATE_HOME/zsh_history"
+
+# Set the maximum  number  of  events  stored  in  the  internal history list.
+# zstyle ':prezto:module:history' histsize 10000
+
+# Set the maximum number of history events to save in the history file.
+# zstyle ':prezto:module:history' savehist 10000
 
 #
 # History Substring Search
@@ -119,7 +130,7 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:custom-prompt' theme 'ayatk'
+zstyle ':prezto:module:prompt' theme 'sorin'
 
 # Set the working directory prompt display length.
 # By default, it is set to 'short'. Set it to 'long' (without '~' expansion)
@@ -145,7 +156,7 @@ zstyle ':prezto:module:custom-prompt' theme 'ayatk'
 #
 
 # Auto switch the Ruby version on directory change.
-zstyle ':prezto:module:ruby:chruby' auto-switch 'yes'
+# zstyle ':prezto:module:ruby:chruby' auto-switch 'yes'
 
 #
 # Screen
@@ -227,4 +238,4 @@ zstyle ':prezto:module:ruby:chruby' auto-switch 'yes'
 # Enabled safe options. This aliases cp, ln, mv and rm so that they prompt
 # before deleting or overwriting files. Set to 'no' to disable this safer
 # behavior.
-zstyle ':prezto:module:utility' safe-ops 'yes'
+# zstyle ':prezto:module:utility' safe-ops 'yes'
