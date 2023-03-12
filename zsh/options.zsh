@@ -38,3 +38,4 @@ setopt extended_glob
 # 補完
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/zsh/compcache"
+compinit -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
