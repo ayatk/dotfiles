@@ -4,6 +4,3 @@
 [submodule "zsh/modules/fzf/external"]
 	path = zsh/modules/fzf/external
 	url = https://github.com/junegunn/fzf
-[submodule "zsh/modules/prompt/external/async"]
-	path = zsh/modules/prompt/external/async
-	url = https://github.com/mafredri/zsh-async.git
