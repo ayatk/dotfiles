@@ -11,7 +11,6 @@ source "${ZDOTDIR}/profile.zsh"
 
 # envs
 source "${ZDOTDIR}/env.zsh"
-for func (${ZDOTDIR}/envs/*) source $func:a
 
 # options
 source "${ZDOTDIR}/options.zsh"
@@ -37,4 +36,4 @@ if (( $+commands[brew] )); then
     if [ -e $(brew --prefix)/share/zsh/site-functions ]; then
         fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
     fi
-fi 
+fi
