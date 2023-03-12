@@ -165,9 +165,6 @@
 [init]
 	defaultBranch = master
 
-[credential]
-	helper = osxkeychain
-
 [log]
 	mailmap = true
 
