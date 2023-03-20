@@ -40,6 +40,8 @@ zstyle ':prezto:load' pmodule \
   'completion' \
   'syntax-highlighting' \
   'history-substring-search' \
+  'fzf' \
+  'do-enter' \
   'git' \
   'prompt' \
   'homebrew' \

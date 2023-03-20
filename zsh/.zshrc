@@ -23,3 +23,6 @@ source "${ZDOTDIR}/options.zsh"
 
 # envs
 source "${ZDOTDIR}/env.zsh"
+
+# functions
+for func (${ZDOTDIR}/functions/*) source $func:a
