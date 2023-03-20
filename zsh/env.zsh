@@ -1,5 +1,29 @@
 # bin files
 export DOTPATH=${DOTPATH:-~/src/github.com/ayatk/dotfiles}
+path+=("${DOTPATH}/bin")
+
+# --------
+# homebrew
+# --------
+if [[  $(uname -sm) == "Darwin arm64" ]]; then
+  eval $(/opt/homebrew/bin/brew shellenv)
+fi
+if (( $+commands[brew] )); then
+  function update() {
+    brew update
+    brew upgrade
+    brew upgrade --cask
+    brew cleanup
+  }
+
+  fpath=(
+    $(brew --prefix)/share/zsh-completions
+    $(brew --prefix)/share/zsh/site-functions
+    $fpath
+  )
+  autoload -Uz compinit
+  compinit
+fi
 
 # --------
 # asdf
@@ -126,20 +150,4 @@ fi
 export VSCODE_PORTABLE="$XDG_DATA_HOME"/vscode
 if [[ "$(uname -r)" = *microsoft* ]]; then
   path+=("/mnt/c/Users/$(whoami)/AppData/Local/Programs/Microsoft VS Code/bin")
-fi
-
-# --------
-# homebrew
-# --------
-if [[  $(uname -sm) == "Darwin arm64" ]]; then
-  eval $(/opt/homebrew/bin/brew shellenv)
-fi
-if (( $+commands[brew] )); then
-  fpath=(
-    $(brew --prefix)/share/zsh-completions
-    $(brew --prefix)/share/zsh/site-functions
-    $fpath
-  )
-  autoload -Uz compinit
-  compinit
 fi
