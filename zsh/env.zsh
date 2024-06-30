@@ -134,3 +134,8 @@ export VSCODE_PORTABLE="$XDG_DATA_HOME"/vscode
 if [[ "$(uname -r)" = *microsoft* ]]; then
   path+=("/mnt/c/Users/$(whoami)/AppData/Local/Programs/Microsoft VS Code/bin")
 fi
+
+# 1password
+if [[ -s ${XDG_CONFIG_HOME}/op/plugins.sh ]]; then
+  source ${XDG_CONFIG_HOME}/op/plugins.sh
+fi
