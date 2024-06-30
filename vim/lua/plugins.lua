@@ -7,7 +7,7 @@ return {
     opts = { options = { icons_enabled = false, section_separators = "", component_separators = "|" } },
   },
   { "mvllow/modes.nvim", event = "ModeChanged", config = true },
-  { "nvim-treesitter/nvim-treesitter", event = "BufNewFile, BufRead" }, -- シンタックスハイライト
+  -- { "nvim-treesitter/nvim-treesitter", event = "BufNewFile, BufRead" }, -- シンタックスハイライト
   { "nvim-telescope/telescope.nvim", dependencies = { "nvim-lua/plenary.nvim" }, cmd = "Telescope" }, -- fuzzy finder
   { "windwp/nvim-autopairs", event = "BufEnter", config = true },
   {
@@ -19,5 +19,5 @@ return {
       },
     },
   },
-  { "pocco81/auto-save.nvim", event = "InsertLeave, TextChanged", config = true },
+  -- { "pocco81/auto-save.nvim", event = "InsertLeave, TextChanged", config = true },
 }
