@@ -1,5 +1,5 @@
 return {
-  { "cocopon/iceberg.vim", lazy = false }, -- colorscheme
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 }, -- colorscheme
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "kyazdani42/nvim-web-devicons" },
