@@ -26,3 +26,6 @@ source "${ZDOTDIR}/env.zsh"
 
 # functions
 for func (${ZDOTDIR}/functions/*) source $func:a
+
+autoload -Uz compinit
+compinit
