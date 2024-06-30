@@ -103,23 +103,6 @@ export PNPM_HOME=$XDG_DATA_HOME/pnpm
 path+=("$PNPM_HOME")
 
 # --------
-# pyenv
-# --------
-export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
-if (( $+commands[pyenv] )); then
-  path+=("$PYENV_ROOT/bin")
-  eval "$(pyenv init --path)"
-fi
-
-# --------
-# jupyter
-# --------
-if (( $+commands[jupyter] )); then
-  export IPYTHONDIR="$XDG_CONFIG_HOME/jupyter"
-  export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME/jupyter"
-fi
-
-# --------
 # bundle
 # --------
 export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle"
