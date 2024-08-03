@@ -63,6 +63,7 @@ if (( $+commands[fzf] )); then
   _fzf_compgen_path() {
     ag -g "" "$1"
   }
+  source <(fzf --zsh)
 fi
 
 # --------
