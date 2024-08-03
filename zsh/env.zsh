@@ -79,6 +79,9 @@ fi
 # --------
 export GHQ_ROOT=$GOPATH/src
 
+# gradle
+export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
+
 # --------
 # httpie
 # --------
@@ -96,7 +99,7 @@ path+=("${XDG_DATA_HOME}/npm/bin")
 # --------
 export NODE_REPL_HISTORY="$XDG_STATE_HOME"/node_history
 alias pnpm='corepack pnpm'
-alias yarn='corepack yarn'
+alias yarn='corepack yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 
 # --------
 # pnpm
@@ -112,10 +115,11 @@ export BUNDLE_USER_CACHE="$XDG_CACHE_HOME/bundle"
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle"
 
 # --------
-# ruby gem
+# ruby
 # --------
 export GEM_HOME="$XDG_DATA_HOME/gem"
 export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
+export IRBRC="$XDG_CONFIG_HOME"/irb/irbrc
 
 # --------
 # rust
@@ -126,6 +130,9 @@ export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 if [[ -s "${CARGO_HOME}/env" ]]; then
   source "${CARGO_HOME}/env"
 fi
+
+# wget
+export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 
 # --------
 # vscode
