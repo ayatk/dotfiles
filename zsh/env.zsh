@@ -17,9 +17,9 @@ if (( $+commands[brew] )); then
   }
 
   fpath=(
-    $(brew --prefix)/share/zsh-completions
-    $(brew --prefix)/share/zsh/site-functions
-    $fpath
+    $(brew --prefix)/share/zsh-completions(N)
+    $(brew --prefix)/share/zsh/site-functions(N)
+    $fpath(N)
   )
 fi
 
@@ -34,7 +34,13 @@ if [[ -s "/opt/homebrew/opt/asdf/libexec/asdf.sh" ]]; then
 else
   export ASDF_DIR="$XDG_DATA_HOME/asdf"
   source $ASDF_DIR/asdf.sh
+  fpath=(${ASDF_DIR}/completions(N-/) $fpath)
 fi
+
+# --------
+# rbenv
+# --------
+export RUBY_CONFIGURE_OPTS=--enable-yjit
 
 # --------
 # aws
@@ -72,7 +78,7 @@ fi
 export GOPATH=$HOME
 path+=("$GOPATH/bin")
 if [[ "$(uname -r)" == *microsoft* ]]; then
-  path+=("/usr/local/go/bin")
+  path+=(/usr/local/go/bin(N-/))
 fi
 
 # --------
@@ -88,12 +94,11 @@ export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 # --------
 export HTTPIE_CONFIG_DIR="$XDG_CONFIG_HOME/httpie"
 
-
 # --------
 # npm
 # --------
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-path+=("${XDG_DATA_HOME}/npm/bin")
+path+=("${XDG_DATA_HOME}/npm/bin"(N-/))
 
 # --------
 # node
@@ -106,7 +111,7 @@ alias yarn='corepack yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 # pnpm
 # --------
 export PNPM_HOME=$XDG_DATA_HOME/pnpm
-path+=("$PNPM_HOME")
+path+=("$PNPM_HOME"(N-/))
 
 # --------
 # bundle
@@ -136,6 +141,13 @@ fi
 export WGETRC="$XDG_CONFIG_HOME/wgetrc"
 
 # --------
+# 1password
+# --------
+if [[ -s ${XDG_CONFIG_HOME}/op/plugins.sh ]]; then
+  source ${XDG_CONFIG_HOME}/op/plugins.sh
+fi
+
+# --------
 # vscode
 # --------
 export VSCODE_PORTABLE="$XDG_DATA_HOME"/vscode
@@ -143,7 +155,7 @@ if [[ "$(uname -r)" = *microsoft* ]]; then
   path+=("/mnt/c/Users/$(whoami)/AppData/Local/Programs/Microsoft VS Code/bin")
 fi
 
-# 1password
-if [[ -s ${XDG_CONFIG_HOME}/op/plugins.sh ]]; then
-  source ${XDG_CONFIG_HOME}/op/plugins.sh
+# ssh
+if [[ "$(uname -r)" = *microsoft* ]]; then
+  path=('/mnt/c/Windows/System32/OpenSSH' $path)
 fi
