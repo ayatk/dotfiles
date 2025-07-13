@@ -29,6 +29,7 @@ fi
 export ASDF_CONFIG_FILE="$XDG_CONFIG_HOME/asdf/config"
 export ASDF_DATA_DIR="$XDG_DATA_HOME/asdf"
 path=("$ASDF_DATA_DIR"/shims $path)
+export ASDF_NODEJS_AUTO_ENABLE_COREPACK=true
 
 # --------
 # rbenv
@@ -97,8 +98,6 @@ path+=("${XDG_DATA_HOME}/npm/bin"(N-/))
 # node
 # --------
 export NODE_REPL_HISTORY="$XDG_STATE_HOME"/node_history
-alias pnpm='corepack pnpm'
-alias yarn='corepack yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 
 # --------
 # pnpm
