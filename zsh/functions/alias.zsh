@@ -21,3 +21,19 @@ if (( $+commands[kubectl] )); then
 fi
 
 alias seishin-to-tokinoheya='cd $(mktemp -d)'
+alias -g vim='nvim'
+alias -g v='nvim'
+
+# zshの便利なエイリアス
+alias -g N='>/dev/null 2>&1'
+alias -g V='| nvim -'
+
+# ディレクトリ操作
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# 安全な操作
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'

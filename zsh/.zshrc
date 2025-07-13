@@ -22,9 +22,14 @@ source "${ZDOTDIR}/options.zsh"
 source "${ZDOTDIR}/env.zsh"
 
 # functions
-for func (${ZDOTDIR}/functions/*) source $func:a
+for func (${ZDOTDIR}/functions/*.zsh(N)) source $func
 
+# compinit with cache optimization
 autoload -Uz compinit
-compinit
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 typeset -U path PATH

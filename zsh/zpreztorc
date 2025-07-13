@@ -43,9 +43,12 @@ zstyle ':prezto:load' pmodule \
   'fzf' \
   'do-enter' \
   'git' \
-  'prompt' \
   'homebrew' \
-  'osx'
+  'osx' \
+  'prompt'
+
+zstyle ':prezto:module:*' lazy-load 'yes'
+
 
 #
 # Autosuggestions
@@ -70,17 +73,17 @@ zstyle ':prezto:load' pmodule \
 zstyle ':prezto:module:editor' key-bindings 'emacs'
 
 # Auto convert .... to ../..
-# zstyle ':prezto:module:editor' dot-expansion 'yes'
+zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Allow the zsh prompt context to be shown.
-#zstyle ':prezto:module:editor' ps-context 'yes'
+zstyle ':prezto:module:editor' ps-context 'yes'
 
 #
 # Git
 #
 
 # Ignore submodules when they are 'dirty', 'untracked', 'all', or 'none'.
-# zstyle ':prezto:module:git:status:ignore' submodules 'all'
+zstyle ':prezto:module:git:status:ignore' submodules 'all'
 
 #
 # GNU Utility
@@ -105,6 +108,10 @@ zstyle ':prezto:module:history' histfile "$XDG_STATE_HOME/zsh_history"
 #
 # History Substring Search
 #
+
+zstyle ':prezto:module:history-substring-search' case-sensitive 'no'
+zstyle ':prezto:module:history-substring-search' fuzzy 'yes'
+zstyle ':prezto:module:history-substring-search' unique 'yes'
 
 # Set the query found color.
 # zstyle ':prezto:module:history-substring-search:color' found ''
@@ -244,4 +251,4 @@ zstyle ':prezto:module:prompt' theme 'ayatk'
 # Enabled safe options. This aliases cp, ln, mv and rm so that they prompt
 # before deleting or overwriting files. Set to 'no' to disable this safer
 # behavior.
-# zstyle ':prezto:module:utility' safe-ops 'yes'
+zstyle ':prezto:module:utility' safe-ops 'yes'

@@ -1,13 +1,11 @@
 # bin files
 export DOTPATH=${DOTPATH:-~/src/github.com/ayatk/dotfiles}
-path+=("${DOTPATH}/bin")
+path=("${DOTPATH}/bin" $path)
 
 # --------
 # homebrew
 # --------
-if [[  $(uname -sm) == "Darwin arm64" ]]; then
-  eval $(/opt/homebrew/bin/brew shellenv)
-fi
+[[ $(uname -sm) == "Darwin arm64" ]] && eval $(/opt/homebrew/bin/brew shellenv)
 if (( $+commands[brew] )); then
   function update() {
     brew update
@@ -49,7 +47,7 @@ export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 # rancher desktop
-path+=("$HOME/.rd/bin")
+path=("$HOME/.rd/bin" $path)
 
 # --------
 # fzf
@@ -72,9 +70,9 @@ fi
 # go
 # --------
 export GOPATH=$HOME
-path+=("$GOPATH/bin")
+path=("$GOPATH/bin" $path)
 if [[ "$(uname -r)" == *microsoft* ]]; then
-  path+=(/usr/local/go/bin(N-/))
+  path=("/usr/local/go/bin" $path)
 fi
 
 # --------
@@ -94,7 +92,7 @@ export HTTPIE_CONFIG_DIR="$XDG_CONFIG_HOME/httpie"
 # npm
 # --------
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-path+=("${XDG_DATA_HOME}/npm/bin"(N-/))
+path=("${XDG_DATA_HOME}/npm/bin" $path)
 
 # --------
 # node
@@ -105,7 +103,7 @@ export NODE_REPL_HISTORY="$XDG_STATE_HOME"/node_history
 # pnpm
 # --------
 export PNPM_HOME=$XDG_DATA_HOME/pnpm
-path+=("$PNPM_HOME"(N-/))
+path=("$PNPM_HOME" $path)
 
 # --------
 # bundle
@@ -128,9 +126,7 @@ export RUBY_CONFIGURE_OPTS=--enable-yjit
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
 
-if [[ -s "${CARGO_HOME}/env" ]]; then
-  source "${CARGO_HOME}/env"
-fi
+[[ -s "${CARGO_HOME}/env" ]] && source "${CARGO_HOME}/env"
 
 # --------
 # terraform
@@ -154,7 +150,7 @@ fi
 # --------
 export VSCODE_PORTABLE="$XDG_DATA_HOME"/vscode
 if [[ "$(uname -r)" = *microsoft* ]]; then
-  path+=("/mnt/c/Users/$(whoami)/AppData/Local/Programs/Microsoft VS Code/bin")
+  path=("/mnt/c/Users/$(whoami)/AppData/Local/Programs/Microsoft VS Code/bin" $path)
 fi
 
 # ssh
