@@ -21,12 +21,19 @@ if (( $+commands[kubectl] )); then
 fi
 
 alias seishin-to-tokinoheya='cd $(mktemp -d)'
-alias -g vim='nvim'
-alias -g v='nvim'
+
+# nvim aliases with existence check
+if (( $+commands[nvim] )); then
+  alias vim='nvim'
+  alias v='nvim'
+  alias -g V='| nvim -'
+else
+  alias v='vim'
+  alias -g V='| vim -'
+fi
 
 # zshの便利なエイリアス
 alias -g N='>/dev/null 2>&1'
-alias -g V='| nvim -'
 
 # ディレクトリ操作
 alias ..='cd ..'

@@ -90,7 +90,7 @@
 [core]
 	excludesfile = ~/.config/git/ignore
 	attributesfile = ~/.config/git/attributes
-	editor = vim
+	editor = nvim
 	# Unicode
 	precomposeunicode = true
 	quotepath = false

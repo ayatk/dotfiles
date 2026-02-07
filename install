@@ -1,4 +1,6 @@
-#! /bin/env bash
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
 
 e_newline() {
     printf "\n"
@@ -12,13 +14,16 @@ e_error() {
     printf "\033[31m%s\033[m\n" "✖ $*" 1>&2
 }
 
+e_success() {
+    printf "\033[32m%s\033[m\n" "✔ $*"
+}
+
 e_warning() {
     printf "\033[31m%s\033[m\n" "$*"
 }
 
 is_exists() {
-    which "$1" >/dev/null 2>&1
-    return $?
+    command -v "$1" >/dev/null 2>&1
 }
 
 setup_ubuntu() {
@@ -26,67 +31,154 @@ setup_ubuntu() {
         return 0
     fi
 
-    sudo sed -i.bak -e "s%https?://[^ ]\+%https://ftp.udx.icscoe.jp/Linux/ubuntu/%g" /etc/apt/sources.list
-    sudo apt-get update
+    # More careful apt source update with validation
+    if [[ -f /etc/apt/sources.list ]]; then
+        e_header "Updating Ubuntu sources..."
+        sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
+        sudo sed -i.bak -e "s%https?://[^ ]\+%https://ftp.udx.icscoe.jp/Linux/ubuntu/%g" /etc/apt/sources.list
+        sudo apt-get update || {
+            e_error "apt-get update failed, restoring backup"
+            sudo mv /etc/apt/sources.list.backup /etc/apt/sources.list
+            return 1
+        }
+    fi
 }
 
 install_brew() {
-    if is_exists "brew" || [[ $(uname) != 'Darwin' ]] ; then
+    if is_exists "brew"; then
+        e_success "Homebrew already installed"
         return 0
     fi
 
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if [[ $(uname) != 'Darwin' ]]; then
+        return 0
+    fi
+
+    e_header "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || {
+        e_error "Homebrew installation failed"
+        return 1
+    }
+
+    # Initialize brew in current shell for M1 Macs
+    if [[ -f /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
 }
 
 install() {
-    if is_exists $1 ; then
+    local package="$1"
+
+    if is_exists "$package"; then
+        e_success "$package already installed"
         return 0
     fi
+
+    e_header "Installing $package..."
 
     case "$(uname)" in
         *'Linux'*)
             if [[ -f /etc/os-release ]]; then
-                sudo apt-get install -y $1
+                sudo apt-get install -y "$package" || {
+                    e_error "Failed to install $package"
+                    return 1
+                }
             fi
             ;;
         *'Darwin'*)
-            install_brew
-            brew install $1
+            install_brew || return 1
+            brew install "$package" || {
+                e_error "Failed to install $package via Homebrew"
+                return 1
+            }
             ;;
         *)
-            e_error "このOSでは使えません"
-            exit 1
+            e_error "Unsupported OS"
+            return 1
             ;;
     esac
 }
 
 # ---------
-# install
+# Main installation
 # ---------
+e_header "Starting dotfiles installation..."
+
 setup_ubuntu
 
-install "git"
+# Install git first
+install "git" || exit 1
 
-# clone dotfiles
+# Clone dotfiles
 REPO=github.com/ayatk/dotfiles
 DOTPATH=${DOTPATH:-$HOME/src/$REPO}
 
-e_newline
-e_header "Downloading dotfiles..."
-git clone --recursive "https://$REPO" "$DOTPATH"
+if [[ -d "$DOTPATH" ]]; then
+    e_warning "Dotfiles directory already exists at $DOTPATH"
+    e_warning "Skipping clone. Run 'git pull' in $DOTPATH to update."
+else
+    e_newline
+    e_header "Downloading dotfiles..."
+    mkdir -p "$(dirname "$DOTPATH")"
+    git clone --recursive "https://$REPO" "$DOTPATH" || {
+        e_error "Failed to clone dotfiles repository"
+        exit 1
+    }
+fi
 
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-export XDG_DATA_HOME=$HOME/.local/share
+# Setup XDG directories
+export XDG_CONFIG_HOME=${XDG_CONFIG_HOME:-$HOME/.config}
+export XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_DATA_HOME=${XDG_DATA_HOME:-$HOME/.local/share}
+export XDG_STATE_HOME=${XDG_STATE_HOME:-$HOME/.local/state}
 
-mkdir -p $XDG_CONFIG_HOME
-mkdir -p $XDG_CACHE_HOME
-mkdir -p $XDG_DATA_HOME
+e_header "Creating XDG directories..."
+mkdir -p "$XDG_CONFIG_HOME"
+mkdir -p "$XDG_CACHE_HOME"
+mkdir -p "$XDG_DATA_HOME"
+mkdir -p "$XDG_STATE_HOME"
 
 # zsh
-install zsh
-ln -s $DOTPATH/zsh $XDG_CONFIG_HOME/zsh
-sudo chsh -s $(which zsh)
+install zsh || e_warning "Failed to install zsh, continuing..."
+
+e_header "Setting up zsh configuration..."
+if [[ ! -L "$XDG_CONFIG_HOME/zsh" ]]; then
+    ln -sf "$DOTPATH/zsh" "$XDG_CONFIG_HOME/zsh" || {
+        e_error "Failed to create zsh symlink"
+        exit 1
+    }
+else
+    e_success "zsh symlink already exists"
+fi
+
+# Change default shell to zsh
+if [[ "$SHELL" != */zsh ]]; then
+    e_header "Changing default shell to zsh..."
+    if is_exists "zsh"; then
+        sudo chsh -s "$(command -v zsh)" "$USER" || {
+            e_warning "Failed to change default shell. You may need to do this manually."
+        }
+    fi
+else
+    e_success "Default shell is already zsh"
+fi
 
 # git
-ln -s $DOTPATH/git $XDG_CONFIG_HOME/git
+e_header "Setting up git configuration..."
+if [[ ! -L "$XDG_CONFIG_HOME/git" ]]; then
+    ln -sf "$DOTPATH/git" "$XDG_CONFIG_HOME/git" || {
+        e_error "Failed to create git symlink"
+        exit 1
+    }
+else
+    e_success "git symlink already exists"
+fi
+
+e_newline
+e_success "Installation complete!"
+e_newline
+echo "Next steps:"
+echo "  1. Restart your shell or run: exec zsh"
+echo "  2. Install additional tools: fd, fzf, ghq, etc."
+echo "  3. Initialize zprezto submodules if needed"
+echo "  4. Update git config with your name and email"
