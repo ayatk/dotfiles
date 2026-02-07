@@ -53,6 +53,7 @@ path=(
   /opt/{homebrew,local}/{,s}bin(N-/)
   /usr/local/{,s}bin(N-/)
   ${^path}(N-/^W)
+  $path
 )
 
 #
