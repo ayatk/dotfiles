@@ -1,7 +1,12 @@
 if (( $+commands[ghq] )); then
   function _fast_move_git_repo() {
-    BUFFER="cd $(ghq root)/$(ghq list >/dev/null | fzf --reverse +m)"
-    zle accept-line
+    local selected_repo=$(ghq list | fzf --reverse +m)
+    if [[ -n "$selected_repo" ]]; then
+      local target_dir="$(ghq root)/$selected_repo"
+      BUFFER="cd $target_dir"
+      print -s "cd $target_dir"  # Add to history explicitly
+      zle accept-line
+    fi
   }
 
   zle -N _fast_move_git_repo
