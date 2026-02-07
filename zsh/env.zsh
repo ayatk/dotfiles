@@ -29,6 +29,16 @@ export ASDF_DATA_DIR="$XDG_DATA_HOME/asdf"
 path=("$ASDF_DATA_DIR"/shims $path)
 export ASDF_NODEJS_AUTO_ENABLE_COREPACK=true
 
+# Initialize asdf if installed via Homebrew
+if (( $+commands[brew] )); then
+  ASDF_DIR="$(brew --prefix asdf)/libexec"
+  if [[ -f "$ASDF_DIR/asdf.sh" ]]; then
+    source "$ASDF_DIR/asdf.sh"
+    # Add completions
+    fpath=("$(brew --prefix asdf)/share/zsh/site-functions" $fpath)
+  fi
+fi
+
 # --------
 # rbenv
 # --------
@@ -57,14 +67,42 @@ if (( $+commands[fzf] )); then
   export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
   export FZF_COMPLETION_OPTS='+c -x'
 
-  # Use ag instead of the default find command for listing candidates.
-  # - The first argument to the function is the base path to start traversal
-  # - Note that ag only lists files not directories
-  # - See the source code (completion.{bash,zsh}) for the details.
-  _fzf_compgen_path() {
-    ag -g "" "$1"
-  }
+  # Use fd (faster, respects .gitignore) instead of ag/find
+  if (( $+commands[fd] )); then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+    export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+
+    _fzf_compgen_path() {
+      fd --hidden --follow --exclude .git . "$1"
+    }
+
+    _fzf_compgen_dir() {
+      fd --type d --hidden --follow --exclude .git . "$1"
+    }
+  elif (( $+commands[ag] )); then
+    # Fallback to ag if fd not available
+    _fzf_compgen_path() {
+      ag -g "" "$1"
+    }
+  fi
+
+  # Load fzf default bindings (Ctrl+T, Alt+C, Ctrl+R)
   source <(fzf --zsh)
+
+  # Re-bind Ctrl+F for ghq integration (overrides fzf defaults)
+  if (( $+commands[ghq] )); then
+    function _fast_move_git_repo() {
+      local selected_repo=$(ghq list | fzf --reverse +m)
+      if [[ -n "$selected_repo" ]]; then
+        local target_dir="$(ghq root)/$selected_repo"
+        BUFFER="cd $target_dir"
+        print -s "cd $target_dir"  # Add to history explicitly
+        zle accept-line
+      fi
+    }
+    zle -N _fast_move_git_repo
+    bindkey '^f' _fast_move_git_repo
+  fi
 fi
 
 # --------
@@ -156,6 +194,50 @@ if [[ "$(uname -r)" = *microsoft* ]]; then
   path=("/mnt/c/Users/$(whoami)/AppData/Local/Programs/Microsoft VS Code/bin" $path)
 fi
 
+# --------
+# less
+# --------
+export LESSHISTFILE="$XDG_STATE_HOME"/less_history
+
+# --------
+# mysql
+# --------
+export MYSQL_HISTFILE="$XDG_STATE_HOME"/mysql_history
+
+# --------
+# psql
+# --------
+export PSQL_HISTORY="$XDG_STATE_HOME"/psql_history
+
+# --------
+# ripgrep
+# --------
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME"/ripgrep/config
+
+# --------
+# bat
+# --------
+export BAT_CONFIG_PATH="$XDG_CONFIG_HOME"/bat/config
+
+# --------
+# python
+# --------
+export PYTHONSTARTUP="$XDG_CONFIG_HOME"/python/pythonrc
+
+# --------
+# jupyter
+# --------
+export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
+
+# --------
+# gnupg
+# --------
+export GNUPGHOME="$XDG_DATA_HOME"/gnupg
+
+# --------
+# sqlite
+# --------
+export SQLITE_HISTORY="$XDG_STATE_HOME"/sqlite_history
 # ssh
 if [[ "$(uname -r)" = *microsoft* ]]; then
   path=('/mnt/c/Windows/System32/OpenSSH' $path)
