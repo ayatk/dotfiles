@@ -26,14 +26,11 @@
 	# Clone a repository including all submodules
 	c = clone --recursive
 
-	# sign commit
-	co = commit -S -m
-
 	# Commit all changes
 	ca = !git add -A && git commit -av
 
 	# Switch to a branch, creating it if necessary
-	go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+	go = "!f() { git switch -c \"$1\" 2> /dev/null || git switch \"$1\"; }; f"
 
 	# Show verbose output about tags, branches or remotes
 	tags = tag -l
@@ -42,9 +39,6 @@
 
 	# Amend the currently staged files to the latest commit
 	amend = commit --amend --reuse-message=HEAD
-
-	# Credit an author on the latest commit
-	credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
 
 	# Interactive rebase with the given number of latest commits
 	reb = "!r() { git rebase -i HEAD~$1; }; r"
@@ -62,26 +56,11 @@
 	fm = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
 
 	# Remove branches that have already been merged with master
-	# a.k.a. ‘delete merged’
+	# a.k.a. 'delete merged'
 	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
-
-	# Merge GitHub pull request on top of the `master` branch
-	mpr = "!f() { \
-		if [ $(printf \"%s\" \"$1\" | grep '^[0-9]\\+$' > /dev/null; printf $?) -eq 0 ]; then \
-			git fetch origin refs/pull/$1/head:pr/$1 && \
-			git rebase master pr/$1 && \
-			git checkout master && \
-			git merge pr/$1 && \
-			git branch -D pr/$1 && \
-			git commit --amend -m \"$(git log -1 --pretty=%B)\n\nCloses #$1.\"; \
-		fi \
-	}; f"
-	pr = pull-request
-	see = browse
-	ci = ci-status
 
 [apply]
 	# Detect whitespace errors when applying a patch
@@ -94,19 +73,10 @@
 	# Unicode
 	precomposeunicode = true
 	quotepath = false
-
-	# Treat spaces before tabs and all kinds of trailing whitespace as an error
-	# [default] trailing-space: looks for spaces at the end of a line
-	# [default] space-before-tab: looks for spaces before tabs at the beginning of a line
 	whitespace = space-before-tab,-indent-with-non-tab,trailing-space
-
-	# Make `git rebase` safer on OS X
-	# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
 	trustctime = false
-
-	# Prevent showing files whose names contain non-ASCII symbols as unversioned.
-	# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
-	precomposeunicode = false
+	untrackedCache = true
+	fsmonitor = true
 
 [user]
 	name = ayatk
@@ -119,9 +89,9 @@
 
 [color "diff"]
 	meta = yellow bold
-	frag = magenta bold # line info
-	old = red # deletions
-	new = green # additions
+	frag = magenta bold
+	old = red
+	new = green
 
 [color "status"]
 	added = yellow
@@ -129,29 +99,46 @@
 	untracked = cyan
 
 [diff]
-	# Detect copies as well as renames
 	renames = copies
-	compactionHeuristic = true
+	algorithm = histogram
+	colorMoved = default
+	colorMovedWS = allow-indentation-change
 
 [help]
-	# Automatically correct and execute mistyped commands
-	autocorrect = 1
+	autocorrect = prompt
 
 [merge]
-	# Include summaries of merged commits in newly created merge commit messages
 	log = true
+	conflictstyle = zdiff3
 
 [push]
 	default = current
+	autoSetupRemote = true
 
 [fetch]
 	prune = true
+	pruneTags = true
 
 [pull]
 	ff = only
 	rebase = true
 
-# URL shorthands
+[rebase]
+	autoStash = true
+	autoSquash = true
+	updateRefs = true
+
+[rerere]
+	enabled = true
+
+[branch]
+	sort = -committerdate
+
+[tag]
+	sort = version:refname
+
+[column]
+	ui = auto
 
 [url "https://github.com/"]
     insteadOf = git@github.com:
