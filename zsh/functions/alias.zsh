@@ -12,8 +12,8 @@ alias -g W='| wc'
 alias -g S='| sed'
 alias -g A='| awk'
 
-if (( $+commands[youtube-dl] )); then
-  alias dl='youtube-dl'
+if (( $+commands[yt-dlp] )); then
+  alias dl='yt-dlp'
 fi
 
 if (( $+commands[kubectl] )); then
