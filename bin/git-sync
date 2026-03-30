@@ -1,25 +1,28 @@
-#!/bin/sh
-# http://qiita.com/masarakki/items/27f2cb456b4801ccb31b
+#!/usr/bin/env bash
+set -euo pipefail
 
 git fetch --all --prune
 
-MODIFIED=`git status | grep modified | wc -l`
-if [ $MODIFIED -gt 0 ]; then
-  git stash -a
+dirty=false
+if [[ -n "$(git status --porcelain)" ]]; then
+  dirty=true
+  git stash push -u
 fi
 
-DEFAULT_BRANCH=`git remote show origin | grep "HEAD branch" | cut -d ":" -f 2`
-BRANCH=`git symbolic-ref --short HEAD`
-git checkout $DEFAULT_BRANCH
-git pull --rebase origin $DEFAULT_BRANCH
-if [ $BRANCH != $DEFAULT_BRANCH ] ; then
-  if [ `git branch --merged | grep $BRANCH | wc -l` -eq 1 ]; then
-    git branch -d $BRANCH
+default_branch=$(git rev-parse --abbrev-ref origin/HEAD | sed 's|origin/||')
+branch=$(git symbolic-ref --short HEAD)
+
+git switch "$default_branch"
+git pull --rebase origin "$default_branch"
+
+if [[ "$branch" != "$default_branch" ]]; then
+  if git branch --merged | grep -qx "..${branch}"; then
+    git branch -d "$branch"
   else
-    git checkout $BRANCH
+    git switch "$branch"
   fi
 fi
 
-if [ $MODIFIED -gt 0 ]; then
+if "$dirty"; then
   git stash pop
 fi
