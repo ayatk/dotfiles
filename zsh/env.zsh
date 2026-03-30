@@ -22,22 +22,9 @@ if (( $+commands[brew] )); then
 fi
 
 # --------
-# asdf
+# mise
 # --------
-export ASDF_CONFIG_FILE="$XDG_CONFIG_HOME/asdf/config"
-export ASDF_DATA_DIR="$XDG_DATA_HOME/asdf"
-path=("$ASDF_DATA_DIR"/shims $path)
-export ASDF_NODEJS_AUTO_ENABLE_COREPACK=true
-
-# Initialize asdf if installed via Homebrew
-if (( $+commands[brew] )); then
-  ASDF_DIR="$(brew --prefix asdf)/libexec"
-  if [[ -f "$ASDF_DIR/asdf.sh" ]]; then
-    source "$ASDF_DIR/asdf.sh"
-    # Add completions
-    fpath=("$(brew --prefix asdf)/share/zsh/site-functions" $fpath)
-  fi
-fi
+eval "$(mise activate zsh)"
 
 # --------
 # rbenv
