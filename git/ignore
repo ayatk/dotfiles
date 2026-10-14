@@ -163,3 +163,7 @@ tags
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/vim,diff,macos,jetbrains+iml,visualstudiocode
+
+**/.claude/settings.local.json
+
+**/.claude/.cc-writes/

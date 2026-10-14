@@ -80,7 +80,7 @@
 
 [user]
 	name = ayatk
-	email = ayatk@users.noreply.github.com
+	email = 7327867+ayatk@users.noreply.github.com
 
 [color "branch"]
 	current = yellow reverse
@@ -162,6 +162,15 @@
 
 [log]
 	mailmap = true
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_ssh_signers
+
+[commit]
+	gpgsign = true
 
 [include]
 	path = ~/.config/git/local
