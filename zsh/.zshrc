@@ -1,14 +1,7 @@
 #!/usr/bin/env zsh
 
-# XDG Base Directory
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-export XDG_DATA_HOME=$HOME/.local/share
-export XDG_STATE_HOME=$HOME/.local/state
-
-# zsh home directory
-export ZDOTDIR=$XDG_CONFIG_HOME/zsh
-
+# ~/.zshenv で ZDOTDIR を決めた初回シェルでは $ZDOTDIR/.zshenv が読まれないため、未読なら読む
+[[ -n $XDG_CONFIG_HOME ]] || source "${ZDOTDIR:-$HOME}/.zshenv"
 source "${ZDOTDIR:-$HOME}/zprofile"
 
 # prezto の completion モジュールが compinit を実行するため、fpath はその前に追加する

@@ -40,4 +40,6 @@ mac とか linux とかで使うシェルの設定
 
 Apple Silicon 前提。Intel Mac では mise の brew マネージャの仕様で `brew:` の CLI 類は入らない
 
+ホームを汚さないよう XDG Base Directory に寄せている。XDG_* と各ツールの保存先は `zsh/.zshenv` にまとめてある。zsh は `.zshenv` を 1 つしか読まないので、bootstrap が `~/.zshenv` に ZDOTDIR の設定と `$ZDOTDIR/.zshenv` の読み込みを書き込み、そこ経由で非対話シェルにも効く。各変数は親プロセスで設定済みならその値を優先する
+
 コミット署名（`git/config` の `commit.gpgsign=true`、`gpg.format=ssh`）の鍵 `user.signingkey` などはリポジトリ外の `~/.config/git/local`（＝ `~/.config/mise/git/local`、gitignore 済み）に置く。無いとコミットできない
