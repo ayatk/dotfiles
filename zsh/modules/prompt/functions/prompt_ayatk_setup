@@ -139,9 +139,9 @@ function prompt_ayatk_setup {
   PROMPT+=$'${SSH_TTY:+"%F{9}%n%f%F{7}@%f%F{3}%m%f "}%F{4}${_prompt_ayatk_pwd}%(!. %B%F{1}#%f%b.)${_prompt_ayatk_git}\n'
   PROMPT+='${editor_info[keymap]} '
 
-  RPROMPT='${editor_info[overwrite]}%(?:: %F{1}'
+  RPROMPT='${editor_info[overwrite]}%(?:: %F{1}✘%f)'
   RPROMPT+='${VIM:+" %B%F{6}V%f%b"}'
-  SPROMPT="%{$suggest%}(*´-A-%)? < %F{magenta}%R%f はもしかして %F{green}%r%f かな? [そう!(y),違う!(n),a,e]: "
+  SPROMPT="(*´-A-%)? < %F{magenta}%R%f はもしかして %F{green}%r%f かな? [そう!(y),違う!(n),a,e]: "
 }
 
 function prompt_ayatk_preview {

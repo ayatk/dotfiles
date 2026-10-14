@@ -41,7 +41,6 @@ zstyle ':prezto:load' pmodule \
   'autosuggestions' \
   'syntax-highlighting' \
   'history-substring-search' \
-  'fzf' \
   'do-enter' \
   'git' \
   'homebrew' \

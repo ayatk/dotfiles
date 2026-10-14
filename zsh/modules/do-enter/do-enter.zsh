@@ -5,7 +5,14 @@ function ls_abbrev {
   # -A : Do not ignore entries starting with ..
   # -C : Force multi-column output.
   # -F : Append indicator (one of */=>@|) to entries.
-  local ls_result=$(CLICOLOR_FORCE=1 ls -ACF)
+  # BSD ls は -G で色付け、GNU ls は --color=always が必要
+  local -a color_opt
+  if [[ $OSTYPE == darwin* ]]; then
+    color_opt=(-G)
+  else
+    color_opt=(--color=always)
+  fi
+  local ls_result=$(CLICOLOR_FORCE=1 command ls -ACF $color_opt)
   local ls_lines=$(echo "$ls_result" | wc -l | tr -d ' ')
 
   if [ $ls_lines -gt 10 ]; then
@@ -27,7 +34,7 @@ function do_enter {
   echo
   ls_abbrev
   echo
-  if (($ + $(git rev-parse --is-inside-work-tree 2>/dev/null))); then
+  if [[ $(git rev-parse --is-inside-work-tree 2>/dev/null) == true ]]; then
     echo -e "\e[0;33m--- git status ---\e[0m"
     git status -sbu
     echo

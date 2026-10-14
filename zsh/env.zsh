@@ -13,18 +13,12 @@ if (( $+commands[brew] )); then
     brew upgrade --cask
     brew cleanup
   }
-
-  fpath=(
-    $(brew --prefix)/share/zsh-completions(N)
-    $(brew --prefix)/share/zsh/site-functions(N)
-    $fpath(N)
-  )
 fi
 
 # --------
 # mise
 # --------
-eval "$(mise activate zsh)"
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
 
 # --------
 # rbenv
@@ -45,7 +39,6 @@ export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 # rancher desktop
 path=("$HOME/.rd/bin" $path)
-fpath=($HOME/.docker/completions $fpath)
 
 # --------
 # fzf
@@ -82,9 +75,11 @@ if (( $+commands[fzf] )); then
       local selected_repo=$(ghq list | fzf --reverse +m)
       if [[ -n "$selected_repo" ]]; then
         local target_dir="$(ghq root)/$selected_repo"
-        BUFFER="cd $target_dir"
-        print -s "cd $target_dir"  # Add to history explicitly
+        BUFFER="cd ${(q)target_dir}"
+        print -s "cd ${(q)target_dir}"  # Add to history explicitly
         zle accept-line
+      else
+        zle reset-prompt
       fi
     }
     zle -N _fast_move_git_repo
