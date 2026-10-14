@@ -124,8 +124,6 @@ path=("${XDG_DATA_HOME}/npm/bin" $path)
 # node
 # --------
 export NODE_REPL_HISTORY="$XDG_STATE_HOME"/node_history
-alias pnpm='corepack pnpm'
-alias yarn='corepack yarn'
 
 # --------
 # pnpm
