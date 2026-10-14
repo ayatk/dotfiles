@@ -1,11 +1,11 @@
 # bin files
-export DOTPATH=${DOTPATH:-~/src/github.com/ayatk/dotfiles}
+export DOTPATH="${XDG_CONFIG_HOME:-$HOME/.config}/mise"
 path=("${DOTPATH}/bin" $path)
 
 # --------
 # homebrew
 # --------
-[[ $(uname -sm) == "Darwin arm64" ]] && eval $(/opt/homebrew/bin/brew shellenv)
+[[ $(uname -sm) == "Darwin arm64" && -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
 if (( $+commands[brew] )); then
   function update() {
     brew update

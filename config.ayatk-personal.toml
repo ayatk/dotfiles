@@ -1,0 +1,9 @@
+# miserc.local.toml で env = ["ayatk-personal"] のときだけ読まれる私物マシン用の追加分。
+
+[bootstrap.packages]
+"brew-cask:elgato-stream-deck" = { os = "macos" }
+"brew-cask:libndi" = { os = "macos" }
+"brew-cask:obs" = { os = "macos" }
+"brew-cask:rekordbox" = { os = "macos" }
+"brew-cask:steam" = { os = "macos" }
+"brew-cask:wacom-tablet" = { os = "macos" }

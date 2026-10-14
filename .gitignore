@@ -17,3 +17,13 @@ bin/fzf
 
 # git private files
 git/conf
+
+# mise のマシン固有設定（リポジトリ自体が ~/.config/mise になるため）
+/miserc.local.toml
+/config.local.toml
+/config.*.local.toml
+/mise.local.toml
+/conf.d/dotfiles-tracking.toml
+
+# macOS
+.DS_Store

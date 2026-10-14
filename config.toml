@@ -1,0 +1,104 @@
+# `mise bootstrap --adopt ayatk/dotfiles` でこのリポジトリごと ~/.config/mise に clone して使う。
+# [dotfiles] の相対 source はこのファイルのディレクトリ（~/.config/mise）が起点。
+
+min_version = "2026.10.8"
+
+[tools]
+ghq = "latest"
+node = "lts"
+pnpm = "latest"
+python = "latest"
+ruby = "latest"
+terraform = "latest"
+tflint = "0.64.0"
+uv = "latest"
+"aqua:neovim/neovim" = { version = "latest", os = ["linux"] }
+
+# brew 系は os 指定が無いと Linux で linuxbrew の導入が走るため必ず macos に限定する。
+[bootstrap.packages]
+"brew:coreutils" = { os = "macos" }
+"brew:fzf" = { os = "macos" }
+"brew:gh" = { os = "macos" }
+"brew:git" = { os = "macos" }
+"brew:gnupg" = { os = "macos" }
+"brew:httpie" = { os = "macos" }
+"brew:jq" = { os = "macos" }
+"brew:neovim" = { os = "macos" }
+"brew:tmux" = { os = "macos" }
+"brew:zsh-completions" = { os = "macos" }
+"brew-cask:1password" = { os = "macos" }
+"brew-cask:1password-cli" = { os = "macos" }
+"brew-cask:azookey" = { os = "macos" }
+"brew-cask:clipy" = { os = "macos" }
+"brew-cask:firefox" = { os = "macos" }
+"brew-cask:fork" = { os = "macos" }
+"brew-cask:ghostty" = { os = "macos" }
+"brew-cask:google-chrome" = { os = "macos" }
+"brew-cask:karabiner-elements" = { os = "macos" }
+"brew-cask:raycast" = { os = "macos" }
+"brew-cask:visual-studio-code" = { os = "macos" }
+"apt:curl" = { os = "linux" }
+"apt:git" = { os = "linux" }
+"apt:tmux" = { os = "linux" }
+"apt:zsh" = { os = "linux" }
+
+# 手動導入済みのアプリと同一なら置き換えずに引き継ぐ。
+[bootstrap.brew]
+adopt = true
+
+[bootstrap.user]
+login_shell = "/bin/zsh"
+
+# ZDOTDIR 運用のため activate は zsh/env.zsh 側で行い、~/.zshrc 等へは書き込ませない。
+[bootstrap.mise_shell_activate]
+zsh = false
+
+[bootstrap.hooks]
+# --adopt の clone も --update の pull もサブモジュールを取らない。未初期化(-)かコミットずれ(+)のときだけ同期し、失敗しても警告のみで bootstrap 全体は止めない。
+# brew 導入前でも git を見つけられるよう Homebrew の bin を先頭に足す（Linux では存在せず無害）。
+pre-dotfiles = '''
+PATH="/opt/homebrew/bin:$PATH"
+d="${MISE_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/mise}"
+if ! st=$(git -C "$d" submodule status --recursive); then
+  echo "warning: git submodule status に失敗したため zprezto の同期をスキップ" >&2
+elif printf '%s\n' "$st" | grep -q '^[-+]'; then
+  git -C "$d" submodule update --init --recursive || echo "warning: zprezto submodule の同期に失敗" >&2
+fi
+'''
+
+# --adopt は空でない ~/.config/mise に clone できないため、初回に -E で選んだ env をここで miserc に保存する。
+[tasks.bootstrap]
+run = '''
+f="${MISE_CONFIG_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/mise}/miserc.local.toml"
+if [ -n "${MISE_ENV:-}" ] && [ ! -e "$f" ]; then
+  printf '%s' "$MISE_ENV" | awk -F, '{ printf "env = ["; for (i = 1; i <= NF; i++) printf "%s\"%s\"", (i > 1 ? ", " : ""), $i; print "]" }' > "$f"
+fi
+'''
+
+[dotfiles]
+"~/.config/zsh" = { source = "zsh" }
+"~/.config/git" = { source = "git" }
+"~/.config/nvim" = { source = "vim" }
+# zsh は .zshenv を 1 つしか読まないため、ZDOTDIR 側の .zshenv は ~/.zshenv から明示的に読み込む。
+"~/.zshenv/zdotdir" = { block = '''
+export ZDOTDIR="$HOME/.config/zsh"
+[[ -r "$ZDOTDIR/.zshenv" ]] && source "$ZDOTDIR/.zshenv"
+''' }
+
+[bootstrap.macos.dock]
+autohide = false
+orientation = "bottom"
+show_recents = false
+
+[bootstrap.macos.finder]
+preferred_view_style = "list"
+
+[bootstrap.macos.trackpad]
+tap_to_click = true
+
+# 実機の tilesize は real 型で、名前付きキー（integer）だと型不一致で差分扱いになるため raw で書く。
+[bootstrap.macos.defaults."com.apple.dock"]
+tilesize = 62.0
+
+[bootstrap.macos.defaults.NSGlobalDomain]
+AppleShowAllExtensions = true

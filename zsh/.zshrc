@@ -25,7 +25,11 @@ fpath=($HOME/.docker/completions(N-/) $fpath)
 
 # zprezto
 source "${ZDOTDIR}/zpreztorc"
-source "${ZDOTDIR}/.zprezto/init.zsh"
+if [[ -r "${ZDOTDIR}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR}/.zprezto/init.zsh"
+else
+  print -u2 "warning: ${ZDOTDIR}/.zprezto が未取得です（git submodule update --init --recursive）"
+fi
 
 # options
 source "${ZDOTDIR}/options.zsh"

@@ -1,0 +1,7 @@
+# miserc.local.toml で env = ["ayatk-work"] のときだけ読まれる仕事用マシンの追加分。
+
+[bootstrap.packages]
+"brew:awscli" = { os = "macos" }
+"brew-cask:gcloud-cli" = { os = "macos" }
+"brew-cask:notion" = { os = "macos" }
+"brew-cask:rancher" = { os = "macos" }
