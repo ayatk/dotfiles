@@ -3,20 +3,20 @@ set -euo pipefail
 
 git fetch --all --prune
 
+default_branch=$(git rev-parse --abbrev-ref origin/HEAD | sed 's|origin/||')
+branch=$(git symbolic-ref --short HEAD)
+
 dirty=false
 if [[ -n "$(git status --porcelain)" ]]; then
   dirty=true
   git stash push -u
 fi
 
-default_branch=$(git rev-parse --abbrev-ref origin/HEAD | sed 's|origin/||')
-branch=$(git symbolic-ref --short HEAD)
-
 git switch "$default_branch"
 git pull --rebase origin "$default_branch"
 
 if [[ "$branch" != "$default_branch" ]]; then
-  if git branch --merged | grep -qx "..${branch}"; then
+  if git merge-base --is-ancestor "$branch" "$default_branch"; then
     git branch -d "$branch"
   else
     git switch "$branch"

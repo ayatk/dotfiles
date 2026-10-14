@@ -57,7 +57,7 @@
 
 	# Remove branches that have already been merged with master
 	# a.k.a. 'delete merged'
-	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+	dm = "!git branch --format='%(refname:short)' --merged | grep -vxE 'master|main|develop' | grep -vxF \"$(git branch --show-current)\" | xargs -r -n 1 git branch -d"
 
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
@@ -120,7 +120,6 @@
 	pruneTags = true
 
 [pull]
-	ff = only
 	rebase = true
 
 [rebase]
