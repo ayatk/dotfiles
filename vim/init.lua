@@ -17,7 +17,7 @@ require("lazy").setup({
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 }, -- colorscheme
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "kyazdani42/nvim-web-devicons" },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
     opts = { options = { icons_enabled = false, section_separators = "", component_separators = "|" } },
   },
@@ -50,6 +50,7 @@ local options = {
   incsearch = true, -- set incremental search
   showmatch = true, -- show corresponds bracket
   tabstop = 4,
+  shiftwidth = 0, -- 0 で tabstop と同じ幅を使う
 
   -- key
   backspace = "indent,eol,start",
